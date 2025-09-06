@@ -1,1 +1,0 @@
-# adhikar-setu
