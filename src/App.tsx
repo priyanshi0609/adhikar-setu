@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import LoginScreen from './components/LoginScreen';
 import Dashboard from './components/Dashboard';
@@ -27,6 +27,9 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState<'en' | 'hi'>('en');
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   // Handle login
   const handleLogin = (user: User) => {
     setCurrentUser(user);
@@ -49,57 +52,62 @@ function App() {
   }
 
   // ---------- Authenticated Layout ----------
+  const currentScreen = location.pathname === '/' ? 'dashboard' : location.pathname.slice(1);
+  const handleScreenChange = (screen: string) => {
+    navigate(`/${screen}`);
+  };
+
   return (
-    <Router>
-      <div
-        className={`min-h-screen ${
-          isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-black'
-        }`}
-      >
-        {/* Persistent Navigation */}
-        <Navigation
-          user={currentUser}
-          onLogout={handleLogout}
-          isDarkMode={isDarkMode}
-          setIsDarkMode={setIsDarkMode}
-          language={language}
-          setLanguage={setLanguage}
-        />
+    <div
+      className={`min-h-screen ${
+        isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-black'
+      }`}
+    >
+      {/* Persistent Navigation */}
+      <Navigation
+        user={currentUser}
+        currentScreen={currentScreen}
+        onScreenChange={handleScreenChange}
+        onLogout={handleLogout}
+        isDarkMode={isDarkMode}
+        setIsDarkMode={setIsDarkMode}
+        language={language}
+        setLanguage={setLanguage}
+      />
 
-        {/* Routes */}
-        <main className="pt-16">
-          <Routes>
-            <Route
-              path="/dashboard"
-              element={<Dashboard user={currentUser} language={language} />}
-            />
-            <Route
-              path="/claim-submission"
-              element={<ClaimSubmission user={currentUser} language={language} />}
-            />
-            <Route
-              path="/verification"
-              element={<VerificationWorkspace user={currentUser} language={language} />}
-            />
-            <Route
-              path="/dlc-approval"
-              element={<DLCApproval user={currentUser} language={language} />}
-            />
-            <Route
-              path="/dss"
-              element={<DSSLayer user={currentUser} language={language} />}
-            />
-            <Route
-              path="/public-atlas"
-              element={<PublicAtlas language={language} />}
-            />
+      {/* Routes */}
+      <main className="pt-16">
+        <Routes>
+          <Route
+            path="/dashboard"
+            element={<Dashboard user={currentUser} language={language} />}
+          />
+          <Route
+            path="/claim-submission"
+            element={<ClaimSubmission user={currentUser} language={language} />}
+          />
+          <Route
+            path="/verification"
+            element={<VerificationWorkspace user={currentUser} language={language} />}
+          />
+          <Route
+            path="/dlc-approval"
+            element={<DLCApproval user={currentUser} language={language} />}
+          />
+          <Route
+            path="/dss"
+            element={<DSSLayer user={currentUser} language={language} />}
+          />
+          <Route
+            path="/public-atlas"
+            element={<PublicAtlas language={language} />}
+          />
 
-            {/* Catch-all → Redirect to dashboard */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+          {/* Catch-all → Redirect to dashboard */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+        </Routes>
+      </main>
+    </div>
   );
 }
 
