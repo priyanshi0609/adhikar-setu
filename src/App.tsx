@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import { MapPin, Users, FileCheck, Clock, Shield, Globe, Menu, Sun, Moon } from 'lucide-react';
+import React, { useState, lazy, Suspense } from 'react';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
+
 import LoginScreen from './components/LoginScreen';
-import Dashboard from './components/Dashboard';
-import ClaimSubmission from './components/ClaimSubmission';
-import VerificationWorkspace from './components/VerificationWorkspace';
-import DLCApproval from './components/DLCApproval';
-import DSSLayer from './components/DSSLayer';
-import PublicAtlas from './components/PublicAtlas';
 import Navigation from './components/Navigation';
+
+// Lazy load route components for better performance
+const Dashboard = lazy(() => import('./components/Dashboard'));
+const ClaimSubmission = lazy(() => import('./components/ClaimSubmission'));
+const VerificationWorkspace = lazy(() => import('./components/VerificationWorkspace'));
+const DLCApproval = lazy(() => import('./components/DLCApproval'));
+const DSSLayer = lazy(() => import('./components/DSSLayer'));
+const PublicAtlas = lazy(() => import('./components/PublicAtlas'));
 
 export type UserRole = 'gram_sabha' | 'frc' | 'sdlc' | 'dlc' | 'mota' | null;
 
@@ -19,60 +22,243 @@ export interface User {
   village?: string;
 }
 
+// ---------- Protected Route Component ----------
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  allowedRoles: UserRole[];
+  user: User | null;
+  language: 'en' | 'hi';
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+  children,
+  allowedRoles,
+  user,
+  language
+}) => {
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (!allowedRoles.includes(user.role!)) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-red-600 mb-4">
+            {language === 'en' ? 'Access Denied' : 'पहुंच अस्वीकृत'}
+          </h2>
+          <p className="text-gray-600">
+            {language === 'en'
+              ? 'You do not have permission to access this page.'
+              : 'आपके पास इस पृष्ठ तक पहुंचने की अनुमति नहीं है।'
+            }
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
+};
+
+// ---------- Error Boundary Component ----------
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error?: Error;
+}
+
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+  language: 'en' | 'hi';
+}
+
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-red-600 mb-4">
+              {this.props.language === 'en' ? 'Something went wrong' : 'कुछ गलत हो गया'}
+            </h2>
+            <p className="text-gray-600 mb-4">
+              {this.props.language === 'en'
+                ? 'An error occurred while loading this page.'
+                : 'इस पृष्ठ को लोड करते समय एक त्रुटि हुई।'
+              }
+            </p>
+            <button
+              onClick={() => this.setState({ hasError: false, error: undefined })}
+              className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
+            >
+              {this.props.language === 'en' ? 'Try Again' : 'पुनः प्रयास करें'}
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [currentScreen, setCurrentScreen] = useState<string>('dashboard');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState<'en' | 'hi'>('en');
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
+
   const handleLogin = (user: User) => {
     setCurrentUser(user);
-    setCurrentScreen('dashboard');
   };
+
 
   const handleLogout = () => {
     setCurrentUser(null);
-    setCurrentScreen('login');
   };
 
+
   if (!currentUser) {
-    return <LoginScreen onLogin={handleLogin} language={language} setLanguage={setLanguage} />;
+    return (
+      <LoginScreen
+        onLogin={handleLogin}
+        language={language}
+        setLanguage={setLanguage}
+      />
+    );
   }
 
-  const renderCurrentScreen = () => {
-    switch (currentScreen) {
-      case 'dashboard':
-        return <Dashboard user={currentUser} language={language} />;
-      case 'claim-submission':
-        return <ClaimSubmission user={currentUser} language={language} />;
-      case 'verification':
-        return <VerificationWorkspace user={currentUser} language={language} />;
-      case 'dlc-approval':
-        return <DLCApproval user={currentUser} language={language} />;
-      case 'dss':
-        return <DSSLayer user={currentUser} language={language} />;
-      case 'public-atlas':
-        return <PublicAtlas language={language} />;
-      default:
-        return <Dashboard user={currentUser} language={language} />;
-    }
+  const currentScreen = location.pathname === '/' ? 'dashboard' : location.pathname.slice(1);
+  const handleScreenChange = (screen: string) => {
+    navigate(`/${screen}`);
   };
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50'}`}>
+    <div
+      className={`min-h-screen ${
+        isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-black'
+      }`}
+    >
+      {/* Persistent Navigation */}
       <Navigation
         user={currentUser}
         currentScreen={currentScreen}
-        onScreenChange={setCurrentScreen}
+        onScreenChange={handleScreenChange}
         onLogout={handleLogout}
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
         language={language}
         setLanguage={setLanguage}
       />
-      
+
+      {/* Routes */}
       <main className="pt-16">
-        {renderCurrentScreen()}
+        <ErrorBoundary language={language}>
+          <Suspense fallback={
+            <div className="flex items-center justify-center min-h-[400px]">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+                <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
+                  {language === 'en' ? 'Loading...' : 'लोड हो रहा है...'}
+                </p>
+              </div>
+            </div>
+          }>
+            <Routes>
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute
+                  allowedRoles={['gram_sabha', 'frc', 'sdlc', 'dlc', 'mota']}
+                  user={currentUser}
+                  language={language}
+                >
+                  <Dashboard user={currentUser} language={language} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/claim-submission"
+              element={
+                <ProtectedRoute
+                  allowedRoles={['gram_sabha']}
+                  user={currentUser}
+                  language={language}
+                >
+                  <ClaimSubmission user={currentUser} language={language} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/verification"
+              element={
+                <ProtectedRoute
+                  allowedRoles={['frc', 'sdlc']}
+                  user={currentUser}
+                  language={language}
+                >
+                  <VerificationWorkspace user={currentUser} language={language} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dlc-approval"
+              element={
+                <ProtectedRoute
+                  allowedRoles={['dlc']}
+                  user={currentUser}
+                  language={language}
+                >
+                  <DLCApproval user={currentUser} language={language} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dss"
+              element={
+                <ProtectedRoute
+                  allowedRoles={['sdlc', 'dlc', 'mota']}
+                  user={currentUser}
+                  language={language}
+                >
+                  <DSSLayer user={currentUser} language={language} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/public-atlas"
+              element={
+                <ProtectedRoute
+                  allowedRoles={['gram_sabha', 'frc', 'sdlc', 'dlc', 'mota']}
+                  user={currentUser}
+                  language={language}
+                >
+                  <PublicAtlas language={language} />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Catch-all → Redirect to dashboard */}
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            </Routes>
+          </Suspense>
+        </ErrorBoundary>
       </main>
     </div>
   );
