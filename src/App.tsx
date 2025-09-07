@@ -10,7 +10,6 @@ import DSSLayer from './components/DSSLayer';
 import PublicAtlas from './components/PublicAtlas';
 import Navigation from './components/Navigation';
 
-// ---------- User Role + User Type ----------
 export type UserRole = 'gram_sabha' | 'frc' | 'sdlc' | 'dlc' | 'mota' | null;
 
 export interface User {
@@ -19,9 +18,9 @@ export interface User {
   role: UserRole;
   district?: string;
   village?: string;
-} // ✅ This was missing earlier!
+} 
 
-// ---------- Main App ----------
+
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -30,17 +29,17 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Handle login
+
   const handleLogin = (user: User) => {
     setCurrentUser(user);
   };
 
-  // Handle logout
+
   const handleLogout = () => {
     setCurrentUser(null);
   };
 
-  // If NOT logged in → Show login screen
+
   if (!currentUser) {
     return (
       <LoginScreen
@@ -51,7 +50,6 @@ function App() {
     );
   }
 
-  // ---------- Authenticated Layout ----------
   const currentScreen = location.pathname === '/' ? 'dashboard' : location.pathname.slice(1);
   const handleScreenChange = (screen: string) => {
     navigate(`/${screen}`);
