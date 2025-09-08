@@ -18,13 +18,15 @@ import {
 } from "lucide-react"
 import digitalMap from "@/assets/digital-map.jpg";
 import tribalCommunity from "@/assets/tribal-community.png";
-
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
+      <header className="border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50 -mt-12">
+
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -47,26 +49,39 @@ export default function HomePage() {
               </a>
             </nav>
 
-            <div className="flex items-center space-x-3">
-              <Button
-                variant="outline"
-                size="sm"
-                className="hidden sm:flex items-center space-x-2 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50"
-              >
-                <Github className="h-4 w-4" />
-                <span>Star Repo</span>
-              </Button>
-              <Button size="sm" className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white">
-                <LogIn className="h-4 w-4" />
-                <span>Login</span>
-              </Button>
-            </div>
+        <div className="flex items-center space-x-3">
+          <a
+            href="https://github.com/ArshTiwari2004/adhikar-setu"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden sm:flex items-center space-x-2 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50"
+            >
+              <Github className="h-4 w-4" />
+              <span>Star Repo</span>
+            </Button>
+          </a>
+
+          <Link to="/login">
+            <Button
+              size="sm"
+              className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white"
+            >
+              <LogIn className="h-4 w-4" />
+              <span>Login</span>
+            </Button>
+          </Link>
+        </div>
+
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-b from-white to-green-50">
+      <section className="py-20 lg:py-20 bg-gradient-to-b from-white to-green-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
@@ -85,18 +100,26 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="text-lg px-8 bg-green-600 hover:bg-green-700 text-white">
+                <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="https://www.fra.org.in/">
+                  <Button
+                  size="lg"
+                  className="text-lg px-8 bg-green-600 hover:bg-green-700 text-white"
+                  >
                   Learn About FRA
-                </Button>
-                <Button
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button
                   variant="outline"
                   size="lg"
                   className="text-lg px-8 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50"
-                >
-                  See Our Work
-                </Button>
-              </div>
+                  >
+                  Get Started
+                  </Button>
+                </Link>
+                </div>
+
             </div>
 
             <div className="relative">
@@ -230,12 +253,12 @@ export default function HomePage() {
             </div>
 
             <div className="relative">
-  <img
-    src={digitalMap}
-    alt="Digital FRA Atlas interface"
-    className="rounded-2xl shadow-2xl w-full h-auto"
-  />
-</div>
+                <img
+                 src={digitalMap}
+                 alt="Digital FRA Atlas interface"
+                 className="rounded-2xl shadow-2xl w-full h-auto"
+                   />
+            </div>
 
           </div>
         </div>
@@ -298,97 +321,94 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="bg-gray-50 border-t border-gray-200">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="space-y-4">
-              <div className="flex items-center space-x-2">
-                <TreePine className="h-6 w-6 text-green-600" />
-                <span className="text-xl font-bold text-gray-900">Adhikar Setu</span>
-              </div>
-              <p className="text-gray-600 text-sm">
-                Bridging forest rights with communities through technology and empowerment.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#about" className="text-gray-600 hover:text-gray-900 transition-colors">
-                    About FRA
-                  </a>
-                </li>
-                <li>
-                  <a href="#work" className="text-gray-600 hover:text-gray-900 transition-colors">
-                    Our Work
-                  </a>
-                </li>
-                <li>
-                  <a href="#impact" className="text-gray-600 hover:text-gray-900 transition-colors">
-                    Impact
-                  </a>
-                </li>
-                <li>
-                  <a href="#contact" className="text-gray-600 hover:text-gray-900 transition-colors">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Resources</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-                    FRA Guidelines
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-                    API Access
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">
-                    Support
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Contact</h3>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center space-x-2 text-gray-600">
-                  <Mail className="h-4 w-4" />
-                  <span>arshtiwari12345@gmail.com</span>
-                </div>
-                <div className="flex items-center space-x-2 text-gray-600">
-                  <Phone className="h-4 w-4" />
-                  <span>+91 11 2345 6789</span>
-                </div>
-                <div className="flex items-center space-x-2 text-gray-600">
-                  <MapIcon className="h-4 w-4" />
-                  <span>New Delhi, India</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-200 mt-8 pt-8 text-center">
-            <p className="text-sm text-gray-600">
-              © 2025 Adhikar Setu. All Rights Reserved. | Built for empowering tribal communities and sustainable forest
-              governance.
-            </p>
-          </div>
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="grid md:grid-cols-4 gap-12">
+      {/* Brand Section */}
+      <div className="space-y-4">
+        <div className="flex items-center space-x-2">
+          <TreePine className="h-7 w-7 text-green-600" />
+          <span className="text-2xl font-bold text-gray-900">Adhikar Setu</span>
         </div>
-      </footer>
+        <p className="text-gray-600 text-sm leading-relaxed">
+          Bridging forest rights with communities through technology and empowerment.
+        </p>
+
+        {/* Social Links */}
+        <div className="flex space-x-4 pt-2">
+          <a href="https://github.com/ArshTiwari2004/adhikar-setu" target="_blank" rel="noopener noreferrer"
+             className="text-gray-500 hover:text-gray-900 transition-colors">
+            <Github className="h-5 w-5" />
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
+             className="text-gray-500 hover:text-gray-900 transition-colors">
+            <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M24 4.557a9.83..."/></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+             className="text-gray-500 hover:text-gray-900 transition-colors">
+            <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2...."/></svg>
+          </a>
+        </div>
+      </div>
+
+      {/* Quick Links */}
+      <div>
+        <h3 className="font-semibold text-gray-900 mb-4">Quick Links</h3>
+        <ul className="space-y-2 text-sm">
+          <li><a href="#about" className="hover:text-green-600 transition-colors">About FRA</a></li>
+          <li><a href="#work" className="hover:text-green-600 transition-colors">Our Work</a></li>
+          <li><a href="#impact" className="hover:text-green-600 transition-colors">Impact</a></li>
+          <li><a href="#contact" className="hover:text-green-600 transition-colors">Contact</a></li>
+        </ul>
+      </div>
+
+      {/* Resources */}
+      <div>
+        <h3 className="font-semibold text-gray-900 mb-4">Resources</h3>
+        <ul className="space-y-2 text-sm">
+          <li>
+            <a href="https://www.fra.org.in/" target="_blank" rel="noopener noreferrer"
+               className="hover:text-green-600 transition-colors">
+              FRA Guidelines
+            </a>
+          </li>
+          <li>
+            <a href="#" className="hover:text-green-600 transition-colors">Documentation</a>
+          </li>
+        </ul>
+      </div>
+
+      {/* Contact */}
+      <div>
+        <h3 className="font-semibold text-gray-900 mb-4">Contact</h3>
+        <ul className="space-y-3 text-sm">
+          <li className="flex items-center space-x-2 text-gray-600">
+            <Mail className="h-4 w-4 text-green-600" />
+            <span>arshtiwari12345@gmail.com</span>
+          </li>
+          <li className="flex items-center space-x-2 text-gray-600">
+            <Phone className="h-4 w-4 text-green-600" />
+            <span>+91 11 2345 6789</span>
+          </li>
+          <li className="flex items-center space-x-2 text-gray-600">
+            <MapIcon className="h-4 w-4 text-green-600" />
+            <span>New Delhi, India</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Bottom Bar */}
+    <div className="border-t border-gray-200 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between text-sm text-gray-600">
+      <p>
+        © 2025 <span className="font-semibold text-gray-900">Adhikar Setu</span>. All Rights Reserved.
+      </p>
+      <p className="mt-4 sm:mt-0">
+        Built for empowering tribal communities & sustainable forest governance 🌱
+      </p>
+    </div>
+  </div>
+</footer>
+
     </div>
   )
 }
