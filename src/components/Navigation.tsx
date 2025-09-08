@@ -56,7 +56,7 @@ const Navigation: React.FC<NavigationProps> = ({
                 </div>
                 <div className="ml-3">
                   <h1 className={`text-lg font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                    FRA Atlas DSS
+                    Adhikar-Setu
                   </h1>
                 </div>
               </div>

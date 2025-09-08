@@ -50,7 +50,7 @@ const Dashboard: React.FC<DashboardProps> = ({ user, language }) => {
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
-            {language === 'en' ? 'FRA Atlas Dashboard' : 'FRA एटलस डैशबोर्ड'}
+            {language === 'en' ? 'Adhikar-Setu' : 'अधिकार सेतु'}
           </h1>
           <p className="mt-1 text-gray-600">
             {language === 'en' ? `Welcome back, ${user.name}` : `वापसी पर स्वागत, ${user.name}`}
