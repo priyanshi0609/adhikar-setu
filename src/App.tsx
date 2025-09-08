@@ -194,23 +194,27 @@ function App() {
                     user={currentUser}
                     language={language}
                   >
-                    <Dashboard user={currentUser} language={language} />
+                    <Dashboard user={currentUser!} language={language} />
                   </ProtectedRoute>
                 }
               />
               <Route
                 path="/claim-submission"
                 element={
-                  <ProtectedRoute allowedRoles={["gram_sabha"]} user={currentUser} language={language}>
-                    <ClaimSubmission user={currentUser} language={language} />
-                  </ProtectedRoute>
+                <ProtectedRoute
+                  allowedRoles={['gram_sabha']}
+                  user={currentUser}
+                  language={language}
+                >
+                  <ClaimSubmission user={currentUser!} language={language} />
+                </ProtectedRoute>
                 }
               />
               <Route
                 path="/verification"
                 element={
                   <ProtectedRoute allowedRoles={["frc", "sdlc"]} user={currentUser} language={language}>
-                    <VerificationWorkspace user={currentUser} language={language} />
+                    <VerificationWorkspace user={currentUser!} language={language} />
                   </ProtectedRoute>
                 }
               />
@@ -226,7 +230,7 @@ function App() {
                 path="/dss"
                 element={
                   <ProtectedRoute allowedRoles={["sdlc", "dlc", "mota"]} user={currentUser} language={language}>
-                    <DSSLayer user={currentUser} language={language} />
+                    <DSSLayer user={currentUser!} language={language} />
                   </ProtectedRoute>
                 }
               />
