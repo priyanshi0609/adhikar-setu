@@ -1,19 +1,19 @@
-import React, { useState, lazy, Suspense } from "react";
-import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import React, { useState, lazy, Suspense } from 'react';
+import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
-import LoginScreen from "./components/LoginScreen";
-import Navigation from "./components/Navigation";
-import HomePage from "./components/Landingpage";
+import HomePage from './components/Landingpage';
+import LoginScreen from './components/LoginScreen';
+import Navigation from './components/Navigation';
 
 // Lazy load route components for better performance
-const Dashboard = lazy(() => import("./components/Dashboard"));
-const ClaimSubmission = lazy(() => import("./components/ClaimSubmission"));
-const VerificationWorkspace = lazy(() => import("./components/VerificationWorkspace"));
-const DLCApproval = lazy(() => import("./components/DLCApproval"));
-const DSSLayer = lazy(() => import("./components/DSSLayer"));
-const PublicAtlas = lazy(() => import("./components/PublicAtlas"));
+const Dashboard = lazy(() => import('./components/Dashboard'));
+const ClaimSubmission = lazy(() => import('./components/ClaimSubmission'));
+const VerificationWorkspace = lazy(() => import('./components/VerificationWorkspace'));
+const DLCApproval = lazy(() => import('./components/DLCApproval'));
+const DSSLayer = lazy(() => import('./components/DSSLayer'));
+const PublicAtlas = lazy(() => import('./components/PublicAtlas'));
 
-export type UserRole = "gram_sabha" | "frc" | "sdlc" | "dlc" | "mota" | null;
+export type UserRole = 'gram_sabha' | 'frc' | 'sdlc' | 'dlc' | 'mota' | null;
 
 export interface User {
   id: string;
@@ -28,17 +28,17 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
   allowedRoles: UserRole[];
   user: User | null;
-  language: "en" | "hi";
+  language: 'en' | 'hi';
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   allowedRoles,
   user,
-  language,
+  language
 }) => {
   if (!user) {
-    return <Navigate to="/login" replace />; 
+    return <Navigate to="/login" replace />;
   }
 
   if (!allowedRoles.includes(user.role!)) {
@@ -46,12 +46,13 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-red-600 mb-4">
-            {language === "en" ? "Access Denied" : "पहुंच अस्वीकृत"}
+            {language === 'en' ? 'Access Denied' : 'पहुंच अस्वीकृत'}
           </h2>
           <p className="text-gray-600">
-            {language === "en"
-              ? "You do not have permission to access this page."
-              : "आपके पास इस पृष्ठ तक पहुंचने की अनुमति नहीं है।"}
+            {language === 'en'
+              ? 'You do not have permission to access this page.'
+              : 'आपके पास इस पृष्ठ तक पहुंचने की अनुमति नहीं है।'
+            }
           </p>
         </div>
       </div>
@@ -69,7 +70,7 @@ interface ErrorBoundaryState {
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
-  language: "en" | "hi";
+  language: 'en' | 'hi';
 }
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -83,7 +84,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("Error caught by boundary:", error, errorInfo);
+    console.error('Error caught by boundary:', error, errorInfo);
   }
 
   render() {
@@ -92,18 +93,19 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <h2 className="text-2xl font-bold text-red-600 mb-4">
-              {this.props.language === "en" ? "Something went wrong" : "कुछ गलत हो गया"}
+              {this.props.language === 'en' ? 'Something went wrong' : 'कुछ गलत हो गया'}
             </h2>
             <p className="text-gray-600 mb-4">
-              {this.props.language === "en"
-                ? "An error occurred while loading this page."
-                : "इस पृष्ठ को लोड करते समय एक त्रुटि हुई।"}
+              {this.props.language === 'en'
+                ? 'An error occurred while loading this page.'
+                : 'इस पृष्ठ को लोड करते समय एक त्रुटि हुई।'
+              }
             </p>
             <button
               onClick={() => this.setState({ hasError: false, error: undefined })}
               className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
             >
-              {this.props.language === "en" ? "Try Again" : "पुनः प्रयास करें"}
+              {this.props.language === 'en' ? 'Try Again' : 'पुनः प्रयास करें'}
             </button>
           </div>
         </div>
@@ -117,21 +119,24 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [language, setLanguage] = useState<"en" | "hi">("en");
+  const [language, setLanguage] = useState<'en' | 'hi'>('en');
 
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogin = (user: User) => {
     setCurrentUser(user);
+    navigate('/dashboard'); // Redirect to dashboard after login
   };
 
   const handleLogout = () => {
     setCurrentUser(null);
-    navigate("/login"); // ✅ go back to login after logout
+    navigate('/'); // Redirect to landing page after logout
   };
 
-  const currentScreen = location.pathname === "/" ? "dashboard" : location.pathname.slice(1);
+  const currentScreen = location.pathname === '/login' ? '/dashboard' : 
+                       location.pathname.slice(1);
+  
   const handleScreenChange = (screen: string) => {
     navigate(`/${screen}`);
   };
@@ -139,10 +144,10 @@ function App() {
   return (
     <div
       className={`min-h-screen ${
-        isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-black"
+        isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-black'
       }`}
     >
-      {/* Show navigation only when logged in */}
+      {/* Show navigation only when user is logged in */}
       {currentUser && (
         <Navigation
           user={currentUser}
@@ -157,40 +162,47 @@ function App() {
       )}
 
       {/* Routes */}
-      <main className="pt-16">
+      <main className={currentUser ? 'pt-16' : ''}>
         <ErrorBoundary language={language}>
-          <Suspense
-            fallback={
-              <div className="flex items-center justify-center min-h-[400px]">
-                <div className="text-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
-                  <p className={isDarkMode ? "text-gray-300" : "text-gray-600"}>
-                    {language === "en" ? "Loading..." : "लोड हो रहा है..."}
-                  </p>
-                </div>
+          <Suspense fallback={
+            <div className="flex items-center justify-center min-h-[400px]">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+                <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
+                  {language === 'en' ? 'Loading...' : 'लोड हो रहा है...'}
+                </p>
               </div>
-            }
-          >
+            </div>
+          }>
             <Routes>
-              {/* ✅ Public routes */}
-              <Route path="/" element={<HomePage />} />
+              {/* Landing Page Route */}
+              <Route 
+                path="/" 
+                element={<HomePage  />} 
+              />
+              
+              {/* Login Route */}
               <Route
                 path="/login"
                 element={
-                  <LoginScreen
-                    onLogin={handleLogin}
-                    language={language}
-                    setLanguage={setLanguage}
-                  />
+                  currentUser ? (
+                    <Navigate to="/dashboard" replace />
+                  ) : (
+                    <LoginScreen
+                      onLogin={handleLogin}
+                      language={language}
+                      setLanguage={setLanguage}
+                    />
+                  )
                 }
               />
-
-              {/* ✅ Protected routes */}
+              
+              {/* Protected Routes */}
               <Route
                 path="/dashboard"
                 element={
                   <ProtectedRoute
-                    allowedRoles={["gram_sabha", "frc", "sdlc", "dlc", "mota"]}
+                    allowedRoles={['gram_sabha', 'frc', 'sdlc', 'dlc', 'mota']}
                     user={currentUser}
                     language={language}
                   >
@@ -201,19 +213,23 @@ function App() {
               <Route
                 path="/claim-submission"
                 element={
-                <ProtectedRoute
-                  allowedRoles={['gram_sabha']}
-                  user={currentUser}
-                  language={language}
-                >
-                  <ClaimSubmission user={currentUser!} language={language} />
-                </ProtectedRoute>
+                  <ProtectedRoute
+                    allowedRoles={['gram_sabha']}
+                    user={currentUser}
+                    language={language}
+                  >
+                    <ClaimSubmission user={currentUser!} language={language} />
+                  </ProtectedRoute>
                 }
               />
               <Route
                 path="/verification"
                 element={
-                  <ProtectedRoute allowedRoles={["frc", "sdlc"]} user={currentUser} language={language}>
+                  <ProtectedRoute
+                    allowedRoles={['frc', 'sdlc']}
+                    user={currentUser}
+                    language={language}
+                  >
                     <VerificationWorkspace user={currentUser!} language={language} />
                   </ProtectedRoute>
                 }
@@ -221,7 +237,11 @@ function App() {
               <Route
                 path="/dlc-approval"
                 element={
-                  <ProtectedRoute allowedRoles={["dlc"]} user={currentUser} language={language}>
+                  <ProtectedRoute
+                    allowedRoles={['dlc']}
+                    user={currentUser}
+                    language={language}
+                  >
                     <DLCApproval user={currentUser} language={language} />
                   </ProtectedRoute>
                 }
@@ -229,7 +249,11 @@ function App() {
               <Route
                 path="/dss"
                 element={
-                  <ProtectedRoute allowedRoles={["sdlc", "dlc", "mota"]} user={currentUser} language={language}>
+                  <ProtectedRoute
+                    allowedRoles={['sdlc', 'dlc', 'mota']}
+                    user={currentUser}
+                    language={language}
+                  >
                     <DSSLayer user={currentUser!} language={language} />
                   </ProtectedRoute>
                 }
@@ -238,7 +262,7 @@ function App() {
                 path="/public-atlas"
                 element={
                   <ProtectedRoute
-                    allowedRoles={["gram_sabha", "frc", "sdlc", "dlc", "mota"]}
+                    allowedRoles={['gram_sabha', 'frc', 'sdlc', 'dlc', 'mota']}
                     user={currentUser}
                     language={language}
                   >
@@ -247,8 +271,15 @@ function App() {
                 }
               />
 
-              {/* ✅ Fallbacks */}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              {/* Catch-all → Redirect to appropriate page */}
+              <Route 
+                path="*" 
+                element={
+                  currentUser ? 
+                    <Navigate to="/dashboard" replace /> : 
+                    <Navigate to="/" replace />
+                } 
+              />
             </Routes>
           </Suspense>
         </ErrorBoundary>
