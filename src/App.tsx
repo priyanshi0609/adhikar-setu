@@ -1,6 +1,7 @@
 import React, { useState, lazy, Suspense } from 'react';
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
+import HomePage from './components/Landingpage';
 import LoginScreen from './components/LoginScreen';
 import Navigation from './components/Navigation';
 
@@ -37,7 +38,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   language
 }) => {
   if (!user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   if (!allowedRoles.includes(user.role!)) {
@@ -123,28 +124,19 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
 
-
   const handleLogin = (user: User) => {
     setCurrentUser(user);
+    navigate('/dashboard'); // Redirect to dashboard after login
   };
-
 
   const handleLogout = () => {
     setCurrentUser(null);
+    navigate('/'); // Redirect to landing page after logout
   };
 
-
-  if (!currentUser) {
-    return (
-      <LoginScreen
-        onLogin={handleLogin}
-        language={language}
-        setLanguage={setLanguage}
-      />
-    );
-  }
-
-  const currentScreen = location.pathname === '/' ? 'dashboard' : location.pathname.slice(1);
+  const currentScreen = location.pathname === '/login' ? '/dashboard' : 
+                       location.pathname.slice(1);
+  
   const handleScreenChange = (screen: string) => {
     navigate(`/${screen}`);
   };
@@ -155,20 +147,22 @@ function App() {
         isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-black'
       }`}
     >
-      {/* Persistent Navigation */}
-      <Navigation
-        user={currentUser}
-        currentScreen={currentScreen}
-        onScreenChange={handleScreenChange}
-        onLogout={handleLogout}
-        isDarkMode={isDarkMode}
-        setIsDarkMode={setIsDarkMode}
-        language={language}
-        setLanguage={setLanguage}
-      />
+      {/* Show navigation only when user is logged in */}
+      {currentUser && (
+        <Navigation
+          user={currentUser}
+          currentScreen={currentScreen}
+          onScreenChange={handleScreenChange}
+          onLogout={handleLogout}
+          isDarkMode={isDarkMode}
+          setIsDarkMode={setIsDarkMode}
+          language={language}
+          setLanguage={setLanguage}
+        />
+      )}
 
       {/* Routes */}
-      <main className="pt-16">
+      <main className={currentUser ? 'pt-16' : ''}>
         <ErrorBoundary language={language}>
           <Suspense fallback={
             <div className="flex items-center justify-center min-h-[400px]">
@@ -181,81 +175,111 @@ function App() {
             </div>
           }>
             <Routes>
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute
-                  allowedRoles={['gram_sabha', 'frc', 'sdlc', 'dlc', 'mota']}
-                  user={currentUser}
-                  language={language}
-                >
-                  <Dashboard user={currentUser} language={language} />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/claim-submission"
-              element={
-                <ProtectedRoute
-                  allowedRoles={['gram_sabha']}
-                  user={currentUser}
-                  language={language}
-                >
-                  <ClaimSubmission user={currentUser} language={language} />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/verification"
-              element={
-                <ProtectedRoute
-                  allowedRoles={['frc', 'sdlc']}
-                  user={currentUser}
-                  language={language}
-                >
-                  <VerificationWorkspace user={currentUser} language={language} />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/dlc-approval"
-              element={
-                <ProtectedRoute
-                  allowedRoles={['dlc']}
-                  user={currentUser}
-                  language={language}
-                >
-                  <DLCApproval user={currentUser} language={language} />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/dss"
-              element={
-                <ProtectedRoute
-                  allowedRoles={['sdlc', 'dlc', 'mota']}
-                  user={currentUser}
-                  language={language}
-                >
-                  <DSSLayer user={currentUser} language={language} />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/public-atlas"
-              element={
-                <ProtectedRoute
-                  allowedRoles={['gram_sabha', 'frc', 'sdlc', 'dlc', 'mota']}
-                  user={currentUser}
-                  language={language}
-                >
-                  <PublicAtlas language={language} />
-                </ProtectedRoute>
-              }
-            />
+              {/* Landing Page Route */}
+              <Route 
+                path="/" 
+                element={<HomePage  />} 
+              />
+              
+              {/* Login Route */}
+              <Route
+                path="/login"
+                element={
+                  currentUser ? (
+                    <Navigate to="/dashboard" replace />
+                  ) : (
+                    <LoginScreen
+                      onLogin={handleLogin}
+                      language={language}
+                      setLanguage={setLanguage}
+                    />
+                  )
+                }
+              />
+              
+              {/* Protected Routes */}
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute
+                    allowedRoles={['gram_sabha', 'frc', 'sdlc', 'dlc', 'mota']}
+                    user={currentUser}
+                    language={language}
+                  >
+                    <Dashboard user={currentUser!} language={language} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/claim-submission"
+                element={
+                  <ProtectedRoute
+                    allowedRoles={['gram_sabha']}
+                    user={currentUser}
+                    language={language}
+                  >
+                    <ClaimSubmission user={currentUser!} language={language} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/verification"
+                element={
+                  <ProtectedRoute
+                    allowedRoles={['frc', 'sdlc']}
+                    user={currentUser}
+                    language={language}
+                  >
+                    <VerificationWorkspace user={currentUser!} language={language} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/dlc-approval"
+                element={
+                  <ProtectedRoute
+                    allowedRoles={['dlc']}
+                    user={currentUser}
+                    language={language}
+                  >
+                    <DLCApproval user={currentUser} language={language} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/dss"
+                element={
+                  <ProtectedRoute
+                    allowedRoles={['sdlc', 'dlc', 'mota']}
+                    user={currentUser}
+                    language={language}
+                  >
+                    <DSSLayer user={currentUser!} language={language} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/public-atlas"
+                element={
+                  <ProtectedRoute
+                    allowedRoles={['gram_sabha', 'frc', 'sdlc', 'dlc', 'mota']}
+                    user={currentUser}
+                    language={language}
+                  >
+                    <PublicAtlas language={language} />
+                  </ProtectedRoute>
+                }
+              />
 
-            {/* Catch-all → Redirect to dashboard */}
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+              {/* Catch-all → Redirect to appropriate page */}
+              <Route 
+                path="*" 
+                element={
+                  currentUser ? 
+                    <Navigate to="/dashboard" replace /> : 
+                    <Navigate to="/" replace />
+                } 
+              />
             </Routes>
           </Suspense>
         </ErrorBoundary>
