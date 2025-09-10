@@ -1,9 +1,9 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import HomePage from './pages/LandingPage';
-import LoginScreen from './components/LoginScreen';
 import Navigation from './components/Navigation';
 import LoginContainer from './Login/LoginContainer';
+import { onAuthStateChange, getCurrentUserProfile } from './firebase/authService';
 
 // Lazy load route components for better performance
 const Dashboard = lazy(() => import('./components/Dashboard'));
@@ -93,8 +93,32 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState('en');
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Set up auth state listener
+    const unsubscribe = onAuthStateChange(async (user) => {
+      if (user) {
+        // User is signed in
+        const userProfile = await getCurrentUserProfile(user.uid);
+        if (userProfile.success) {
+          setCurrentUser(userProfile.user);
+        } else {
+          console.error('Error getting user profile:', userProfile.error);
+          setCurrentUser(null);
+        }
+      } else {
+        // User is signed out
+        setCurrentUser(null);
+      }
+      setLoading(false);
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
 
   const handleLogin = (user) => {
     setCurrentUser(user);
@@ -112,6 +136,17 @@ function App() {
   const handleScreenChange = (screen) => {
     navigate(`/${screen}`);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
