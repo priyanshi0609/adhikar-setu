@@ -12,7 +12,7 @@ import {
     updateDoc,
     serverTimestamp
 } from 'firebase/firestore';
-import { auth, db } from './config';
+import { auth, db } from './firebase';
 
 // User registration
 export const registerUser = async (userData) => {
@@ -65,42 +65,46 @@ export const registerUser = async (userData) => {
 // User login
 export const loginUser = async (email, password) => {
     try {
+        console.log("Trying to login:", email, password);
+
+        if (!email || !password) {
+            throw new Error("Email and password are required");
+        }
+
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Get user profile from Firestore
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
-
+        // Fetch profile
+        const userDoc = await getDoc(doc(db, "users", user.uid));
         if (!userDoc.exists()) {
-            throw new Error('User profile not found');
+            throw new Error("User profile not found");
         }
 
         const userData = userDoc.data();
 
-        // Check if user is approved
         if (!userData.isApproved) {
-            throw new Error('Account pending approval. Please contact administrator.');
+            throw new Error("Account pending approval. Please contact administrator.");
         }
 
-        // Update last login
-        await updateDoc(doc(db, 'users', user.uid), {
-            lastLogin: serverTimestamp()
+        await updateDoc(doc(db, "users", user.uid), {
+            lastLogin: serverTimestamp(),
         });
 
-        return {
-            success: true,
-            user: {
-                uid: user.uid,
-                ...userData
-            }
-        };
+        return { success: true, user: { uid: user.uid, ...userData } };
     } catch (error) {
-        return {
-            success: false,
-            error: error.message
-        };
+        console.error("Login error:", error); // ✅ Debug log
+        let errorMessage = "Login failed";
+        if (error.code === "auth/user-not-found") {
+            errorMessage = "No account found with this email.";
+        } else if (error.code === "auth/wrong-password") {
+            errorMessage = "Incorrect password.";
+        } else if (error.code === "auth/invalid-email") {
+            errorMessage = "Invalid email format.";
+        }
+        return { success: false, error: errorMessage };
     }
 };
+
 
 // User logout
 export const logoutUser = async () => {

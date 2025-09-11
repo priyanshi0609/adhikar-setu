@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
-// Import Firebase functions - you'll need to set up Firebase config
-// import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-// import { doc, setDoc, getDoc } from 'firebase/firestore';
-// import { auth, db } from '../firebase/config';
+import { registerUser, loginUser } from '../firebase/authService';
 
 const AuthenticationForm = ({ formData, onLogin }) => {
   const { role, language, state, district, village } = formData;
@@ -12,7 +9,10 @@ const AuthenticationForm = ({ formData, onLogin }) => {
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    name: '',
+    phone: '',
+    organization: ''
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -43,62 +43,58 @@ const AuthenticationForm = ({ formData, onLogin }) => {
           throw new Error(language === 'hi' ? 'पासवर्ड मैच नहीं कर रहे' : 'Passwords do not match');
         }
         
-        // For MVP - simulate Firebase auth
-        // const userCredential = await createUserWithEmailAndPassword(auth, credentials.email, credentials.password);
-        // const user = userCredential.user;
+        // Register user with Firebase
+        const registrationData = {
+          email: credentials.email,
+          password: credentials.password,
+          role: role,
+          language: language,
+          state: state,
+          district: district,
+          village: village,
+          name: credentials.name || credentials.email.split('@')[0],
+          phone: credentials.phone,
+          organization: credentials.organization
+        };
 
-        // Create user profile in Firestore
-        // await setDoc(doc(db, 'users', user.uid), {
-        //   email: credentials.email,
-        //   role: role,
-        //   language: language,
-        //   state: state,
-        //   district: district,
-        //   village: village,
-        //   createdAt: new Date(),
-        //   isApproved: role === 'public' ? true : false // Public users auto-approved
-        // });
-
-        // For MVP simulation
-        simulateLogin();
+        const result = await registerUser(registrationData);
+        
+        if (!result.success) {
+          throw new Error(result.error);
+        }
+        
+        // For roles that don't need approval, log them in immediately
+        if (role === 'public' || role === 'gram_sabha') {
+          const loginResult = await loginUser(credentials.email, credentials.password);
+          
+          if (!loginResult.success) {
+            throw new Error(loginResult.error);
+          }
+          
+          onLogin(loginResult.user);
+        } else {
+          // For roles that need approval, show success message
+          setError(language === 'hi' 
+            ? 'पंजीकरण सफल! प्रशासक द्वारा अनुमोदन की प्रतीक्षा करें।' 
+            : 'Registration successful! Please wait for administrator approval.'
+          );
+          setIsLogin(true); // Switch to login form
+        }
       } else {
         // Login
-        // const userCredential = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
-        // const user = userCredential.user;
+        const result = await loginUser(credentials.email, credentials.password);
         
-        // Get user profile
-        // const userDoc = await getDoc(doc(db, 'users', user.uid));
-        // if (!userDoc.exists()) {
-        //   throw new Error('User profile not found');
-        // }
+        if (!result.success) {
+          throw new Error(result.error);
+        }
         
-        // const userData = userDoc.data();
-        
-        // For MVP simulation
-        simulateLogin();
+        onLogin(result.user);
       }
     } catch (error) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
-  };
-
-  const simulateLogin = () => {
-    // MVP simulation - replace with actual Firebase data
-    const user = {
-      id: `${role}_${Date.now()}`,
-      email: credentials.email,
-      role: role,
-      language: language,
-      state: state,
-      district: district,
-      village: village,
-      name: credentials.email.split('@')[0],
-      isApproved: true
-    };
-    
-    onLogin(user);
   };
 
   if (role === 'public') {
@@ -154,6 +150,23 @@ const AuthenticationForm = ({ formData, onLogin }) => {
       </div>
 
       <form onSubmit={handleAuth} className="space-y-4">
+        {/* Name (for registration only) */}
+        {!isLogin && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              {language === 'hi' ? 'पूरा नाम' : 'Full Name'}
+            </label>
+            <input
+              type="text"
+              required
+              value={credentials.name}
+              onChange={(e) => setCredentials({ ...credentials, name: e.target.value })}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              placeholder={language === 'hi' ? 'आपका पूरा नाम दर्ज करें' : 'Enter your full name'}
+            />
+          </div>
+        )}
+
         {/* Email */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -212,6 +225,36 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                 onChange={(e) => setCredentials({ ...credentials, confirmPassword: e.target.value })}
                 className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
                 placeholder={language === 'hi' ? 'पासवर्ड दोबारा दर्ज करें' : 'Confirm your password'}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Phone and Organization (for registration only) */}
+        {!isLogin && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {language === 'hi' ? 'फोन नंबर' : 'Phone Number'}
+              </label>
+              <input
+                type="tel"
+                value={credentials.phone}
+                onChange={(e) => setCredentials({ ...credentials, phone: e.target.value })}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                placeholder={language === 'hi' ? 'फोन नंबर' : 'Phone number'}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {language === 'hi' ? 'संगठन' : 'Organization'}
+              </label>
+              <input
+                type="text"
+                value={credentials.organization}
+                onChange={(e) => setCredentials({ ...credentials, organization: e.target.value })}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                placeholder={language === 'hi' ? 'संगठन का नाम' : 'Organization name'}
               />
             </div>
           </div>
