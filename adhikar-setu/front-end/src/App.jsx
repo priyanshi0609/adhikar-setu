@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense, useEffect } from 'react';
 import { Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import HomePage from './pages/LandingPage';
 import LoginScreen from './components/LoginScreen';
@@ -98,13 +98,23 @@ function App() {
 
   const handleLogin = (user) => {
     setCurrentUser(user);
-    navigate('/dashboard'); // Redirect to dashboard after login
+    localStorage.setItem("user", JSON.stringify(user));
+    navigate("/dashboard");
   };
+  
 
   const handleLogout = () => {
     setCurrentUser(null);
     navigate('/'); // Redirect to landing page after logout
   };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
+    }
+  }, []);
+  
 
   const currentScreen = location.pathname === '/login' ? '/dashboard' :
     location.pathname.slice(1);
