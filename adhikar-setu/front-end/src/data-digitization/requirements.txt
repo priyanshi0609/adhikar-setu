@@ -1,3 +1,4 @@
+# Core PDF/Image processing
 pdf2image==1.16.3
 pytesseract==0.3.10
 opencv-python==4.8.1.78
@@ -5,19 +6,28 @@ Pillow==10.0.1
 layoutparser==0.3.4
 camelot-py==0.11.0
 pdfplumber==0.10.3
+
+# NLP
 spacy==3.7.2
 spacy-transformers==1.2.4
-transformers==4.35.2
+transformers==4.29.2
 datasets==2.15.0
+tokenizers==0.13.3  # pre-built wheel
+
+# Utilities
 rapidfuzz==3.5.2
-shapely==2.0.1
+shapely==1.8.5.post1  # pre-built wheel for macOS
 pyproj==3.6.1
 python-dateutil==2.8.2
+
+# Web/API
 fastapi==0.104.1
 uvicorn==0.24.0
 pydantic==2.5.0
 streamlit==1.28.1
-pytest==7.4.3
 python-multipart==0.0.6
 aiofiles==23.2.1
 python-dotenv==1.0.0
+
+# Testing
+pytest==7.4.3
