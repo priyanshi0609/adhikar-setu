@@ -5,11 +5,7 @@
     "description": "Income support for farmers with up to 2 hectares of cultivable land.",
     "eligibility": "Farmer with cultivable land ≤ 2 hectares and Aadhaar linked.",
     "documents": ["Land Record / FRA Patta", "Aadhaar Card", "Bank Account"],
-    "benefits": "₹6000 per year in 3 installments.",
-    "rule": {
-      "landSizeMax": 2,
-      "requiresFRA": true
-    }
+    "benefits": "₹6000 per year in 3 installments."
   },
   {
     "id": "mgnrega",
@@ -17,11 +13,7 @@
     "description": "100 days of guaranteed wage employment (150 days for FRA holders).",
     "eligibility": "Any rural household with a valid job card.",
     "documents": ["Job Card", "FRA Patta (for 150 days)"],
-    "benefits": "100–150 days of wage employment.",
-    "rule": {
-      "requiresJobCard": true,
-      "extraDaysIfFRA": true
-    }
+    "benefits": "100–150 days of wage employment."
   },
   {
     "id": "pmay",
@@ -29,11 +21,7 @@
     "description": "Housing scheme for people without a permanent house.",
     "eligibility": "Rural poor without pucca house, FRA holders eligible.",
     "documents": ["SECC Data", "FRA Patta", "Aadhaar"],
-    "benefits": "Financial aid to build pucca house.",
-    "rule": {
-      "requiresNoHouse": true,
-      "requiresFRA": true
-    }
+    "benefits": "Financial aid to build pucca house."
   },
   {
     "id": "jjm",
@@ -41,11 +29,7 @@
     "description": "Functional tap water connections to rural households.",
     "eligibility": "Village with low tap water coverage and community FRA.",
     "documents": ["Village Water Survey", "Community FRA Patta"],
-    "benefits": "Tap water for every household.",
-    "rule": {
-      "requiresCommunityFRA": true,
-      "requiresWaterSurvey": true
-    }
+    "benefits": "Tap water for every household."
   },
   {
     "id": "pm-juga",
@@ -53,11 +37,7 @@
     "description": "Development scheme for tribal-majority villages.",
     "eligibility": "Village with ≥50% ST population and ≥500 population.",
     "documents": ["Census Data", "FRA Village Records"],
-    "benefits": "Funds for tribal development projects.",
-    "rule": {
-      "minPopulation": 500,
-      "minSTPercent": 50
-    }
+    "benefits": "Funds for tribal development projects."
   },
   {
     "id": "pmjay",
@@ -65,9 +45,6 @@
     "description": "Health insurance for poor and vulnerable households.",
     "eligibility": "Poor households as per SECC, FRA households eligible.",
     "documents": ["SECC Data", "Aadhaar", "Ration Card"],
-    "benefits": "₹5 lakh health cover per family per year.",
-    "rule": {
-      "requiresBelowPovertyLine": true
-    }
+    "benefits": "₹5 lakh health cover per family per year."
   }
 ]

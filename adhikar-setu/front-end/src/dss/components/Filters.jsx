@@ -1,31 +1,49 @@
 import React, { useState } from "react";
 
-const FilterBar = ({ onFilterChange }) => {
+const FilterBar = ({ beneficiaries, onFilterChange }) => {
   const [state, setState] = useState("");
   const [district, setDistrict] = useState("");
   const [village, setVillage] = useState("");
   const [beneficiary, setBeneficiary] = useState("");
 
-  // Example dummy data (you can fetch from API later)
-  const states = ["Madhya Pradesh", "Chhattisgarh", "Odisha"];
-  const districtsData = {
-    "Madhya Pradesh": ["Bhopal", "Indore"],
-    Chhattisgarh: ["Raipur", "Bilaspur"],
-    Odisha: ["Cuttack", "Puri"],
-  };
-  const villagesData = {
-    Bhopal: ["Village A", "Village B"],
-    Indore: ["Village C", "Village D"],
-    Raipur: ["Village E", "Village F"],
-    Bilaspur: ["Village G", "Village H"],
-    Cuttack: ["Village I", "Village J"],
-    Puri: ["Village K", "Village L"],
-  };
-  const beneficiaryTypes = ["Individual", "Community", "Tribal Group"];
+  // Extract options dynamically from beneficiaries.json
+  const states = [...new Set(beneficiaries.map((b) => b.state))];
+
+  const districtsData =
+    state !== ""
+      ? [...new Set(beneficiaries.filter((b) => b.state === state).map((b) => b.district))]
+      : [];
+
+  const villagesData =
+    district !== ""
+      ? [...new Set(beneficiaries.filter((b) => b.district === district).map((b) => b.village))]
+      : [];
+
+  const beneficiaryTypes =
+    village !== ""
+      ? [...new Set(beneficiaries.filter((b) => b.village === village).map((b) => b.type))]
+      : [];
 
   // Handle filter change
-  const handleChange = () => {
-    onFilterChange({ state, district, village, beneficiary });
+  const handleChange = (updated = {}) => {
+    const newFilters = {
+      state,
+      district,
+      village,
+      beneficiary,
+      ...updated,
+    };
+
+    // Find the selected person from beneficiaries.json
+    const person = beneficiaries.find(
+      (b) =>
+        b.state === newFilters.state &&
+        b.district === newFilters.district &&
+        b.village === newFilters.village &&
+        b.type === newFilters.beneficiary
+    );
+
+    onFilterChange({ ...newFilters, person: person || null });
   };
 
   return (
@@ -38,7 +56,8 @@ const FilterBar = ({ onFilterChange }) => {
           setState(e.target.value);
           setDistrict("");
           setVillage("");
-          handleChange();
+          setBeneficiary("");
+          handleChange({ state: e.target.value, district: "", village: "", beneficiary: "" });
         }}
       >
         <option value="">Select State</option>
@@ -56,17 +75,17 @@ const FilterBar = ({ onFilterChange }) => {
         onChange={(e) => {
           setDistrict(e.target.value);
           setVillage("");
-          handleChange();
+          setBeneficiary("");
+          handleChange({ district: e.target.value, village: "", beneficiary: "" });
         }}
         disabled={!state}
       >
         <option value="">Select District</option>
-        {state &&
-          districtsData[state].map((d) => (
-            <option key={d} value={d}>
-              {d}
-            </option>
-          ))}
+        {districtsData.map((d) => (
+          <option key={d} value={d}>
+            {d}
+          </option>
+        ))}
       </select>
 
       {/* Village Dropdown */}
@@ -75,17 +94,17 @@ const FilterBar = ({ onFilterChange }) => {
         value={village}
         onChange={(e) => {
           setVillage(e.target.value);
-          handleChange();
+          setBeneficiary("");
+          handleChange({ village: e.target.value, beneficiary: "" });
         }}
         disabled={!district}
       >
         <option value="">Select Village</option>
-        {district &&
-          villagesData[district].map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
+        {villagesData.map((v) => (
+          <option key={v} value={v}>
+            {v}
+          </option>
+        ))}
       </select>
 
       {/* Beneficiary Dropdown */}
@@ -94,8 +113,9 @@ const FilterBar = ({ onFilterChange }) => {
         value={beneficiary}
         onChange={(e) => {
           setBeneficiary(e.target.value);
-          handleChange();
+          handleChange({ beneficiary: e.target.value });
         }}
+        disabled={!village}
       >
         <option value="">Select Beneficiary Type</option>
         {beneficiaryTypes.map((b) => (

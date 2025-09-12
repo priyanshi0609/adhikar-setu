@@ -1,20 +1,13 @@
 import React from "react";
 
-const SchemeCard = ({ scheme, onClick }) => {
+export default function SchemeCard({ scheme, onClick }) {
   return (
     <div
-      className="bg-white p-5 rounded-2xl shadow hover:shadow-lg cursor-pointer transition"
       onClick={onClick}
+      className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition"
     >
-      <h2 className="text-xl font-semibold mb-2">{scheme.name}</h2>
-      <p className="text-gray-600 text-sm line-clamp-3">
-        {scheme.description}
-      </p>
-      <button className="mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700">
-        View Details
-      </button>
+      <h3 className="text-lg font-bold">{scheme.name}</h3>
+      <p className="text-sm text-gray-600 mt-2">{scheme.description}</p>
     </div>
   );
-};
-
-export default SchemeCard;
+}
