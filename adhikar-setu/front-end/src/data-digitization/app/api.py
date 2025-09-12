@@ -73,6 +73,12 @@ async def parse_batch(files: List[UploadFile] = File(...)):
     # Implementation for batch processing
     return {"message": "Batch processing not yet implemented"}
 
+async def validate_training_token(token: str):
+    """Validate training token"""
+    if token != config.TRAINING_TOKEN:
+        raise HTTPException(status_code=401, detail="Invalid training token")
+    return True
+
 @router.post("/train-ner")
 async def train_ner(
     request: TrainingRequest,
@@ -85,11 +91,7 @@ async def train_ner(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-async def validate_training_token(token: str):
-    """Validate training token"""
-    if token != config.TRAINING_TOKEN:
-        raise HTTPException(status_code=401, detail="Invalid training token")
-    return True
+
 
 async def process_document_task(job_id: str, document_id: str):
     """Background task to process document"""
