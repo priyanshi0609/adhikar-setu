@@ -1,87 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Filter, Users, MapPin, FileText, CheckCircle, AlertCircle, Droplet, Home, Heart, Banknote } from 'lucide-react';
+import { Search, Filter, Users, MapPin, FileText, CheckCircle, AlertCircle, ChevronDown, Loader } from 'lucide-react';
 
-// Mock data for demonstration
-const schemes = [
-  {
-    id: 'pm-kisan',
-    name: 'PM-KISAN',
-    ministry: 'Agriculture & Farmers Welfare',
-    benefit: '₹6,000/year direct transfer',
-    icon: <Banknote className="w-8 h-8" />,
-    description: 'Financial assistance to small and marginal farmers',
-    eligibility: ['FRA Patta holder', 'Cultivable land ≤ 2 hectares', 'Valid Aadhaar', 'Bank account'],
-    documents: ['Land Record/FRA Patta', 'Aadhaar Card', 'Bank Account Details']
-  },
-  {
-    id: 'mgnrega',
-    name: 'MGNREGA',
-    ministry: 'Rural Development',
-    benefit: '100-150 days guaranteed employment',
-    icon: <Users className="w-8 h-8" />,
-    description: 'Guaranteed wage employment for rural households',
-    eligibility: ['Job Card holder', 'Rural household', 'ST category for 150 days (with FRA)'],
-    documents: ['MGNREGA Job Card', 'FRA Patta (for ST households)', 'Aadhaar Card']
-  },
-  {
-    id: 'pmay-gramin',
-    name: 'PMAY-Gramin',
-    ministry: 'Rural Development',
-    benefit: '₹1.2-2.3 lakh housing assistance',
-    icon: <Home className="w-8 h-8" />,
-    description: 'Housing support for rural poor',
-    eligibility: ['No pucca house', 'FRA Patta holder', 'SECC verification'],
-    documents: ['SECC Data', 'FRA Patta', 'Aadhaar Card']
-  },
-  {
-    id: 'jal-jeevan',
-    name: 'Jal Jeevan Mission',
-    ministry: 'Jal Shakti',
-    benefit: 'Tap water connection to every household',
-    icon: <Droplet className="w-8 h-8" />,
-    description: 'Functional tap water connection to rural households',
-    eligibility: ['Village without adequate tap water', 'Community FRA Patta required'],
-    documents: ['Village Water Status Report', 'Community FRA Patta']
-  },
-  {
-    id: 'dajgua',
-    name: 'DAJGUA (PM-JUGA)',
-    ministry: 'Tribal Affairs',
-    benefit: 'Comprehensive tribal development',
-    icon: <MapPin className="w-8 h-8" />,
-    description: 'Development of tribal villages',
-    eligibility: ['≥50% ST population', '≥500 total population', 'FRA village status'],
-    documents: ['Census Data', 'FRA Village Records', 'Population Certificate']
-  },
-  {
-    id: 'pmjay',
-    name: 'Ayushman Bharat PMJAY',
-    ministry: 'Health & Family Welfare',
-    benefit: '₹5 lakh health insurance cover',
-    icon: <Heart className="w-8 h-8" />,
-    description: 'Health insurance for vulnerable families',
-    eligibility: ['BPL household', 'SECC deprivation criteria', 'FRA Patta holder priority'],
-    documents: ['SECC Data', 'Ration Card', 'FRA Patta', 'Aadhaar Card']
-  }
-];
+// Import all data and utilities
+import { schemes } from '../data/schemes.js';
+import { 
+  mockBeneficiaries, 
+  villageData, 
+  getUniqueVillages, 
+  getUniqueStates, 
+  getVillagesByState, 
+  getBeneficiariesByFilters,
+  getBeneficiariesByVillage 
+} from '../data/mockdata.js';
+import EligibilityEngine from '../utils/EligibilityEngine.js';
 
-const mockBeneficiaries = [
-  { id: 1, name: 'Ramesh Kumar', village: 'Jhirkimunda', district: 'Ranchi', state: 'Jharkhand', category: 'ST', landSize: 1.5, hasJobCard: true, housingStatus: 'Kutcha', fraHolder: true },
-  { id: 2, name: 'Sunita Devi', village: 'Bansera', district: 'Gumla', state: 'Jharkhand', category: 'ST', landSize: 0.8, hasJobCard: true, housingStatus: 'Semi-Pucca', fraHolder: true },
-  { id: 3, name: 'Mohan Singh', village: 'Karra', district: 'Khunti', state: 'Jharkhand', category: 'ST', landSize: 2.1, hasJobCard: false, housingStatus: 'Pucca', fraHolder: false },
-  { id: 4, name: 'Lakshmi Oraon', village: 'Tupudana', district: 'Ranchi', state: 'Jharkhand', category: 'ST', landSize: 1.2, hasJobCard: true, housingStatus: 'Kutcha', fraHolder: true },
-  { id: 5, name: 'Budhu Munda', village: 'Jhirkimunda', district: 'Ranchi', state: 'Jharkhand', category: 'ST', landSize: 0.5, hasJobCard: true, housingStatus: 'Kutcha', fraHolder: true }
-];
+// Import rules configuration
+import rulesConfig from '../data/rules.json';
 
-// Eligibility Rules Engine
+// Initialize the eligibility engine
+const eligibilityEngine = new EligibilityEngine(rulesConfig);
+
+// Eligibility Rules Engine (simplified for demonstration)
 const checkEligibility = (beneficiary, schemeId) => {
   const rules = {
-    'pm-kisan': (b) => b.fraHolder && b.landSize <= 2.0 && b.landSize > 0,
+    'pm-kisan': (b) => b.fraHolder && b.landSize <= 2.0 && b.landSize > 0 && b.hasAadhaar && b.hasBankAccount,
     'mgnrega': (b) => b.hasJobCard && (b.category === 'ST' ? b.fraHolder : true),
-    'pmay-gramin': (b) => b.fraHolder && b.housingStatus !== 'Pucca',
-    'jal-jeevan': (b) => b.fraHolder, // Simplified - would check village water status
-    'dajgua': (b) => b.fraHolder && b.category === 'ST',
-    'pmjay': (b) => b.fraHolder && b.category === 'ST' // Simplified BPL check
+    'pmay-gramin': (b) => b.fraHolder && b.housingStatus !== 'Pucca' && b.seccVerified,
+    'jal-jeevan': (b) => (b.villageWaterCoverage < 100) && (b.communityFRAStatus || b.fraHolder),
+    'dajgua': (b) => b.fraHolder && b.category === 'ST' && b.villageSTPopulationPercent >= 50 && b.villageTotalPopulation >= 500,
+    'pmjay': (b) => (b.householdIncomeStatus === 'BPL' || b.seccDeprivationCategory) && (b.fraHolder || ['ST', 'SC'].includes(b.category))
   };
   
   return rules[schemeId] ? rules[schemeId](beneficiary) : false;
@@ -90,165 +37,284 @@ const checkEligibility = (beneficiary, schemeId) => {
 const DSS = () => {
   const [selectedScheme, setSelectedScheme] = useState(null);
   const [filters, setFilters] = useState({
+    state: '',
     village: '',
-    district: '',
     beneficiary: ''
   });
-  const [filteredBeneficiaries, setFilteredBeneficiaries] = useState(mockBeneficiaries);
+  const [filteredBeneficiaries, setFilteredBeneficiaries] = useState([]);
   const [showEligibility, setShowEligibility] = useState(false);
+  const [availableVillages, setAvailableVillages] = useState(getUniqueVillages());
+  const [availableBeneficiaries, setAvailableBeneficiaries] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
 
+  // Update cascading dropdowns
   useEffect(() => {
-    let filtered = mockBeneficiaries;
-    
+    // Update villages based on selected state
+    if (filters.state) {
+      const villages = getVillagesByState(filters.state);
+      setAvailableVillages(villages);
+      
+      // Reset village if it's not available for selected state
+      if (filters.village && !villages.includes(filters.village)) {
+        setFilters(prev => ({ ...prev, village: '', beneficiary: '' }));
+      }
+    } else {
+      setAvailableVillages(getUniqueVillages());
+    }
+
+    // Update beneficiaries based on selected village
     if (filters.village) {
-      filtered = filtered.filter(b => b.village.toLowerCase().includes(filters.village.toLowerCase()));
+      const beneficiaries = getBeneficiariesByVillage(filters.village);
+      setAvailableBeneficiaries(beneficiaries.map(b => b.name));
+      
+      // Reset beneficiary if it's not available for selected village
+      if (filters.beneficiary && !beneficiaries.some(b => b.name === filters.beneficiary)) {
+        setFilters(prev => ({ ...prev, beneficiary: '' }));
+      }
+    } else {
+      setAvailableBeneficiaries([]);
     }
-    if (filters.district) {
-      filtered = filtered.filter(b => b.district.toLowerCase().includes(filters.district.toLowerCase()));
-    }
-    if (filters.beneficiary) {
-      filtered = filtered.filter(b => b.name.toLowerCase().includes(filters.beneficiary.toLowerCase()));
-    }
-    
-    setFilteredBeneficiaries(filtered);
-  }, [filters]);
+  }, [filters.state, filters.village]);
 
-  const SchemeCard = ({ scheme }) => (
-    <div 
-      className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 border border-gray-100"
-      onClick={() => setSelectedScheme(scheme)}
-    >
-      <div className="p-6">
-        <div className="flex items-center mb-4">
-          <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg text-white mr-4">
-            {scheme.icon}
-          </div>
-          <div>
-            <h3 className="text-xl font-bold text-gray-800">{scheme.name}</h3>
-            <p className="text-sm text-gray-600">{scheme.ministry}</p>
-          </div>
-        </div>
-        <p className="text-gray-700 mb-3">{scheme.description}</p>
-        <div className="flex items-center text-green-600 font-semibold">
-          <CheckCircle className="w-4 h-4 mr-2" />
-          {scheme.benefit}
-        </div>
-      </div>
-    </div>
-  );
-
-  const SchemeModal = ({ scheme, onClose }) => (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b border-gray-200">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg text-white mr-4">
-                {scheme.icon}
-              </div>
-              <div>
-                <h2 className="text-2xl font-bold text-gray-800">{scheme.name}</h2>
-                <p className="text-gray-600">{scheme.ministry}</p>
-              </div>
+const handleSearch = () => {
+  setIsLoading(true);
+  setHasSearched(true);
+  
+  // Get beneficiaries based on selected filters
+  let beneficiaries = [];
+  
+  if (filters.beneficiary) {
+    console.log('Searching for beneficiary:', filters.beneficiary);
+    beneficiaries = getBeneficiariesByFilters(filters.state, filters.village, filters.beneficiary);
+    console.log('Found beneficiaries:', beneficiaries);
+  } else if (filters.village) {
+    beneficiaries = getBeneficiariesByFilters(filters.state, filters.village);
+  } else if (filters.state) {
+    beneficiaries = getBeneficiariesByFilters(filters.state);
+  }
+  
+  setFilteredBeneficiaries(beneficiaries);
+  
+  setTimeout(() => {
+    setIsLoading(false);
+  }, 50);
+};
+  const SchemeCard = ({ scheme }) => {
+    const IconComponent = scheme.icon;
+    return (
+      <div 
+        className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 border border-gray-100"
+        onClick={() => setSelectedScheme(scheme)}
+      >
+        <div className="p-6">
+          <div className="flex items-center mb-4">
+            <div className={`p-3 bg-gradient-to-br ${scheme.color} rounded-lg text-white mr-4`}>
+              <IconComponent className="w-8 h-8" />
             </div>
-            <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-2xl">×</button>
-          </div>
-        </div>
-        
-        <div className="p-6 space-y-6">
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">Description</h3>
-            <p className="text-gray-700">{scheme.description}</p>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">Benefit</h3>
-            <div className="flex items-center text-green-600 font-semibold">
-              <CheckCircle className="w-5 h-5 mr-2" />
-              {scheme.benefit}
+            <div>
+              <h3 className="text-xl font-bold text-gray-800">{scheme.name}</h3>
+              <p className="text-sm text-gray-600">{scheme.ministry}</p>
             </div>
           </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">Eligibility Criteria</h3>
-            <ul className="space-y-2">
-              {scheme.eligibility.map((criteria, index) => (
-                <li key={index} className="flex items-center">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                  <span className="text-gray-700">{criteria}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">Required Documents</h3>
-            <ul className="space-y-2">
-              {scheme.documents.map((doc, index) => (
-                <li key={index} className="flex items-center">
-                  <FileText className="w-4 h-4 text-blue-500 mr-2 flex-shrink-0" />
-                  <span className="text-gray-700">{doc}</span>
-                </li>
-              ))}
-            </ul>
+          <p className="text-gray-700 mb-3 text-sm">{scheme.description}</p>
+          <div className="flex items-center text-green-600 font-semibold text-sm">
+            <CheckCircle className="w-4 h-4 mr-2" />
+            {scheme.benefit}
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  };
 
-  const EligibilityResults = ({ beneficiary }) => (
-    <div className="bg-white rounded-xl shadow-lg p-6 mb-4">
-      <div className="flex items-center justify-between mb-4">
+  const SchemeModal = ({ scheme, onClose }) => {
+    const IconComponent = scheme.icon;
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="p-6 border-b border-gray-200">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <div className={`p-3 bg-gradient-to-br ${scheme.color} rounded-lg text-white mr-4`}>
+                  <IconComponent className="w-8 h-8" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-800">{scheme.name}</h2>
+                  <p className="text-gray-600">{scheme.fullName}</p>
+                  <p className="text-sm text-gray-500">{scheme.ministry}</p>
+                </div>
+              </div>
+              <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-3xl font-light">×</button>
+            </div>
+          </div>
+          
+          <div className="p-6 space-y-6">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Description</h3>
+              <p className="text-gray-700">{scheme.description}</p>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Benefit</h3>
+              <div className="flex items-center text-green-600 font-semibold">
+                <CheckCircle className="w-5 h-5 mr-2" />
+                {scheme.benefit}
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Eligibility Criteria</h3>
+              <ul className="space-y-2">
+                {scheme.eligibility.map((criteria, index) => (
+                  <li key={index} className="flex items-start">
+                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">{criteria}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Required Documents</h3>
+              <ul className="space-y-2">
+                {scheme.documents.map((doc, index) => (
+                  <li key={index} className="flex items-start">
+                    <FileText className="w-4 h-4 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">{doc}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-3">Data Points Extracted</h3>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {scheme.dataPoints.map((point, index) => (
+                  <li key={index} className="flex items-center text-sm">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
+                    <span className="text-gray-600">{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded-lg">
+              <h4 className="font-medium text-gray-800 mb-2">Rule Basis:</h4>
+              <p className="text-sm text-gray-600">{scheme.rulesBasis}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const BeneficiaryCard = ({ beneficiary }) => (
+    <div className="bg-white rounded-lg shadow-md p-4 mb-4 border border-gray-200">
+      <div className="flex items-center justify-between mb-3">
         <div>
-          <h3 className="text-xl font-bold text-gray-800">{beneficiary.name}</h3>
-          <p className="text-gray-600">{beneficiary.village}, {beneficiary.district}, {beneficiary.state}</p>
-          <div className="flex items-center mt-2">
-            <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm mr-2">
+          <h3 className="text-lg font-semibold text-gray-800">{beneficiary.name}</h3>
+          <p className="text-sm text-gray-600">S/o {beneficiary.fatherName}</p>
+          <p className="text-sm text-gray-500">{beneficiary.village}, {beneficiary.state}</p>
+        </div>
+        <div className="text-right">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className={`px-2 py-1 rounded text-xs font-medium ${
+              beneficiary.category === 'ST' ? 'bg-purple-100 text-purple-800' :
+              beneficiary.category === 'SC' ? 'bg-blue-100 text-blue-800' :
+              beneficiary.category === 'OBC' ? 'bg-yellow-100 text-yellow-800' :
+              'bg-gray-100 text-gray-800'
+            }`}>
               {beneficiary.category}
             </span>
             {beneficiary.fraHolder && (
-              <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
+              <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs font-medium">
                 FRA Holder
               </span>
             )}
           </div>
+          <p className="text-xs text-gray-500">Land: {beneficiary.landSize} ha</p>
+          <p className="text-xs text-gray-500">Housing: {beneficiary.housingStatus}</p>
         </div>
       </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      {/* Eligibility Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
         {schemes.map(scheme => {
           const eligible = checkEligibility(beneficiary, scheme.id);
           return (
             <div 
               key={scheme.id} 
-              className={`p-4 rounded-lg border-2 ${
+              className={`p-2 rounded border text-center ${
                 eligible 
-                  ? 'border-green-200 bg-green-50' 
-                  : 'border-red-200 bg-red-50'
+                  ? 'border-green-300 bg-green-50' 
+                  : 'border-red-300 bg-red-50'
               }`}
             >
-              <div className="flex items-center mb-2">
+              <div className="flex items-center justify-center mb-1">
                 {eligible ? (
-                  <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
+                  <CheckCircle className="w-3 h-3 text-green-600" />
                 ) : (
-                  <AlertCircle className="w-5 h-5 text-red-600 mr-2" />
+                  <AlertCircle className="w-3 h-3 text-red-600" />
                 )}
-                <span className={`font-semibold ${
-                  eligible ? 'text-green-800' : 'text-red-800'
-                }`}>
-                  {scheme.name}
-                </span>
               </div>
-              <p className={`text-sm ${
-                eligible ? 'text-green-700' : 'text-red-700'
+              <p className={`text-xs font-medium ${
+                eligible ? 'text-green-800' : 'text-red-800'
               }`}>
-                {eligible ? 'Eligible' : 'Not Eligible'}
+                {scheme.name}
               </p>
             </div>
           );
         })}
       </div>
+
+      {/* Additional Info */}
+      <div className="mt-3 pt-3 border-t border-gray-100">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+          <div className="text-center">
+            <p className="text-gray-500">Job Card</p>
+            <p className={`font-medium ${beneficiary.hasJobCard ? 'text-green-600' : 'text-red-600'}`}>
+              {beneficiary.hasJobCard ? 'Yes' : 'No'}
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="text-gray-500">SECC</p>
+            <p className={`font-medium ${beneficiary.seccVerified ? 'text-green-600' : 'text-red-600'}`}>
+              {beneficiary.seccVerified ? 'Verified' : 'No'}
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="text-gray-500">Income</p>
+            <p className={`font-medium ${beneficiary.householdIncomeStatus === 'BPL' ? 'text-orange-600' : 'text-green-600'}`}>
+              {beneficiary.householdIncomeStatus}
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="text-gray-500">Water Coverage</p>
+            <p className={`font-medium ${beneficiary.villageWaterCoverage < 50 ? 'text-red-600' : 'text-green-600'}`}>
+              {beneficiary.villageWaterCoverage}%
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const CustomSelect = ({ value, onChange, options, placeholder, disabled = false }) => (
+    <div className="relative">
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
+        className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white ${
+          disabled ? 'bg-gray-100 cursor-not-allowed' : 'cursor-pointer'
+        }`}
+      >
+        <option value="">{placeholder}</option>
+        {options.map(option => (
+          <option key={option} value={option}>{option}</option>
+        ))}
+      </select>
+      <ChevronDown className="absolute right-3 top-3 h-4 w-4 text-gray-400 pointer-events-none" />
     </div>
   );
 
@@ -263,6 +329,20 @@ const DSS = () => {
           <p className="text-xl text-gray-600">
             FRA-CSS Cross-linking Platform for Tribal Development
           </p>
+          <div className="mt-4 flex items-center justify-center space-x-4 text-sm">
+            <div className="flex items-center">
+              <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+              <span className="text-gray-600">Total Beneficiaries: {mockBeneficiaries.length}</span>
+            </div>
+            <div className="flex items-center">
+              <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+              <span className="text-gray-600">Total Schemes: {schemes.length}</span>
+            </div>
+            <div className="flex items-center">
+              <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
+              <span className="text-gray-600">FRA Holders: {mockBeneficiaries.filter(b => b.fraHolder).length}</span>
+            </div>
+          </div>
         </div>
 
         {/* Filters */}
@@ -274,49 +354,80 @@ const DSS = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Village</label>
-              <input
-                type="text"
-                placeholder="Enter village name"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={filters.village}
-                onChange={(e) => setFilters({...filters, village: e.target.value})}
+              <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+              <CustomSelect
+                value={filters.state}
+                onChange={(value) => setFilters({...filters, state: value, village: '', beneficiary: ''})}
+                options={getUniqueStates()}
+                placeholder="Select state"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">District</label>
-              <input
-                type="text"
-                placeholder="Enter district name"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                value={filters.district}
-                onChange={(e) => setFilters({...filters, district: e.target.value})}
+              <label className="block text-sm font-medium text-gray-700 mb-2">Village</label>
+              <CustomSelect
+                value={filters.village}
+                onChange={(value) => setFilters({...filters, village: value, beneficiary: ''})}
+                options={availableVillages}
+                placeholder="Select village"
+                disabled={!filters.state}
               />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Beneficiary Name</label>
-              <input
-                type="text"
-                placeholder="Enter beneficiary name"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              <CustomSelect
                 value={filters.beneficiary}
-                onChange={(e) => setFilters({...filters, beneficiary: e.target.value})}
+                onChange={(value) => setFilters({...filters, beneficiary: value})}
+                options={availableBeneficiaries}
+                placeholder="Select beneficiary"
+                disabled={!filters.village}
               />
             </div>
-            <div className="flex items-end">
+            <div className="flex items-end space-x-2">
               <button
-                onClick={() => setShowEligibility(!showEligibility)}
-                className="w-full px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-semibold"
+                onClick={handleSearch}
+                disabled={isLoading || !filters.village}
+                className="flex-1 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-semibold disabled:opacity-50 flex items-center justify-center"
               >
-                {showEligibility ? 'Hide' : 'Show'} Eligibility
+                {isLoading ? (
+                  <>
+                    <Loader className="w-4 h-4 mr-2 animate-spin" />
+                    Searching...
+                  </>
+                ) : (
+                  'Show Results'
+                )}
+              </button>
+              <button
+                onClick={() => {
+                  setFilters({ state: '', village: '', beneficiary: '' });
+                  setShowEligibility(false);
+                  setFilteredBeneficiaries([]);
+                  setHasSearched(false);
+                }}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-all duration-200"
+              >
+                Clear
               </button>
             </div>
           </div>
+
+          {/* Filter Summary */}
+          {(filters.state || filters.village || filters.beneficiary) && hasSearched && (
+            <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+              <p className="text-sm text-blue-800">
+                <strong>Active Filters:</strong>
+                {filters.state && ` State: ${filters.state}`}
+                {filters.village && ` | Village: ${filters.village}`}
+                {filters.beneficiary && ` | Name: ${filters.beneficiary}`}
+                {` | Showing ${filteredBeneficiaries.length} of ${mockBeneficiaries.length} beneficiaries`}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Schemes Grid */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Central Sector Schemes</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Central Sector Schemes (CSS)</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {schemes.map(scheme => (
               <SchemeCard key={scheme.id} scheme={scheme} />
@@ -324,15 +435,56 @@ const DSS = () => {
           </div>
         </div>
 
-        {/* Eligibility Results */}
-        {showEligibility && (
+        {/* Beneficiaries Section */}
+        {hasSearched && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">
-              Eligibility Assessment ({filteredBeneficiaries.length} beneficiaries)
-            </h2>
-            {filteredBeneficiaries.map(beneficiary => (
-              <EligibilityResults key={beneficiary.id} beneficiary={beneficiary} />
-            ))}
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold text-gray-800">
+                Beneficiaries Analysis ({filteredBeneficiaries.length})
+              </h2>
+              <div className="flex items-center space-x-4">
+                <div className="text-sm text-gray-600">
+                  FRA Holders: {filteredBeneficiaries.filter(b => b.fraHolder).length}
+                </div>
+                <div className="text-sm text-gray-600">
+                  ST Category: {filteredBeneficiaries.filter(b => b.category === 'ST').length}
+                </div>
+              </div>
+            </div>
+
+            {isLoading ? (
+              <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+                <Loader className="w-12 h-12 text-blue-500 animate-spin mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  Searching for beneficiaries...
+                </h3>
+                <p className="text-gray-600">
+                  Please wait while we fetch the data
+                </p>
+              </div>
+            ) : showEligibility ? (
+              <div className="space-y-4">
+                {filteredBeneficiaries.map(beneficiary => (
+                  <BeneficiaryCard key={beneficiary.id} beneficiary={beneficiary} />
+                ))}
+              </div>
+            ) : (
+              <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+                <Users className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  {filteredBeneficiaries.length} Beneficiaries Found
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  Click "Show Details" to view detailed eligibility assessment for each beneficiary
+                </p>
+                <button
+                  onClick={() => setShowEligibility(true)}
+                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-semibold"
+                >
+                  Show Eligibility Details
+                </button>
+              </div>
+            )}
           </div>
         )}
 
