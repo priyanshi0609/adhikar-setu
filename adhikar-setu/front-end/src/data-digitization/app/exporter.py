@@ -2,7 +2,7 @@ import json
 import csv
 import os
 from datetime import datetime
-from typing import Dict, List, Any
+from typing import Dict, List, Any , Optional
 from app.config import config
 from app.logger import setup_logger
 
