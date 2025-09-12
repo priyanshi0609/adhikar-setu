@@ -330,18 +330,12 @@ const handleSearch = () => {
             FRA-CSS Cross-linking Platform for Tribal Development
           </p>
           <div className="mt-4 flex items-center justify-center space-x-4 text-sm">
-            <div className="flex items-center">
-              <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-              <span className="text-gray-600">Total Beneficiaries: {mockBeneficiaries.length}</span>
-            </div>
+            
             <div className="flex items-center">
               <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
               <span className="text-gray-600">Total Schemes: {schemes.length}</span>
             </div>
-            <div className="flex items-center">
-              <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
-              <span className="text-gray-600">FRA Holders: {mockBeneficiaries.filter(b => b.fraHolder).length}</span>
-            </div>
+           
           </div>
         </div>
 
