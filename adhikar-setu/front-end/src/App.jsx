@@ -4,6 +4,7 @@ import HomePage from './pages/LandingPage';
 import Navigation from './components/Navigation';
 import LoginContainer from './Login/LoginContainer';
 import { onAuthStateChange, getCurrentUserProfile } from './firebase/authService';
+import DSS from './dss/pages/DSS';
 
 // Lazy load route components for better performance
 const Dashboard = lazy(() => import('./components/Dashboard'));
@@ -12,6 +13,7 @@ const VerificationWorkspace = lazy(() => import('./components/VerificationWorksp
 const DLCApproval = lazy(() => import('./components/DLCApproval'));
 const DSSLayer = lazy(() => import('./components/DSSLayer'));
 const PublicAtlas = lazy(() => import('./components/PublicAtlas'));
+
 
 // ---------- Protected Route Component ----------
 const ProtectedRoute = ({
@@ -122,13 +124,23 @@ function App() {
 
   const handleLogin = (user) => {
     setCurrentUser(user);
-    navigate('/dashboard'); // Redirect to dashboard after login
+    localStorage.setItem("user", JSON.stringify(user));
+    navigate("/dashboard");
   };
+  
 
   const handleLogout = () => {
     setCurrentUser(null);
     navigate('/'); // Redirect to landing page after logout
   };
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setCurrentUser(JSON.parse(storedUser));
+    }
+  }, []);
+  
 
   const currentScreen = location.pathname === '/login' ? '/dashboard' :
     location.pathname.slice(1);
@@ -186,6 +198,7 @@ function App() {
                 path="/"
                 element={<HomePage />}
               />
+              <Route path="/dss" element={<DSS />} />
 
               {/* Login Route */}
               <Route
@@ -287,6 +300,7 @@ function App() {
                     <Navigate to="/" replace />
                 }
               />
+              
             </Routes>
           </Suspense>
         </ErrorBoundary>
