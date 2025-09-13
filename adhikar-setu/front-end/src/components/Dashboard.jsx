@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState , useRef ,useEffect } from 'react';
 import { 
   BarChart3, FileText, CheckCircle, Clock, MapPin, Users, 
   AlertTriangle, TrendingUp, ChevronDown, Filter, Plus, Download 
 } from 'lucide-react';
 import { Link } from "react-router-dom";
+import mapboxgl from "mapbox-gl"; // Import mapbox-gl
+import "mapbox-gl/dist/mapbox-gl.css"; // Import default Mapbox CSS
+// mapboxgl.accessToken = ""
 
 const Dashboard = ({ user, language }) => {
   const [selectedState, setSelectedState] = useState('Chhattisgarh');
   const [selectedDistrict, setSelectedDistrict] = useState('Bastar');
   const [selectedVillage, setSelectedVillage] = useState('All Villages');
+  const mapContainerRef = useRef(null);
+  const mapRef = useRef(null);
 
   const states = ['Chhattisgarh', 'Jharkhand', 'Odisha', 'Madhya Pradesh'];
   const districts = ['Bastar', 'Kanker', 'Kondagaon', 'Sukma'];
@@ -39,7 +44,25 @@ const Dashboard = ({ user, language }) => {
         ];
     }
   };
+  useEffect(() => {
+    if (mapRef.current) return; // prevent multiple maps on re-render
+    if (!mapContainerRef.current) return; // ensure container is available
 
+    mapRef.current = new mapboxgl.Map({
+      // container: mapContainerRef.current!, // container ID
+      container: mapContainerRef.current, // container ID
+      style: "mapbox://styles/mapbox/streets-v12", // style URL
+      center: [77.209, 28.6139], // [lng, lat] -> example: New Delhi
+      zoom: 10, // zoom level
+    });
+
+    // ✅ Optional: Add navigation controls
+    mapRef.current.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+    return () => {
+      mapRef.current?.remove(); // cleanup on unmount
+    };
+  }, []);
   const kpiData = getKPIData();
 
   return (
@@ -147,41 +170,12 @@ const Dashboard = ({ user, language }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Map View */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
-            <div className="flex items-center justify-between mb-5">
-              <h3 className="text-lg font-semibold text-gray-900 flex items-center">
-                <MapPin className="h-5 w-5 mr-2 text-green-600" />
-                {language === 'en' ? 'Interactive Map' : 'इंटरएक्टिव मैप'}
-              </h3>
-              <div className="flex items-center space-x-2">
-                <button className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-                  {language === 'en' ? 'Layers' : 'परतें'}
-                </button>
-                <button className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-                  {language === 'en' ? 'Legend' : 'लेजेंड'}
-                </button>
-              </div>
-            </div>
-            <div className="bg-gradient-to-br from-green-50 to-amber-50 rounded-xl h-96 flex items-center justify-center border-2 border-dashed border-green-200 relative overflow-hidden">
-              <div className="absolute inset-0 opacity-10 bg-map-pattern"></div>
-              <div className="text-center z-10">
-                <MapPin className="h-16 w-16 text-green-500 mx-auto mb-4 drop-shadow-sm" />
-                <p className="text-lg font-semibold text-gray-700">
-                  {language === 'en' ? 'WebGIS Map Integration' : 'WebGIS मैप एकीकरण'}
-                </p>
-                <p className="text-gray-500 mt-2 max-w-md mx-auto">
-                  {language === 'en'
-                    ? 'Interactive map showing FRA claims, boundaries, and land use'
-                    : 'FRA दावे, सीमाएं और भूमि उपयोग दिखाने वाला इंटरैक्टिव मानचित्र'
-                  }
-                </p>
-                <button className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition-colors">
-                  {language === 'en' ? 'Explore Map' : 'मानचित्र देखें'}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div 
+    ref={mapContainerRef} 
+    className="w-full h-[500px] rounded-xl shadow-sm border border-gray-200"
+  />
+</div>
+
 
         {/* Activity Panel */}
         <div className="space-y-6">
@@ -227,7 +221,7 @@ const Dashboard = ({ user, language }) => {
                 <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-sm font-medium text-amber-800">
-                    {language === 'en' ? 'Pending Reviews' : 'लंबित समीक्षा'}
+                    {language === 'en' ? 'Pending Reviewss' : 'लंबित समीक्षा'}
                   </p>
                   <p className="text-xs text-amber-700">
                     {language === 'en' ? '15 claims need attention' : '15 दावों पर ध्यान देने की जरूरत'}
