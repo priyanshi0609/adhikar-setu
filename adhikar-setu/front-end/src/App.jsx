@@ -5,6 +5,7 @@ import Navigation from './components/Navigation';
 import LoginContainer from './Login/LoginContainer';
 import { onAuthStateChange, getCurrentUserProfile } from './firebase/authService';
 import DSS from './dss/components/DSS';
+import SchemeDetail from './dss/components/SchemeDetail';
 
 // Lazy load route components for better performance
 const Dashboard = lazy(() => import('./components/Dashboard'));
@@ -276,6 +277,11 @@ function App() {
                     <DSSLayer user={currentUser} language={language} />
                   </ProtectedRoute>
                 }
+              />
+              {/* Scheme Detail Route */}
+                <Route
+                path="/scheme/:schemeId"
+                element={<SchemeDetail language={language} />}
               />
 
               <Route

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, Filter, Users, MapPin, FileText, CheckCircle, AlertCircle, ChevronDown, Loader } from 'lucide-react';
 
 // Import all data and utilities
@@ -35,7 +36,7 @@ const checkEligibility = (beneficiary, schemeId) => {
 };
 
 const DSS = () => {
-  const [selectedScheme, setSelectedScheme] = useState(null);
+  const navigate = useNavigate();
   const [filters, setFilters] = useState({
     state: '',
     village: '',
@@ -77,35 +78,34 @@ const DSS = () => {
     }
   }, [filters.state, filters.village]);
 
-const handleSearch = () => {
-  setIsLoading(true);
-  setHasSearched(true);
-  
-  // Get beneficiaries based on selected filters
-  let beneficiaries = [];
-  
-  if (filters.beneficiary) {
-    console.log('Searching for beneficiary:', filters.beneficiary);
-    beneficiaries = getBeneficiariesByFilters(filters.state, filters.village, filters.beneficiary);
-    console.log('Found beneficiaries:', beneficiaries);
-  } else if (filters.village) {
-    beneficiaries = getBeneficiariesByFilters(filters.state, filters.village);
-  } else if (filters.state) {
-    beneficiaries = getBeneficiariesByFilters(filters.state);
-  }
-  
-  setFilteredBeneficiaries(beneficiaries);
-  
-  setTimeout(() => {
-    setIsLoading(false);
-  }, 50);
-};
+  const handleSearch = () => {
+    setIsLoading(true);
+    setHasSearched(true);
+    
+    // Get beneficiaries based on selected filters
+    let beneficiaries = [];
+    
+    if (filters.beneficiary) {
+      beneficiaries = getBeneficiariesByFilters(filters.state, filters.village, filters.beneficiary);
+    } else if (filters.village) {
+      beneficiaries = getBeneficiariesByFilters(filters.state, filters.village);
+    } else if (filters.state) {
+      beneficiaries = getBeneficiariesByFilters(filters.state);
+    }
+    
+    setFilteredBeneficiaries(beneficiaries);
+    
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 50);
+  };
+
   const SchemeCard = ({ scheme }) => {
     const IconComponent = scheme.icon;
     return (
       <div 
         className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer transform hover:-translate-y-1 border border-gray-100"
-        onClick={() => setSelectedScheme(scheme)}
+        onClick={() => navigate(`/scheme/${scheme.id}`)}
       >
         <div className="p-6">
           <div className="flex items-center mb-4">
@@ -121,87 +121,6 @@ const handleSearch = () => {
           <div className="flex items-center text-green-600 font-semibold text-sm">
             <CheckCircle className="w-4 h-4 mr-2" />
             {scheme.benefit}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const SchemeModal = ({ scheme, onClose }) => {
-    const IconComponent = scheme.icon;
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-          <div className="p-6 border-b border-gray-200">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <div className={`p-3 bg-gradient-to-br ${scheme.color} rounded-lg text-white mr-4`}>
-                  <IconComponent className="w-8 h-8" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-800">{scheme.name}</h2>
-                  <p className="text-gray-600">{scheme.fullName}</p>
-                  <p className="text-sm text-gray-500">{scheme.ministry}</p>
-                </div>
-              </div>
-              <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-3xl font-light">×</button>
-            </div>
-          </div>
-          
-          <div className="p-6 space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Description</h3>
-              <p className="text-gray-700">{scheme.description}</p>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Benefit</h3>
-              <div className="flex items-center text-green-600 font-semibold">
-                <CheckCircle className="w-5 h-5 mr-2" />
-                {scheme.benefit}
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">Eligibility Criteria</h3>
-              <ul className="space-y-2">
-                {scheme.eligibility.map((criteria, index) => (
-                  <li key={index} className="flex items-start">
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700 text-sm">{criteria}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">Required Documents</h3>
-              <ul className="space-y-2">
-                {scheme.documents.map((doc, index) => (
-                  <li key={index} className="flex items-start">
-                    <FileText className="w-4 h-4 text-blue-500 mr-2 flex-shrink-0 mt-0.5" />
-                    <span className="text-gray-700 text-sm">{doc}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">Data Points Extracted</h3>
-              <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                {scheme.dataPoints.map((point, index) => (
-                  <li key={index} className="flex items-center text-sm">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                    <span className="text-gray-600">{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <h4 className="font-medium text-gray-800 mb-2">Rule Basis:</h4>
-              <p className="text-sm text-gray-600">{scheme.rulesBasis}</p>
-            </div>
           </div>
         </div>
       </div>
@@ -330,12 +249,20 @@ const handleSearch = () => {
             FRA-CSS Cross-linking Platform for Tribal Development
           </p>
           <div className="mt-4 flex items-center justify-center space-x-4 text-sm">
-            
             <div className="flex items-center">
               <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
               <span className="text-gray-600">Total Schemes: {schemes.length}</span>
             </div>
-           
+          </div>
+        </div>
+        
+        {/* Schemes Grid */}
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Central Sector Schemes (CSS)</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {schemes.map(scheme => (
+              <SchemeCard key={scheme.id} scheme={scheme} />
+            ))}
           </div>
         </div>
 
@@ -419,16 +346,6 @@ const handleSearch = () => {
           )}
         </div>
 
-        {/* Schemes Grid */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Central Sector Schemes (CSS)</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {schemes.map(scheme => (
-              <SchemeCard key={scheme.id} scheme={scheme} />
-            ))}
-          </div>
-        </div>
-
         {/* Beneficiaries Section */}
         {hasSearched && (
           <div>
@@ -480,14 +397,6 @@ const handleSearch = () => {
               </div>
             )}
           </div>
-        )}
-
-        {/* Modal */}
-        {selectedScheme && (
-          <SchemeModal 
-            scheme={selectedScheme} 
-            onClose={() => setSelectedScheme(null)} 
-          />
         )}
       </div>
     </div>
