@@ -10,7 +10,7 @@ const SchemeDetail = () => {
 
   if (!scheme) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+      <div className="min-h-screen bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center py-12">
             <h1 className="text-2xl font-bold text-gray-800 mb-4">Scheme not found</h1>
@@ -26,7 +26,7 @@ const SchemeDetail = () => {
   const IconComponent = scheme.icon;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="min-h-screen bg-white">
       <div className="max-w-4xl mx-auto">
         {/* Back Button */}
         <Link 
@@ -90,22 +90,9 @@ const SchemeDetail = () => {
             </ul>
           </div>
 
-          <div>
-            <h2 className="text-xl font-semibold text-gray-800 mb-3">Data Points Extracted</h2>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              {scheme.dataPoints.map((point, index) => (
-                <li key={index} className="flex items-center">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full mr-2"></div>
-                  <span className="text-gray-600">{point}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          
 
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <h3 className="font-medium text-gray-800 mb-2">Rule Basis:</h3>
-            <p className="text-gray-600">{scheme.rulesBasis}</p>
-          </div>
+         
         </div>
       </div>
     </div>

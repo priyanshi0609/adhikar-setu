@@ -54,16 +54,7 @@ export const schemes = [
       'Bank Account Details',
       'Caste Certificate (if applicable)'
     ],
-    dataPoints: [
-      'Job Card Number',
-      'Household Head Name',
-      'Father\'s/Husband\'s name',
-      'Category (SC/ST/OBC/General)',
-      'Village, Block, District',
-      'Total members in household',
-      'FRA Patta holder status'
-    ],
-    rulesBasis: 'If FRA patta + ST category → eligible for 150 days',
+    
     color: 'from-blue-500 to-cyan-600'
   },
   {
