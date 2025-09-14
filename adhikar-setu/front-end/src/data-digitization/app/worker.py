@@ -5,7 +5,6 @@ import numpy as np
 from typing import Dict
 from app.config import config
 from app.logger import setup_logger
-from app.ingestion import ingest_file
 from app.preprocess import preprocess_image
 from app.ocr_provider import perform_ocr
 from app.layout import detect_layout, detect_tables
@@ -44,26 +43,33 @@ def process_document(document_id: str) -> Dict:
         
         # Process each page
         pages_data = []
-        extracted_entities = {}
+        all_entities = []  # Collect entities from all pages
         
         for page_num, image in enumerate(images):
             logger.info(f"Processing page {page_num + 1}")
             
-            # Convert to numpy array if needed
+            # Convert to numpy array if needed (PIL Image to numpy)
             if hasattr(image, 'size'):  # PIL Image
-                image = np.array(image)
+                image_np = np.array(image)
+                # Convert RGB to BGR for OpenCV if needed
+                if len(image_np.shape) == 3 and image_np.shape[2] == 3:
+                    image_np = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
+            else:
+                image_np = image
             
             # Preprocess image
-            processed_image = preprocess_image(image)
+            processed_image = preprocess_image(image_np)
             
-            # Detect layout
-            layout_blocks = detect_layout(processed_image)
-            
-            # Perform OCR
+            # Perform OCR - CRITICAL: Pass numpy array, not PIL image
             ocr_result = perform_ocr(processed_image)
             
             # Extract entities using NER
             entities = extract_entities(ocr_result['text'], ocr_result['blocks'])
+            
+            # Store entities with page context
+            for entity in entities:
+                entity['page'] = page_num + 1
+                all_entities.append(entity)
             
             # Store page data
             page_data = {
@@ -72,17 +78,17 @@ def process_document(document_id: str) -> Dict:
                 'height': processed_image.shape[0],
                 'ocr_text': ocr_result['text'],
                 'ocr_blocks': ocr_result['blocks'],
-                'layout_blocks': layout_blocks,
                 'entities': entities
             }
             pages_data.append(page_data)
-            
-            # Aggregate entities across pages
-            for entity in entities:
-                entity_type = entity['label']
-                if entity_type not in extracted_entities:
-                    extracted_entities[entity_type] = []
-                extracted_entities[entity_type].append(entity)
+        
+        # Group entities by type across all pages
+        extracted_entities = {}
+        for entity in all_entities:
+            entity_type = entity['label']
+            if entity_type not in extracted_entities:
+                extracted_entities[entity_type] = []
+            extracted_entities[entity_type].append(entity)
         
         # Post-process and normalize extracted data
         processed_data = process_extracted_entities(extracted_entities)
@@ -95,8 +101,8 @@ def process_document(document_id: str) -> Dict:
             'extracted_fields': processed_data,
             'processing_summary': {
                 'total_pages': len(pages_data),
-                'entities_found': len(extracted_entities),
-                'processing_time': 'TODO'  # Would calculate actual time
+                'entities_found': len(all_entities),
+                'processing_time': 'TODO'
             }
         }
         
@@ -105,10 +111,14 @@ def process_document(document_id: str) -> Dict:
         document_data['export_paths'] = export_results
         
         logger.info(f"Completed processing for document: {document_id}")
+        logger.info(f"Extracted fields: {list(processed_data.keys())}")
+        
         return document_data
         
     except Exception as e:
         logger.error(f"Error processing document {document_id}: {str(e)}")
+        import traceback
+        logger.error(traceback.format_exc())
         raise
 
 def find_document_file(document_id: str) -> str:
@@ -144,14 +154,20 @@ def process_extracted_entities(entities: Dict) -> Dict:
             processed['claimant_name'] = {
                 'value': text.title(),
                 'confidence': confidence,
-                'provenance': best_entity.get('provenance')
+                'provenance': [{
+                    'page': best_entity.get('page', 1),
+                    'bbox': best_entity.get('provenance', {}).get('bbox', []) if best_entity.get('provenance') else []
+                }]
             }
         
         elif entity_type == 'GUARDIAN_NAME':
             processed['guardian_name'] = {
                 'value': text.title(),
                 'confidence': confidence,
-                'provenance': best_entity.get('provenance')
+                'provenance': [{
+                    'page': best_entity.get('page', 1),
+                    'bbox': best_entity.get('provenance', {}).get('bbox', []) if best_entity.get('provenance') else []
+                }]
             }
         
         elif entity_type == 'VILLAGE':
@@ -161,14 +177,20 @@ def process_extracted_entities(entities: Dict) -> Dict:
                 'value': match_result['village'] if match_result else text,
                 'confidence': combine_confidences(confidence, match_result['score']/100 if match_result else 0.5),
                 'gazetteer_match': match_result,
-                'provenance': best_entity.get('provenance')
+                'provenance': [{
+                    'page': best_entity.get('page', 1),
+                    'bbox': best_entity.get('provenance', {}).get('bbox', []) if best_entity.get('provenance') else []
+                }]
             }
         
         elif entity_type == 'DISTRICT':
             processed['district'] = {
                 'value': text.title(),
                 'confidence': confidence,
-                'provenance': best_entity.get('provenance')
+                'provenance': [{
+                    'page': best_entity.get('page', 1),
+                    'bbox': best_entity.get('provenance', {}).get('bbox', []) if best_entity.get('provenance') else []
+                }]
             }
         
         elif entity_type == 'AREA_HA':
@@ -177,7 +199,10 @@ def process_extracted_entities(entities: Dict) -> Dict:
                 'value': area_value,
                 'confidence': confidence if area_value is not None else 0.3,
                 'original_text': text,
-                'provenance': best_entity.get('provenance')
+                'provenance': [{
+                    'page': best_entity.get('page', 1),
+                    'bbox': best_entity.get('provenance', {}).get('bbox', []) if best_entity.get('provenance') else []
+                }]
             }
         
         elif entity_type == 'OCCUPATION_DATE':
@@ -186,7 +211,10 @@ def process_extracted_entities(entities: Dict) -> Dict:
                 'value': date_value,
                 'confidence': confidence if date_value is not None else 0.3,
                 'original_text': text,
-                'provenance': best_entity.get('provenance')
+                'provenance': [{
+                    'page': best_entity.get('page', 1),
+                    'bbox': best_entity.get('provenance', {}).get('bbox', []) if best_entity.get('provenance') else []
+                }]
             }
         
         elif entity_type == 'COORDINATES':
@@ -195,7 +223,10 @@ def process_extracted_entities(entities: Dict) -> Dict:
                 'value': coords_value,
                 'confidence': confidence if coords_value is not None else 0.3,
                 'original_text': text,
-                'provenance': best_entity.get('provenance')
+                'provenance': [{
+                    'page': best_entity.get('page', 1),
+                    'bbox': best_entity.get('provenance', {}).get('bbox', []) if best_entity.get('provenance') else []
+                }]
             }
         
         elif entity_type == 'KHASRA':
@@ -204,7 +235,20 @@ def process_extracted_entities(entities: Dict) -> Dict:
                 'value': khasra_value,
                 'confidence': confidence,
                 'original_text': text,
-                'provenance': best_entity.get('provenance')
+                'provenance': [{
+                    'page': best_entity.get('page', 1),
+                    'bbox': best_entity.get('provenance', {}).get('bbox', []) if best_entity.get('provenance') else []
+                }]
+            }
+        
+        elif entity_type == 'TITLE_NO':
+            processed['title_no'] = {
+                'value': text,
+                'confidence': confidence,
+                'provenance': [{
+                    'page': best_entity.get('page', 1),
+                    'bbox': best_entity.get('provenance', {}).get('bbox', []) if best_entity.get('provenance') else []
+                }]
             }
         
         # Add more entity type processing as needed
