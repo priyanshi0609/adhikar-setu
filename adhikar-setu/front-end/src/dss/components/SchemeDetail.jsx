@@ -25,7 +25,6 @@ const SchemeDetail = () => {
     );
   }
 
-  // Get the correct icosn component based on the scheme data
   const IconComponent = scheme.icon;
 
   return (
@@ -49,10 +48,10 @@ const SchemeDetail = () => {
               <h1 className="text-3xl md:text-4xl font-bold mb-2">
                 {scheme.name}
               </h1>
-              <p className="text-xl text-green-100 font-medium mb-4">
+              <p className="text-xl text-green-100 font-medium mb-4 ">
                 {scheme.fullName}
               </p>
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white bg-opacity-20 text-black text-sm font-medium backdrop-blur-sm">
+              <div className="inline-flex items-center px-4 py-2rounded-lg p-4 border border-gray-200 bg-white bg-opacity-20 text-black text-sm font-medium backdrop-blur-sm">
                 {scheme.ministry}
               </div>
             </div>
@@ -62,15 +61,15 @@ const SchemeDetail = () => {
 
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 py-8 -mt-10">
-        <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
+        <div className="bg-white rounded-2xl shadow-sm p-6 mb-8 ">
           <p className="text-gray-700 text-lg leading-relaxed">
             {scheme.description}
           </p>
         </div>
 
         {/* Key Highlights */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 ">
+          <div className="bg-gradient-to-br from-green-50 to-green-100 p-5 rounded-lg p-4 border border-gray-200">
             <div className="flex items-center mb-3">
               <CheckCircle className="w-6 h-6 text-green-600 mr-3" />
               <h3 className="font-semibold text-gray-800">Primary Benefit</h3>
@@ -88,7 +87,7 @@ const SchemeDetail = () => {
             </div>
           )}
 
-          <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-xl">
+          <div className="bg-gradient-to-br from-purple-50 to-purple-100 p-5 rounded-lg p-4 border border-gray-200">
             <div className="flex items-center mb-3">
               <Users className="w-6 h-6 text-purple-600 mr-3" />
               <h3 className="font-semibold text-gray-800">Target Beneficiaries</h3>
@@ -97,7 +96,6 @@ const SchemeDetail = () => {
           </div>
         </div>
 
-        {/* Two-column layout for eligibility and documents */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Eligibility Criteria */}
           <div>
@@ -105,7 +103,7 @@ const SchemeDetail = () => {
               <Target className="w-5 h-5 mr-2 text-green-600" />
               Eligibility Criteria
             </h2>
-            <ul className="space-y-4">
+            <ul className="space-y-4 rounded-lg p-4 border border-gray-200">
               {scheme.eligibility.map((criteria, index) => (
                 <li key={index} className="flex items-start">
                   <div className="flex-shrink-0 mt-1">
@@ -125,7 +123,7 @@ const SchemeDetail = () => {
               <FileText className="w-5 h-5 mr-2 text-green-600" />
               Required Documents
             </h2>
-            <ul className="space-y-4">
+            <ul className="space-y-4 rounded-lg p-4 border border-gray-200">
               {scheme.documents.map((doc, index) => (
                 <li key={index} className="flex items-start">
                   <div className="flex-shrink-0 mt-1">
@@ -146,7 +144,7 @@ const SchemeDetail = () => {
             <h2 className="text-xl font-semibold text-gray-800 mb-6 pb-2 border-b border-gray-200">
               Application Process
             </h2>
-            <div className="bg-gray-50 rounded-xl p-6">
+            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
               <ol className="space-y-4">
                 {scheme.process.map((step, index) => (
                   <li key={index} className="flex items-start">

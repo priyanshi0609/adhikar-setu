@@ -313,7 +313,7 @@ const DSSResults = () => {
     const stats = schemeEligibility[scheme.id] || { eligible: 0, total: 0, percentage: 0 };
     
     return (
-      <div className="bg-white rounded-lg p-4 border border-gray-200 transition-all duration-200 hover:shadow-md">
+      <div className="bg-white rounded-lg p-4 border border-gray-200 transition-all duration-200 ">
         <div className="flex items-center mb-3">
           <div className="p-2 bg-green-100 rounded-lg mr-3">
             <scheme.icon className="w-5 h-5 text-green-600" />
@@ -461,7 +461,7 @@ const DSSResults = () => {
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-lg p-6 mb-8 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-lg p-6 mb-8 border border-gray-200">
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center">
               <div className="p-2 bg-green-100 rounded-lg mr-3">
