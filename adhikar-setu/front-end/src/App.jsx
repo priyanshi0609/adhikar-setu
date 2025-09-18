@@ -6,6 +6,7 @@ import LoginContainer from './Login/LoginContainer';
 import { onAuthStateChange, getCurrentUserProfile } from './firebase/authService';
 import DSS from './dss/components/DSS';
 import SchemeDetail from './dss/components/SchemeDetail';
+import DSSResults from './dss/components/DSS_Result';
 
 // Lazy load route components for better performance
 const Dashboard = lazy(() => import('./components/Dashboard'));
@@ -200,6 +201,7 @@ function App() {
                 element={<HomePage />}
               />
               <Route path="/dss" element={<DSS />} />
+              <Route path="/dss_results" element={<DSSResults />} />
 
               {/* Login Route */}
               <Route
@@ -278,7 +280,19 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              {/* Scheme Detail Route */}
+              <Route 
+              path="/dss_results"
+              element={
+                <ProtectedRoute
+                  allowedRoles={['gram_sabha']}
+                  user={currentUser}
+                  language={language}
+                  >
+                  <DSSResults user={currentUser} language={language} />
+                </ProtectedRoute>
+              }
+              />
+              
                 <Route
                 path="/scheme/:schemeId"
                 element={<SchemeDetail language={language} />}
