@@ -6,7 +6,7 @@ import {
 import { Link } from "react-router-dom";
 import mapboxgl from "mapbox-gl"; // Import mapbox-gl
 import "mapbox-gl/dist/mapbox-gl.css"; // Import default Mapbox CSS
-// mapboxgl.accessToken = ""
+ mapboxgl.accessToken = "pk.eyJ1IjoiYXJzaHRpd2FyaSIsImEiOiJjbTJhODE2dm8wZ2MxMmlxdTJkbnJ1aTZnIn0.m9ky2-2MfcdA37RIVoxC_w";
 
 const Dashboard = ({ user, language }) => {
   const [selectedState, setSelectedState] = useState('Chhattisgarh');
@@ -16,8 +16,8 @@ const Dashboard = ({ user, language }) => {
   const mapRef = useRef(null);
 
   const states = ['Chhattisgarh', 'Jharkhand', 'Odisha', 'Madhya Pradesh'];
-  const districts = ['Bastar', 'Kanker', 'Kondagaon', 'Sukma'];
-  const villages = ['All Villages', 'Jagdalpur', 'Kondagaon', 'Keskal', 'Bakawand'];
+  const districts = ['Khurda', 'Cuttack', 'Koraput', 'Sambalpur'];
+  const villages = ['All Villages', 'Bhubaneswar', 'Cuttack', 'Koraput', 'Sambalpur'];
 
   const getKPIData = () => {
     switch (user.role) {
@@ -44,27 +44,303 @@ const Dashboard = ({ user, language }) => {
         ];
     }
   };
-  useEffect(() => {
-    if (mapRef.current) return; // prevent multiple maps on re-render
-    if (!mapContainerRef.current) return; // ensure container is available
 
-    mapRef.current = new mapboxgl.Map({
-      // container: mapContainerRef.current!, // container ID
-      container: mapContainerRef.current, // container ID
-      style: "mapbox://styles/mapbox/streets-v12", // style URL
-      center: [77.209, 28.6139], // [lng, lat] -> example: New Delhi
-      zoom: 10, // zoom level
-    });
+  // Mock GeoJSON data (fallback if file doesn't load)
+  const mockClaimsData = {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "id": 1,
+        "properties": {
+          "claim_id": "OD-001",
+          "status": "Submitted",
+          "claimant_name": "Ramesh Sahoo",
+          "area_m2": 1025.4,
+          "submitted_at": "2025-08-20"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [85.820, 20.295],
+              [85.830, 20.295],
+              [85.830, 20.305],
+              [85.820, 20.305],
+              [85.820, 20.295]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 2,
+        "properties": {
+          "claim_id": "OD-002",
+          "status": "Verified",
+          "claimant_name": "Asha Lenka",
+          "area_m2": 840.2,
+          "submitted_at": "2025-07-10"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [85.875, 20.460],
+              [85.885, 20.460],
+              [85.885, 20.470],
+              [85.875, 20.470],
+              [85.875, 20.460]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 3,
+        "properties": {
+          "claim_id": "OD-003",
+          "status": "Approved",
+          "claimant_name": "Suresh Patnaik",
+          "area_m2": 2230.0,
+          "submitted_at": "2025-06-12"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [83.965, 21.455],
+              [83.975, 21.455],
+              [83.975, 21.462],
+              [83.965, 21.462],
+              [83.965, 21.455]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 4,
+        "properties": {
+          "claim_id": "OD-004",
+          "status": "Rejected",
+          "claimant_name": "Geeta Mohanty",
+          "area_m2": 560.75,
+          "submitted_at": "2025-05-30"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [82.725, 18.824],
+              [82.735, 18.824],
+              [82.735, 18.830],
+              [82.725, 18.830],
+              [82.725, 18.824]
+            ]
+          ]
+        }
+      }
+    ]
+  };
 
-    // ✅ Optional: Add navigation controls
-    mapRef.current.addControl(new mapboxgl.NavigationControl(), "top-right");
-
-    return () => {
-      mapRef.current?.remove(); // cleanup on unmount
-    };
-  }, []);
   const kpiData = getKPIData();
 
+  const loadClaimsData = async () => {
+    try {
+      // Try to fetch from file first
+      const response = await fetch('/data/claims.json');
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Successfully loaded claims.json from file');
+        return data;
+      } else {
+        throw new Error(`Failed to fetch: ${response.status}`);
+      }
+    } catch (error) {
+      console.warn('Could not load /mock-data/claims.json, using fallback data:', error);
+      // Use embedded mock data as fallback
+      return mockClaimsData;
+    }
+  };
+
+  useEffect(() => {
+    // Prevent map re-creation
+    if (mapRef.current) return;
+    if (!mapContainerRef.current) return;
+
+    console.log('Initializing map...');
+
+    // Center set to Bhubaneswar (Odisha). Zoom 6 to show state-level.
+    mapRef.current = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: "mapbox://styles/mapbox/streets-v12",
+      center: [85.8245, 20.2961], // [lng, lat] -> Bhubaneswar, Odisha
+      zoom: 20
+    });
+
+    // Add nav controls
+    mapRef.current.addControl(new mapboxgl.NavigationControl(), "top-right");
+    
+    // Wait for both style and map to load
+    mapRef.current.on('style.load', async () => {
+      console.log('Map style loaded, loading claims data...');
+      
+      try {
+        const geojson = await loadClaimsData();
+        console.log('Claims data loaded:', geojson);
+
+        // Add source and layers
+        mapRef.current.addSource('claims', {
+          type: 'geojson',
+          data: geojson
+        });
+
+        // Fill layer colored by status
+        mapRef.current.addLayer({
+          id: 'claims-fill',
+          type: 'fill',
+          source: 'claims',
+          paint: {
+            'fill-color': [
+              'match',
+              ['get', 'status'],
+              'Submitted', '#f9a825',
+              'Verified', '#1976d2',
+              'Approved', '#2e7d32',
+              'Rejected', '#d32f2f',
+              '#cccccc'
+            ],
+            'fill-opacity': [
+              'case',
+              ['boolean', ['feature-state', 'hover'], false],
+              0.85,
+              0.5
+            ]
+          }
+        });
+
+        // Outline
+        mapRef.current.addLayer({
+          id: 'claims-outline',
+          type: 'line',
+          source: 'claims',
+          paint: {
+            'line-color': [
+              'match',
+              ['get', 'status'],
+              'Submitted', '#c17900',
+              'Verified', '#0b5b9a',
+              'Approved', '#1b5e20',
+              'Rejected', '#a91d1d',
+              '#888888'
+            ],
+            'line-width': 2
+          }
+        });
+
+        console.log('Layers added successfully');
+
+        // Fit to data bounds (calculate simple bbox)
+        try {
+          const bounds = new mapboxgl.LngLatBounds();
+          geojson.features.forEach(f => {
+            // handle polygons only (simple example); extend by each coordinate in first ring
+            const coords = f.geometry.coordinates;
+            if (f.geometry.type === 'Polygon') {
+              coords[0].forEach(([lng, lat]) => bounds.extend([lng, lat]));
+            } else if (f.geometry.type === 'MultiPolygon') {
+              f.geometry.coordinates.forEach(polygon => polygon[0].forEach(([lng, lat]) => bounds.extend([lng, lat])));
+            }
+          });
+          if (!bounds.isEmpty()) {
+            mapRef.current.fitBounds(bounds, { padding: 40, maxZoom: 12 });
+            console.log('Fitted to bounds');
+          }
+        } catch (err) {
+          console.warn('Could not compute bounds', err);
+        }
+
+        // Hover (feature-state)
+        let hoveredId = null;
+        mapRef.current.on('mousemove', 'claims-fill', (e) => {
+          if (!e.features || !e.features.length) return;
+          const feature = e.features[0];
+          if (hoveredId !== null) {
+            mapRef.current.setFeatureState({ source: 'claims', id: hoveredId }, { hover: false });
+          }
+          hoveredId = feature.id;
+          mapRef.current.setFeatureState({ source: 'claims', id: hoveredId }, { hover: true });
+          mapRef.current.getCanvas().style.cursor = 'pointer';
+        });
+
+        mapRef.current.on('mouseleave', 'claims-fill', () => {
+          if (hoveredId !== null) {
+            mapRef.current.setFeatureState({ source: 'claims', id: hoveredId }, { hover: false });
+          }
+          hoveredId = null;
+          mapRef.current.getCanvas().style.cursor = '';
+        });
+
+        // Click -> popup
+        mapRef.current.on('click', 'claims-fill', (e) => {
+          if (!e.features || !e.features.length) return;
+          const feat = e.features[0];
+          const p = feat.properties || {};
+          // area_m2 might be string — format defensively
+          const area = p.area_m2 ? Number(p.area_m2).toFixed(2) + ' m²' : '—';
+          const html = `
+            <div style="font-size:13px">
+              <strong>${p.claimant_name || '—'}</strong><br/>
+              ID: ${p.claim_id || '—'}<br/>
+              Status: ${p.status || '—'}<br/>
+              Area: ${area}
+            </div>
+          `;
+          new mapboxgl.Popup({ offset: 12 })
+            .setLngLat(e.lngLat)
+            .setHTML(html)
+            .addTo(mapRef.current);
+        });
+
+        // Simple legend inserted into map container (optional)
+        const existingLegend = document.getElementById('claims-legend');
+        if (!existingLegend && mapContainerRef.current) {
+          const legend = document.createElement('div');
+          legend.id = 'claims-legend';
+          legend.style.position = 'absolute';
+          legend.style.top = '12px';
+          legend.style.right = '12px';
+          legend.style.background = 'white';
+          legend.style.padding = '8px 10px';
+          legend.style.borderRadius = '6px';
+          legend.style.fontSize = '13px';
+          legend.style.boxShadow = '0 2px 6px rgba(0,0,0,0.15)';
+          legend.innerHTML = `
+            <div style="margin-bottom:6px;font-weight:600">Claim Status</div>
+            <div style="display:flex;gap:8px;align-items:center;margin:2px 0"><span style="width:12px;height:12px;background:#f9a825;display:inline-block;border:1px solid #ccc"></span>Submitted</div>
+            <div style="display:flex;gap:8px;align-items:center;margin:2px 0"><span style="width:12px;height:12px;background:#1976d2;display:inline-block;border:1px solid #ccc"></span>Verified</div>
+            <div style="display:flex;gap:8px;align-items:center;margin:2px 0"><span style="width:12px;height:12px;background:#2e7d32;display:inline-block;border:1px solid #ccc"></span>Approved</div>
+            <div style="display:flex;gap:8px;align-items:center;margin:2px 0"><span style="width:12px;height:12px;background:#d32f2f;display:inline-block;border:1px solid #ccc"></span>Rejected</div>
+          `;
+          // append to the map container parent so it floats over the map
+          mapContainerRef.current.appendChild(legend);
+        }
+
+      } catch (error) {
+        console.error('Error setting up claims visualization:', error);
+      }
+    });
+
+    // Cleanup on unmount
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
+    };
+  }, [/* empty */]);
+  
   return (
     <div className="min-h-screen bg-gray-50 p-6 space-y-6">
       {/* Header */}

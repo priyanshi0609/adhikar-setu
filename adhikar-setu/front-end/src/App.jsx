@@ -181,7 +181,7 @@ function App() {
       )}
 
       {/* Routes */}
-      <main className={currentUser ? 'pt-16' : ''}>
+      <main className={currentUser ? '' : ''}>
         <ErrorBoundary language={language}>
           <Suspense fallback={
             <div className="flex items-center justify-center min-h-[400px]">

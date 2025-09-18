@@ -1,0 +1,98 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "id": 1,
+        "properties": {
+          "claim_id": "OD-001",
+          "status": "Submitted",
+          "claimant_name": "Ramesh Sahoo",
+          "area_m2": 1025.4,
+          "submitted_at": "2025-08-20"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [85.820, 20.295],
+              [85.830, 20.295],
+              [85.830, 20.305],
+              [85.820, 20.305],
+              [85.820, 20.295]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 2,
+        "properties": {
+          "claim_id": "OD-002",
+          "status": "Verified",
+          "claimant_name": "Asha Lenka",
+          "area_m2": 840.2,
+          "submitted_at": "2025-07-10"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [85.875, 20.460],
+              [85.885, 20.460],
+              [85.885, 20.470],
+              [85.875, 20.470],
+              [85.875, 20.460]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 3,
+        "properties": {
+          "claim_id": "OD-003",
+          "status": "Approved",
+          "claimant_name": "Suresh Patnaik",
+          "area_m2": 2230.0,
+          "submitted_at": "2025-06-12"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [83.965, 21.455],
+              [83.975, 21.455],
+              [83.975, 21.462],
+              [83.965, 21.462],
+              [83.965, 21.455]
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 4,
+        "properties": {
+          "claim_id": "OD-004",
+          "status": "Rejected",
+          "claimant_name": "Geeta Mohanty",
+          "area_m2": 560.75,
+          "submitted_at": "2025-05-30"
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [82.725, 18.824],
+              [82.735, 18.824],
+              [82.735, 18.830],
+              [82.725, 18.830],
+              [82.725, 18.824]
+            ]
+          ]
+        }
+      }
+    ]
+  }
+  
