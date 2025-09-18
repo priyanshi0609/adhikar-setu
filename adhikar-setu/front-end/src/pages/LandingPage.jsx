@@ -21,147 +21,55 @@ import {
   Phone,
   MapIcon,
   ExternalLink,
-  Menu,
-  X,
-  ChevronLeft,
-  ChevronRight,
-  Scale,
-  FileText,
-  Gavel,
+  Twitter,
+  Linkedin,
 } from "lucide-react";
-import { useState, useEffect } from "react";
-import { colors, colorUtils } from "../colors.js";
-
-// Import local images
-import image1 from "@/assets/image_1.jpg";
-import image2 from "@/assets/image_2.png";
-import image3 from "@/assets/image_3.jpg";
 import digitalMap from "@/assets/digital-map.jpg";
+import tribalCommunity from "@/assets/tribal-community.png";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [scrollY, setScrollY] = useState(0);
-
-  // Handle scroll for animations
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Carousel images
-  const carouselImages = [
-    {
-      url: image1,
-      alt: "Forest landscape with tribal community",
-      title: "Empowering Forest Communities",
-    },
-    {
-      url: image2,
-      alt: "Digital mapping technology",
-      title: "Digital Transformation",
-    },
-    {
-      url: image3,
-      alt: "Tribal community members",
-      title: "Community Rights Protection",
-    },
-  ];
-
-  // Auto-advance carousel
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide(
-      (prev) => (prev - 1 + carouselImages.length) % carouselImages.length
-    );
-  };
-
   return (
-    <div
-      className="min-h-screen"
-      style={{ backgroundColor: colors.background.primary }}
-    >
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <header
-        className="sticky top-0 z-50"
-        style={{
-          backgroundColor: colorUtils.withOpacity(
-            colors.background.primary,
-            0.95
-          ),
-          backdropFilter: "blur(8px)",
-          borderBottom: `1px solid ${colors.border.light}`,
-          boxShadow: colors.shadow.sm,
-        }}
-      >
+      <header className="border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50 -mt-12">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div
-                className="p-1.5 rounded-lg"
-                style={{
-                  background: colors.background.gradient.primary,
-                }}
-              >
-                <TreePine
-                  className="h-7 w-7"
-                  style={{ color: colors.text.inverse }}
-                />
-              </div>
-              <div>
-                <span
-                  className="text-xl font-bold"
-                  style={{ color: colors.text.primary }}
-                >
-                  Adhikar Setu
-                </span>
-                <div
-                  className="text-xs font-medium"
-                  style={{ color: colors.text.tertiary }}
-                >
-                  Government of India
-                </div>
-              </div>
+            <div className="flex items-center space-x-2">
+              <TreePine className="h-8 w-8 text-green-600" />
+              <span className="text-2xl font-bold text-gray-900">
+                Adhikar Setu
+              </span>
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              {["About FRA", "Our Work", "Impact", "Contact"].map(
-                (item, index) => (
-                  <a
-                    key={index}
-                    href={`#${item.toLowerCase().replace(" ", "")}`}
-                    className="font-medium text-sm tracking-wide transition-colors duration-200"
-                    style={{
-                      color: colors.text.secondary,
-                    }}
-                    onMouseEnter={(e) =>
-                      (e.target.style.color = colors.primary[600])
-                    }
-                    onMouseLeave={(e) =>
-                      (e.target.style.color = colors.text.secondary)
-                    }
-                  >
-                    {item}
-                  </a>
-                )
-              )}
+            <nav className="hidden md:flex items-center space-x-8">
+              <a
+                href="#about"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                About FRA
+              </a>
+              <a
+                href="#work"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Our Work
+              </a>
+              <a
+                href="#impact"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Impact
+              </a>
+              <a
+                href="#contact"
+                className="text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Contact
+              </a>
             </nav>
 
-            {/* Desktop Buttons */}
-            <div className="hidden lg:flex items-center space-x-3">
+            <div className="flex items-center space-x-3">
               <a
                 href="https://github.com/ArshTiwari2004/adhikar-setu"
                 target="_blank"
@@ -170,178 +78,46 @@ export default function HomePage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="transition-all duration-200"
-                  style={{
-                    borderColor: colors.border.medium,
-                    color: colors.text.secondary,
-                    backgroundColor: "transparent",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor =
-                      colors.background.secondary;
-                    e.target.style.borderColor = colors.border.dark;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = "transparent";
-                    e.target.style.borderColor = colors.border.medium;
-                  }}
+                  className="hidden sm:flex items-center space-x-2 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50"
                 >
-                  <Github className="h-4 w-4 mr-2" />
-                  Repository
+                  <Github className="h-4 w-4" />
+                  <span>Star Repo</span>
                 </Button>
               </a>
-              <Button
-                size="sm"
-                className="transition-colors duration-200"
-                style={{
-                  backgroundColor: colors.primary[600],
-                  color: colors.text.inverse,
-                }}
-                onMouseEnter={(e) =>
-                  (e.target.style.backgroundColor = colors.primary[700])
-                }
-                onMouseLeave={(e) =>
-                  (e.target.style.backgroundColor = colors.primary[600])
-                }
-                onClick={() => (window.location.href = "/login")}
-              >
-                <LogIn className="h-4 w-4 mr-2" />
-                Portal Login
-              </Button>
-            </div>
 
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden p-2 rounded-lg transition-colors"
-              style={{
-                backgroundColor: "transparent",
-              }}
-              onMouseEnter={(e) =>
-                (e.target.style.backgroundColor = colors.background.secondary)
-              }
-              onMouseLeave={(e) =>
-                (e.target.style.backgroundColor = "transparent")
-              }
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? (
-                <X
-                  className="h-6 w-6"
-                  style={{ color: colors.text.secondary }}
-                />
-              ) : (
-                <Menu
-                  className="h-6 w-6"
-                  style={{ color: colors.text.secondary }}
-                />
-              )}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div
-              className="lg:hidden py-4"
-              style={{
-                borderTop: `1px solid ${colors.border.light}`,
-                backgroundColor: colors.background.primary,
-              }}
-            >
-              <nav className="flex flex-col space-y-4">
-                {["About FRA", "Our Work", "Impact", "Contact"].map(
-                  (item, index) => (
-                    <a
-                      key={index}
-                      href={`#${item.toLowerCase().replace(" ", "")}`}
-                      className="px-2 py-1 font-medium transition-colors"
-                      style={{ color: colors.text.secondary }}
-                      onMouseEnter={(e) =>
-                        (e.target.style.color = colors.primary[600])
-                      }
-                      onMouseLeave={(e) =>
-                        (e.target.style.color = colors.text.secondary)
-                      }
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {item}
-                    </a>
-                  )
-                )}
-                <div
-                  className="flex flex-col space-y-2 pt-4"
-                  style={{ borderTop: `1px solid ${colors.border.light}` }}
+              <Link to="/login">
+                <Button
+                  size="sm"
+                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white"
                 >
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full justify-start"
-                    onClick={() =>
-                      window.open(
-                        "https://github.com/ArshTiwari2004/adhikar-setu",
-                        "_blank"
-                      )
-                    }
-                  >
-                    <Github className="h-4 w-4 mr-2" />
-                    Repository
-                  </Button>
-                  <Button
-                    size="sm"
-                    className="w-full"
-                    style={{
-                      backgroundColor: colors.primary[600],
-                      color: colors.text.inverse,
-                    }}
-                    onClick={() => (window.location.href = "/login")}
-                  >
-                    <LogIn className="h-4 w-4 mr-2" />
-                    Portal Login
-                  </Button>
-                </div>
-              </nav>
+                  <LogIn className="h-4 w-4" />
+                  <span>Login</span>
+                </Button>
+              </Link>
             </div>
-          )}
+          </div>
         </div>
       </header>
 
-      {/* Hero Section with Carousel */}
-      <section
-        className="py-16 lg:py-20"
-        style={{
-          background: colors.background.gradient.hero,
-        }}
-      >
+      {/* Hero Section */}
+      <section className="py-20 lg:py-20 bg-gradient-to-b from-white to-green-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8 order-2 lg:order-1">
-              <div className="space-y-6">
+            <div className="space-y-8">
+              <div className="space-y-4">
                 <Badge
                   variant="secondary"
-                  className="w-fit px-3 py-1"
-                  style={{
-                    backgroundColor: colors.status.success.bg,
-                    color: colors.status.success.text,
-                    borderColor: colors.status.success.border,
-                  }}
+                  className="w-fit bg-green-100 text-green-800 border-green-200"
                 >
-                  Forest Rights Act 2006 • Government of India
+                  Forest Rights Act 2006
                 </Badge>
-                <h1
-                  className="text-4xl lg:text-6xl font-bold leading-tight"
-                  style={{ color: colors.text.primary }}
-                >
+                <h1 className="text-4xl lg:text-6xl font-bold text-balance text-gray-900">
                   Adhikar Setu
                 </h1>
-                <p
-                  className="text-xl lg:text-2xl font-medium"
-                  style={{ color: colors.primary[700] }}
-                >
+                <p className="text-xl lg:text-2xl text-gray-600 text-balance">
                   Bridging Forest Rights with Communities
                 </p>
-                <p
-                  className="text-lg leading-relaxed max-w-2xl"
-                  style={{ color: colors.text.secondary }}
-                >
+                <p className="text-lg text-gray-600 text-pretty max-w-2xl">
                   Empowering tribal and forest-dwelling communities through
                   digital transformation of the Forest Rights Act. We're
                   building an AI-powered platform to digitize FRA claims, create
@@ -351,310 +127,111 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="text-lg px-8 py-6 transition-all duration-200"
-                  style={{
-                    backgroundColor: colors.primary[600],
-                    color: colors.text.inverse,
-                    boxShadow: colors.shadow.lg,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = colors.primary[700];
-                    e.target.style.boxShadow = colors.shadow.xl;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = colors.primary[600];
-                    e.target.style.boxShadow = colors.shadow.lg;
-                  }}
-                  onClick={() =>
-                    window.open("https://www.fra.org.in/", "_blank")
-                  }
-                >
-                  Learn About FRA
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-lg px-8 py-6 transition-all duration-200"
-                  style={{
-                    borderWidth: "2px",
-                    borderColor: colors.primary[600],
-                    color: colors.primary[600],
-                    backgroundColor: "transparent",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.target.style.backgroundColor = colors.primary[50])
-                  }
-                  onMouseLeave={(e) =>
-                    (e.target.style.backgroundColor = "transparent")
-                  }
-                  onClick={() => (window.location.href = "/login")}
-                >
-                  Access Portal
-                </Button>
+                <Link to="https://www.fra.org.in/">
+                  <Button
+                    size="lg"
+                    className="text-lg px-8 bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    Learn About FRA
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="text-lg px-8 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50"
+                  >
+                    Get Started
+                  </Button>
+                </Link>
               </div>
             </div>
 
-            {/* Image Carousel */}
-            <div className="relative order-1 lg:order-2">
-              <div
-                className="relative h-80 lg:h-96 rounded-2xl overflow-hidden"
-                style={{
-                  backgroundColor: colors.neutral[200],
-                  boxShadow: colors.shadow["2xl"],
-                }}
-              >
-                {carouselImages.map((image, index) => (
-                  <div
-                    key={index}
-                    className={`absolute inset-0 transition-all duration-700 ease-in-out ${
-                      index === currentSlide
-                        ? "opacity-100 scale-100"
-                        : "opacity-0 scale-110"
-                    }`}
-                  >
-                    <img
-                      src={image.url}
-                      alt={image.alt}
-                      className="w-full h-full object-cover"
-                    />
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background: colors.background.gradient.overlay,
-                      }}
-                    />
-                    <div
-                      className="absolute bottom-4 left-4"
-                      style={{ color: colors.text.inverse }}
-                    >
-                      <h3 className="text-lg font-semibold">{image.title}</h3>
-                    </div>
-                  </div>
-                ))}
-
-                {/* Navigation Arrows */}
-                <button
-                  onClick={prevSlide}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full backdrop-blur-sm transition-colors"
-                  style={{
-                    backgroundColor: colorUtils.withOpacity(
-                      colors.background.primary,
-                      0.2
-                    ),
-                    color: colors.text.inverse,
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.target.style.backgroundColor = colorUtils.withOpacity(
-                      colors.background.primary,
-                      0.3
-                    ))
-                  }
-                  onMouseLeave={(e) =>
-                    (e.target.style.backgroundColor = colorUtils.withOpacity(
-                      colors.background.primary,
-                      0.2
-                    ))
-                  }
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full backdrop-blur-sm transition-colors"
-                  style={{
-                    backgroundColor: colorUtils.withOpacity(
-                      colors.background.primary,
-                      0.2
-                    ),
-                    color: colors.text.inverse,
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.target.style.backgroundColor = colorUtils.withOpacity(
-                      colors.background.primary,
-                      0.3
-                    ))
-                  }
-                  onMouseLeave={(e) =>
-                    (e.target.style.backgroundColor = colorUtils.withOpacity(
-                      colors.background.primary,
-                      0.2
-                    ))
-                  }
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </button>
-
-                {/* Dots Indicator */}
-                <div className="absolute bottom-4 right-4 flex space-x-2">
-                  {carouselImages.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentSlide(index)}
-                      className="w-3 h-3 rounded-full transition-colors"
-                      style={{
-                        backgroundColor:
-                          index === currentSlide
-                            ? colors.text.inverse
-                            : colorUtils.withOpacity(colors.text.inverse, 0.5),
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
+            <div className="relative">
+              <img
+                src={tribalCommunity}
+                alt="Tribal community in forest setting"
+                className="rounded-2xl shadow-2xl w-full h-auto"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* About FRA Section */}
-      <section
-        id="about"
-        className="py-16"
-        style={{ backgroundColor: colors.background.primary }}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="about" className="py-10 bg-white">
+        <div className="container mx-auto px-3 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2
-              className="text-3xl lg:text-4xl font-bold mb-4"
-              style={{ color: colors.text.primary }}
-            >
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               Understanding the Forest Rights Act
             </h2>
-            <p
-              className="text-xl max-w-3xl mx-auto"
-              style={{ color: colors.text.secondary }}
-            >
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto text-balance">
               The Forest Rights Act (2006) recognizes the rights of
               forest-dwelling communities to land and resources, but
               implementation faces significant challenges.
             </p>
           </div>
 
-          {/* Sliding Cards Container */}
-          <div className="relative overflow-hidden">
-            <div
-              className="flex gap-8 transition-transform duration-100 ease-out"
-              style={{
-                transform: `translateX(-${Math.max(
-                  0,
-                  (scrollY - 400) * 0.8
-                )}px)`,
-              }}
-            >
-              {[
-                {
-                  icon: Shield,
-                  title: "Land Rights Recognition",
-                  desc: "Recognizing Individual Forest Rights (IFR) and Community Rights (CR) for forest-dwelling communities who have been living in forests for generations.",
-                },
-                {
-                  icon: Users,
-                  title: "Community Empowerment",
-                  desc: "Empowering tribal communities with legal recognition of their traditional rights and sustainable forest resource management practices.",
-                },
-                {
-                  icon: TreePine,
-                  title: "Sustainable Forests",
-                  desc: "Promoting sustainable forest management through Community Forest Resource Rights (CFR) that balance conservation with community needs.",
-                },
-                {
-                  icon: Scale,
-                  title: "Legal Framework",
-                  desc: "Providing a robust legal framework that protects traditional forest dwellers from eviction and ensures their constitutional rights to livelihood and habitat.",
-                },
-                {
-                  icon: FileText,
-                  title: "Documentation Process",
-                  desc: "Streamlining the complex documentation and claim verification process through digital platforms, making it more accessible and transparent for communities.",
-                },
-                {
-                  icon: Gavel,
-                  title: "Dispute Resolution",
-                  desc: "Establishing fair and efficient mechanisms for resolving disputes related to forest rights claims and ensuring justice for all stakeholders involved.",
-                },
-              ].map((card, index) => (
-                <div key={index} className="flex-shrink-0 w-80">
-                  <Card
-                    className="h-full transition-all duration-300 group"
-                    style={{
-                      borderColor: colors.border.light,
-                      backgroundColor: colors.background.card,
-                      boxShadow: colors.shadow.base,
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.boxShadow = colors.shadow.xl;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = colors.shadow.base;
-                    }}
-                  >
-                    <CardHeader className="pb-4">
-                      <div
-                        className="w-16 h-16 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300"
-                        style={{ backgroundColor: colors.primary[100] }}
-                      >
-                        <card.icon
-                          className="h-8 w-8 transition-colors duration-300 group-hover:text-white"
-                          style={{ color: colors.primary[600] }}
-                        />
-                      </div>
-                      <CardTitle
-                        className="text-xl"
-                        style={{ color: colors.text.primary }}
-                      >
-                        {card.title}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription
-                        className="text-base leading-relaxed"
-                        style={{ color: colors.text.secondary }}
-                      >
-                        {card.desc}
-                      </CardDescription>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-            </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="border-gray-200 hover:shadow-lg transition-shadow bg-white">
+              <CardHeader>
+                <Shield className="h-12 w-12 text-green-600 mb-4" />
+                <CardTitle className="text-gray-900">
+                  Land Rights Recognition
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-base text-gray-600">
+                  Recognizing Individual Forest Rights (IFR) and Community
+                  Rights (CR) for forest-dwelling communities who have been
+                  living in forests for generations.
+                </CardDescription>
+              </CardContent>
+            </Card>
 
-            {/* Gradient overlays for smooth edge effect */}
-            <div
-              className="absolute inset-y-0 left-0 w-32 pointer-events-none z-10"
-              style={{
-                background: `linear-gradient(to right, ${colors.background.primary}, transparent)`,
-              }}
-            />
-            <div
-              className="absolute inset-y-0 right-0 w-32 pointer-events-none z-10"
-              style={{
-                background: `linear-gradient(to left, ${colors.background.primary}, transparent)`,
-              }}
-            />
+            <Card className="border-gray-200 hover:shadow-lg transition-shadow bg-white">
+              <CardHeader>
+                <Users className="h-12 w-12 text-green-600 mb-4" />
+                <CardTitle className="text-gray-900">
+                  Community Empowerment
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-base text-gray-600">
+                  Empowering tribal communities with legal recognition of their
+                  traditional rights and sustainable forest resource management
+                  practices.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-gray-200 hover:shadow-lg transition-shadow bg-white">
+              <CardHeader>
+                <TreePine className="h-12 w-12 text-green-600 mb-4" />
+                <CardTitle className="text-gray-900">
+                  Sustainable Forests
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-base text-gray-600">
+                  Promoting sustainable forest management through Community
+                  Forest Resource Rights (CFR) that balance conservation with
+                  community needs.
+                </CardDescription>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* What We're Doing Section */}
-      <section
-        id="work"
-        className="py-16"
-        style={{ backgroundColor: colors.background.secondary }}
-      >
+      <section id="work" className="py-20 bg-green-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2
-              className="text-3xl lg:text-4xl font-bold mb-4"
-              style={{ color: colors.text.primary }}
-            >
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               Our Digital Transformation Initiative
             </h2>
-            <p
-              className="text-xl max-w-3xl mx-auto"
-              style={{ color: colors.text.secondary }}
-            >
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto text-balance">
               Leveraging AI, satellite data, and modern technology to
               revolutionize FRA implementation and monitoring.
             </p>
@@ -662,172 +239,132 @@ export default function HomePage() {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
-              {[
-                {
-                  icon: Database,
-                  title: "Data Digitization & Standardization",
-                  desc: "Converting legacy FRA records into standardized digital formats using AI-powered OCR and Named Entity Recognition to extract village names, patta holders, and claim status.",
-                },
-                {
-                  icon: MapPin,
-                  title: "Interactive FRA Atlas",
-                  desc: "Creating a comprehensive WebGIS platform with interactive layers showing IFR/CR boundaries, village data, land-use patterns, and real-time progress tracking.",
-                },
-                {
-                  icon: BarChart3,
-                  title: "AI-Powered Asset Mapping",
-                  desc: "Using satellite imagery and computer vision to map agricultural land, forest cover, water bodies, and infrastructure in FRA villages for better resource planning.",
-                },
-                {
-                  icon: ExternalLink,
-                  title: "Decision Support System",
-                  desc: "Building an intelligent DSS to recommend and layer Central Sector Schemes benefits for FRA patta holders, enabling targeted development interventions.",
-                },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-start space-x-6 p-6 rounded-xl transition-shadow"
-                  style={{
-                    backgroundColor: colors.background.card,
-                    boxShadow: colors.shadow.sm,
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.boxShadow = colors.shadow.md)
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.boxShadow = colors.shadow.sm)
-                  }
-                >
-                  <div
-                    className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center"
-                    style={{
-                      background: colors.background.gradient.primary,
-                    }}
-                  >
-                    <item.icon
-                      className="h-7 w-7"
-                      style={{ color: colors.text.inverse }}
-                    />
-                  </div>
-                  <div>
-                    <h3
-                      className="text-xl font-semibold mb-3"
-                      style={{ color: colors.text.primary }}
-                    >
-                      {item.title}
-                    </h3>
-                    <p
-                      className="leading-relaxed"
-                      style={{ color: colors.text.secondary }}
-                    >
-                      {item.desc}
-                    </p>
-                  </div>
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                  <Database className="h-6 w-6 text-white" />
                 </div>
-              ))}
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    Data Digitization & Standardization
+                  </h3>
+                  <p className="text-gray-600">
+                    Converting legacy FRA records into standardized digital
+                    formats using AI-powered OCR and Named Entity Recognition to
+                    extract village names, patta holders, and claim status.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                  <MapPin className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    Interactive FRA Atlas
+                  </h3>
+                  <p className="text-gray-600">
+                    Creating a comprehensive WebGIS platform with interactive
+                    layers showing IFR/CR boundaries, village data, land-use
+                    patterns, and real-time progress tracking.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                  <BarChart3 className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    AI-Powered Asset Mapping
+                  </h3>
+                  <p className="text-gray-600">
+                    Using satellite imagery and computer vision to map
+                    agricultural land, forest cover, water bodies, and
+                    infrastructure in FRA villages for better resource planning.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                  <ExternalLink className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    Decision Support System
+                  </h3>
+                  <p className="text-gray-600">
+                    Building an intelligent DSS to recommend and layer Central
+                    Sector Schemes benefits for FRA patta holders, enabling
+                    targeted development interventions.
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="relative">
-              <div
-                className="relative h-full min-h-96 rounded-2xl overflow-hidden"
-                style={{ boxShadow: colors.shadow["2xl"] }}
-              >
-                <img
-                  src={digitalMap}
-                  alt="Digital FRA Atlas interface"
-                  className="w-full h-full object-cover"
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: `linear-gradient(to top, ${colorUtils.withOpacity(
-                      colors.primary[900],
-                      0.2
-                    )}, transparent)`,
-                  }}
-                />
-              </div>
+              <img
+                src={digitalMap}
+                alt="Digital FRA Atlas interface"
+                className="rounded-2xl shadow-2xl w-full h-auto"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* Impact Numbers Section */}
-      <section
-        id="impact"
-        className="py-16"
-        style={{ backgroundColor: colors.background.primary }}
-      >
+      <section id="impact" className="py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2
-              className="text-3xl lg:text-4xl font-bold mb-4"
-              style={{ color: colors.text.primary }}
-            >
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               Our Impact & Reach
             </h2>
-            <p
-              className="text-xl max-w-2xl mx-auto"
-              style={{ color: colors.text.secondary }}
-            >
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto text-balance">
               Transforming forest governance through technology and community
               empowerment.
             </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { number: "50+", label: "Villages Mapped" },
-              { number: "100+", label: "FRA Claims Digitized" },
-              { number: "100+", label: "People Reached" },
-              { number: "4", label: "States Covered" },
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className="text-center p-6 rounded-xl transition-shadow"
-                style={{
-                  background: colors.background.gradient.secondary,
-                  boxShadow: "none",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.boxShadow = colors.shadow.lg)
-                }
-                onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
-              >
-                <div
-                  className="text-4xl lg:text-5xl font-bold mb-2"
-                  style={{ color: colors.primary[600] }}
-                >
-                  {stat.number}
-                </div>
-                <div
-                  className="text-lg font-medium"
-                  style={{ color: colors.text.secondary }}
-                >
-                  {stat.label}
-                </div>
+            <div className="text-center">
+              <div className="text-4xl lg:text-5xl font-bold text-green-600 mb-2">
+                50+
               </div>
-            ))}
+              <div className="text-lg text-gray-600">Villages Mapped</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl lg:text-5xl font-bold text-green-600 mb-2">
+                100+
+              </div>
+              <div className="text-lg text-gray-600">FRA Claims Digitized</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl lg:text-5xl font-bold text-green-600 mb-2">
+                100+
+              </div>
+              <div className="text-lg text-gray-600">People Reached</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl lg:text-5xl font-bold text-green-600 mb-2">
+                4
+              </div>
+              <div className="text-lg text-gray-600">States Covered</div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Newsletter Section */}
-      <section
-        className="py-16"
-        style={{
-          background: colors.background.gradient.primary,
-        }}
-      >
+      <section className="py-20 bg-gradient-to-r from-green-50 to-emerald-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto text-center">
-            <h2
-              className="text-3xl lg:text-4xl font-bold mb-4"
-              style={{ color: colors.text.inverse }}
-            >
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               Stay Updated on FRA Rights & Our Initiatives
             </h2>
-            <p className="text-xl mb-8" style={{ color: colors.primary[100] }}>
+            <p className="text-xl text-gray-600 mb-8 text-balance">
               Get the latest updates on forest rights, policy changes, and our
               technology initiatives delivered to your inbox.
             </p>
@@ -836,36 +373,17 @@ export default function HomePage() {
               <Input
                 type="email"
                 placeholder="Enter your email address"
-                className="flex-1 focus:border-white"
-                style={{
-                  backgroundColor: colorUtils.withOpacity(
-                    colors.background.primary,
-                    0.1
-                  ),
-                  borderColor: colorUtils.withOpacity(colors.text.inverse, 0.2),
-                  color: colors.text.inverse,
-                  "::placeholder": { color: colors.primary[100] },
-                }}
+                className="flex-1 border-gray-300 bg-white"
               />
               <Button
                 size="lg"
-                className="px-8 font-medium"
-                style={{
-                  backgroundColor: colors.background.primary,
-                  color: colors.primary[600],
-                }}
-                onMouseEnter={(e) =>
-                  (e.target.style.backgroundColor = colors.primary[50])
-                }
-                onMouseLeave={(e) =>
-                  (e.target.style.backgroundColor = colors.background.primary)
-                }
+                className="px-8 bg-green-600 hover:bg-green-700 text-white"
               >
                 Subscribe
               </Button>
             </div>
 
-            <p className="text-sm mt-4" style={{ color: colors.primary[100] }}>
+            <p className="text-sm text-gray-500 mt-4">
               We respect your privacy. Unsubscribe at any time.
             </p>
           </div>
@@ -873,193 +391,170 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer
-        id="contact"
-        style={{
-          backgroundColor: colors.neutral[900],
-          color: colors.text.inverse,
-        }}
-      >
+      <footer className="bg-gradient-to-b from-gray-50 to-gray-100 border-t border-gray-300">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid md:grid-cols-4 gap-8">
             {/* Brand Section */}
-            <div className="space-y-6">
-              <div className="flex items-center space-x-3">
-                <div
-                  className="p-2 rounded-lg"
-                  style={{
-                    background: colors.background.gradient.primary,
-                  }}
-                >
-                  <TreePine
-                    className="h-6 w-6"
-                    style={{ color: colors.text.inverse }}
-                  />
+            <div className="space-y-4">
+              <div className="flex items-center space-x-2">
+                <div className="p-2 bg-gradient-to-r from-green-600 to-emerald-500 rounded-lg">
+                  <TreePine className="h-6 w-6 text-white" />
                 </div>
-                <div>
-                  <span className="text-xl font-bold">Adhikar Setu</span>
-                  <div
-                    className="text-xs"
-                    style={{ color: colors.neutral[400] }}
-                  >
-                    Government of India
-                  </div>
-                </div>
+                <span className="text-2xl font-bold bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">
+                  Adhikar Setu
+                </span>
               </div>
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: colors.neutral[300] }}
-              >
+              <p className="text-gray-600 text-sm leading-relaxed">
                 Bridging forest rights with communities through technology and
                 empowerment.
               </p>
 
               {/* Social Links */}
-              <div className="flex space-x-3">
+              <div className="flex space-x-3 pt-2">
                 <a
                   href="https://github.com/ArshTiwari2004/adhikar-setu"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg transition-colors"
-                  style={{ backgroundColor: colors.neutral[800] }}
-                  onMouseEnter={(e) =>
-                    (e.target.style.backgroundColor = colors.neutral[700])
-                  }
-                  onMouseLeave={(e) =>
-                    (e.target.style.backgroundColor = colors.neutral[800])
-                  }
+                  className="p-2 bg-white rounded-lg shadow-sm border border-gray-200 text-gray-600 hover:text-white hover:bg-gradient-to-r hover:from-green-600 hover:to-emerald-500 transition-all duration-300"
                 >
                   <Github className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://twitter.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 bg-white rounded-lg shadow-sm border border-gray-200 text-gray-600 hover:text-white hover:bg-gradient-to-r hover:from-blue-400 hover:to-blue-500 transition-all duration-300"
+                >
+                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://linkedin.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 bg-white rounded-lg shadow-sm border border-gray-200 text-gray-600 hover:text-white hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 transition-all duration-300"
+                >
+                  <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
                 </a>
               </div>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h3
-                className="font-semibold mb-6"
-                style={{ color: colors.text.inverse }}
-              >
+              <h3 className="font-semibold text-gray-900 mb-4 text-lg relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-10 after:h-0.5 after:bg-gradient-to-r after:from-green-600 after:to-emerald-500">
                 Quick Links
               </h3>
               <ul className="space-y-3">
-                {[
-                  { name: "About FRA", href: "#about" },
-                  { name: "Our Work", href: "#work" },
-                  { name: "Impact", href: "#impact" },
-                  { name: "Contact", href: "#contact" },
-                ].map((link, index) => (
-                  <li key={index}>
-                    <a
-                      href={link.href}
-                      className="transition-colors"
-                      style={{ color: colors.neutral[300] }}
-                      onMouseEnter={(e) =>
-                        (e.target.style.color = colors.secondary[400])
-                      }
-                      onMouseLeave={(e) =>
-                        (e.target.style.color = colors.neutral[300])
-                      }
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
+                <li>
+                  <a
+                    href="#about"
+                    className="text-gray-600 hover:text-green-600 transition-colors flex items-center group"
+                  >
+                    <span className="w-2 h-2 bg-green-200 rounded-full mr-2 group-hover:bg-green-600 transition-colors"></span>
+                    About FRA
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#work"
+                    className="text-gray-600 hover:text-green-600 transition-colors flex items-center group"
+                  >
+                    <span className="w-2 h-2 bg-green-200 rounded-full mr-2 group-hover:bg-green-600 transition-colors"></span>
+                    Our Work
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#impact"
+                    className="text-gray-600 hover:text-green-600 transition-colors flex items-center group"
+                  >
+                    <span className="w-2 h-2 bg-green-200 rounded-full mr-2 group-hover:bg-green-600 transition-colors"></span>
+                    Impact
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#contact"
+                    className="text-gray-600 hover:text-green-600 transition-colors flex items-center group"
+                  >
+                    <span className="w-2 h-2 bg-green-200 rounded-full mr-2 group-hover:bg-green-600 transition-colors"></span>
+                    Contact
+                  </a>
+                </li>
               </ul>
             </div>
 
             {/* Resources */}
             <div>
-              <h3
-                className="font-semibold mb-6"
-                style={{ color: colors.text.inverse }}
-              >
+              <h3 className="font-semibold text-gray-900 mb-4 text-lg relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-10 after:h-0.5 after:bg-gradient-to-r after:from-green-600 after:to-emerald-500">
                 Resources
               </h3>
               <ul className="space-y-3">
-                {[
-                  {
-                    name: "FRA Guidelines",
-                    href: "https://www.fra.org.in/",
-                    external: true,
-                  },
-                  { name: "Documentation", href: "#" },
-                ].map((link, index) => (
-                  <li key={index}>
-                    <a
-                      href={link.href}
-                      target={link.external ? "_blank" : undefined}
-                      rel={link.external ? "noopener noreferrer" : undefined}
-                      className="transition-colors"
-                      style={{ color: colors.neutral[300] }}
-                      onMouseEnter={(e) =>
-                        (e.target.style.color = colors.secondary[400])
-                      }
-                      onMouseLeave={(e) =>
-                        (e.target.style.color = colors.neutral[300])
-                      }
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
+                <li>
+                  <a
+                    href="https://www.fra.org.in/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-green-600 transition-colors flex items-center group"
+                  >
+                    <span className="w-2 h-2 bg-green-200 rounded-full mr-2 group-hover:bg-green-600 transition-colors"></span>
+                    FRA Guidelines
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-gray-600 hover:text-green-600 transition-colors flex items-center group"
+                  >
+                    <span className="w-2 h-2 bg-green-200 rounded-full mr-2 group-hover:bg-green-600 transition-colors"></span>
+                    Documentation
+                  </a>
+                </li>
               </ul>
             </div>
 
             {/* Contact */}
             <div>
-              <h3
-                className="font-semibold mb-6"
-                style={{ color: colors.text.inverse }}
-              >
+              <h3 className="font-semibold text-gray-900 mb-4 text-lg relative pb-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-10 after:h-0.5 after:bg-gradient-to-r after:from-green-600 after:to-emerald-500">
                 Contact
               </h3>
               <ul className="space-y-4">
-                {[
-                  { icon: Mail, text: "arshtiwari12345@gmail.com" },
-                  { icon: Phone, text: "+91 11 2345 6789" },
-                  { icon: MapIcon, text: "New Delhi, India" },
-                ].map((contact, index) => (
-                  <li
-                    key={index}
-                    className="flex items-start space-x-3"
-                    style={{ color: colors.neutral[300] }}
-                  >
-                    <contact.icon
-                      className="h-5 w-5 mt-0.5"
-                      style={{ color: colors.secondary[400] }}
-                    />
-                    <span>{contact.text}</span>
-                  </li>
-                ))}
+                <li className="flex items-start space-x-3 text-gray-600">
+                  <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mt-0.5">
+                    <Mail className="h-4 w-4 text-green-600" />
+                  </div>
+                  <span>arshtiwari12345@gmail.com</span>
+                </li>
+                <li className="flex items-start space-x-3 text-gray-600">
+                  <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mt-0.5">
+                    <Phone className="h-4 w-4 text-green-600" />
+                  </div>
+                  <span>+91 11 2345 6789</span>
+                </li>
+                <li className="flex items-start space-x-3 text-gray-600">
+                  <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mt-0.5">
+                    <MapIcon className="h-4 w-4 text-green-600" />
+                  </div>
+                  <span>New Delhi, India</span>
+                </li>
               </ul>
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <div
-            className="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between"
-            style={{ borderTop: `1px solid ${colors.neutral[800]}` }}
-          >
-            <p className="text-sm" style={{ color: colors.neutral[400] }}>
+          <div className="border-t border-gray-300 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between">
+            <p className="text-gray-600 text-sm">
               © 2025{" "}
-              <span
-                className="font-semibold"
-                style={{ color: colors.text.inverse }}
-              >
-                Adhikar Setu
-              </span>{" "}
-              • Government of India. All Rights Reserved.
+              <span className="font-semibold text-gray-900">Adhikar Setu</span>.
+              All Rights Reserved.
             </p>
-            <p
-              className="mt-4 sm:mt-0 text-sm flex items-center"
-              style={{ color: colors.neutral[400] }}
-            >
+            <p className="mt-4 sm:mt-0 text-sm text-gray-600 flex items-center">
               Built for empowering tribal communities & sustainable forest
               governance
-              <span className="ml-2" style={{ color: colors.secondary[400] }}>
-                🌱
-              </span>
+              <span className="ml-2 text-green-600">🌱</span>
             </p>
           </div>
         </div>

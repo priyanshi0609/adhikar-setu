@@ -6,6 +6,7 @@ import LoginContainer from './Login/LoginContainer';
 import { onAuthStateChange, getCurrentUserProfile } from './firebase/authService';
 import DSS from './dss/components/DSS';
 import SchemeDetail from './dss/components/SchemeDetail';
+import FinalDoc from './doc-digitize/FinalDoc';
 import DSSResults from './dss/components/DSS_Result';
 
 // Lazy load route components for better performance
@@ -309,6 +310,11 @@ function App() {
                     <PublicAtlas language={language} />
                   </ProtectedRoute>
                 }
+              />
+
+              <Route
+                path="/doc-digitize"
+                element={<FinalDoc />}
               />
 
               {/* Catch-all → Redirect to appropriate page */}

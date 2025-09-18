@@ -25,7 +25,8 @@ const Navigation = ({
       { id: 'verification', name: language === 'en' ? 'Verification' : 'सत्यापन', icon: CheckSquare, roles: ['frc', 'sdlc'] },
       { id: 'dlc-approval', name: language === 'en' ? 'Approval' : 'अनुमोदन', icon: Award, roles: ['dlc'] },
       { id: 'dss', name: language === 'en' ? 'Decision Support' : 'निर्णय सहायता', icon: BarChart3, roles: ['sdlc', 'dlc', 'mota'] },
-      { id: 'public-atlas', name: language === 'en' ? 'Public Atlas' : 'सार्वजनिक एटलस', icon: Globe, roles: ['gram_sabha', 'frc', 'sdlc', 'dlc', 'mota'] }
+      { id: 'public-atlas', name: language === 'en' ? 'Public Atlas' : 'सार्वजनिक एटलस', icon: Globe, roles: ['gram_sabha', 'frc', 'sdlc', 'dlc', 'mota'] },
+      { id:'dss_results', name: language === 'en' ? 'DSS Results' : 'DSS परिणाम', icon: BarChart3, roles: ['gram_sabha'] },
     ];
 
     return allItems.filter(item => item.roles.includes(user.role));
