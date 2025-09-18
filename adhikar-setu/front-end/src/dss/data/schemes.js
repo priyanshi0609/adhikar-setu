@@ -21,17 +21,9 @@ export const schemes = [
       'Bank Account Details (Passbook/Cheque)',
       'Passport size photographs'
     ],
-    dataPoints: [
-      'Name of farmer',
-      'Father\'s/Husband\'s name',
-      'Village, District, State',
-      'Land size (hectares)',
-      'Land type (cultivable/non-cultivable)',
-      'Bank account number + IFSC',
-      'Aadhaar number'
-    ],
-    rulesBasis: 'FRA patta + land size check',
-    color: 'from-green-500 to-emerald-600'
+   
+    color: 'from-green-500 to-emerald-600',
+    link:'https://pmkisan.gov.in/homenew.aspx'
   },
   {
     id: 'mgnrega',
@@ -55,7 +47,8 @@ export const schemes = [
       'Caste Certificate (if applicable)'
     ],
     
-    color: 'from-blue-500 to-cyan-600'
+    color: 'from-blue-500 to-cyan-600',
+    link :'https://nrega.nic.in/netnrega/home.aspx'
   },
   {
     id: 'pmay-gramin',
@@ -78,17 +71,9 @@ export const schemes = [
       'Income Certificate',
       'Caste Certificate (if applicable)'
     ],
-    dataPoints: [
-      'Name of applicant',
-      'Father\'s/Husband\'s name',
-      'Village, Block, District',
-      'Category (SC/ST/OBC/General)',
-      'Current housing status (Kutcha/Semi-Pucca/Pucca)',
-      'FRA Patta holder status',
-      'SECC inclusion status'
-    ],
-    rulesBasis: 'FRA holder without permanent house',
-    color: 'from-orange-500 to-red-600'
+    
+    color: 'from-orange-500 to-red-600',
+    link: 'https://pmayg.nic.in/netiay/home.aspx'
   },
   {
     id: 'jal-jeevan',
@@ -111,16 +96,9 @@ export const schemes = [
       'Household Survey Data',
       'Water Quality Test Reports'
     ],
-    dataPoints: [
-      'Village name, District, State',
-      'Total households in village',
-      'Households with tap water connection',
-      'Water quality parameters',
-      'Community FRA Patta status',
-      'Infrastructure feasibility'
-    ],
-    rulesBasis: 'If village households lack tap water + has FRA patta → eligible priority',
-    color: 'from-cyan-500 to-blue-600'
+   
+    color: 'from-cyan-500 to-blue-600',
+    link: 'https://jaljeevanmission.gov.in/'
   },
   {
     id: 'dajgua',
@@ -143,16 +121,9 @@ export const schemes = [
       'Gap Analysis Report',
       'Village Development Plan'
     ],
-    dataPoints: [
-      'Village name, Block, District, State',
-      'Total population',
-      'ST population and percentage',
-      'Total households',
-      'FRA Patta coverage in village',
-      'Infrastructure gap analysis'
-    ],
-    rulesBasis: 'If village satisfies population + ST % → eligible',
-    color: 'from-purple-500 to-indigo-600'
+    
+    color: 'from-purple-500 to-indigo-600',
+    link: 'https://tribal.nic.in/PMJUGA.aspx'
   },
   {
     id: 'pmjay',
@@ -175,17 +146,9 @@ export const schemes = [
       'Aadhaar Cards of all family members',
       'Caste Certificate (if applicable)'
     ],
-    dataPoints: [
-      'Beneficiary name',
-      'Father\'s/Husband\'s name',
-      'Village, Block, District, State',
-      'Household income status (BPL/APL)',
-      'Caste/Tribe category',
-      'FRA Patta holder status',
-      'SECC Deprivation Category (D1-D7)'
-    ],
-    rulesBasis: 'If household is BPL OR in SECC deprivation list + FRA patta',
-    color: 'from-pink-500 to-rose-600'
+  
+    color: 'from-pink-500 to-rose-600',
+    link: 'https://pmjay.gov.in/'
   }
 ];
 
