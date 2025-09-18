@@ -172,16 +172,9 @@ const AuthenticationForm = ({ formData, onLogin }) => {
         background: `linear-gradient(135deg, ${colors.primary[50]} 0%, ${colors.background.secondary} 50%, ${colors.secondary[50]} 100%)`,
       }}
     >
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Main Authentication Card */}
-        <div
-          className="rounded-2xl border overflow-hidden"
-          style={{
-            backgroundColor: colors.background.primary,
-            boxShadow: colors.shadow.xl,
-            borderColor: colors.border.light,
-          }}
-        >
+        <div className="rounded-2xl border overflow-hidden">
           {/* Header Section */}
           <div
             className="px-8 py-6 text-white"
@@ -255,6 +248,7 @@ const AuthenticationForm = ({ formData, onLogin }) => {
               </button>
             </div>
 
+            {/* Form */}
             <form onSubmit={handleAuth} className="space-y-5">
               {/* Name (for registration only) */}
               {!isLogin && (
@@ -283,18 +277,6 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                       backgroundColor: colors.neutral[50],
                       borderColor: colors.border.light,
                       color: colors.text.primary,
-                      "--placeholder-color": colors.text.muted,
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.backgroundColor =
-                        colors.background.primary;
-                      e.target.style.borderColor = colors.primary[500];
-                      e.target.style.boxShadow = `0 0 0 2px ${colors.primary[500]}40`;
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.backgroundColor = colors.neutral[50];
-                      e.target.style.borderColor = colors.border.light;
-                      e.target.style.boxShadow = "none";
                     }}
                     placeholder={
                       language === "hi"
@@ -336,17 +318,6 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                       backgroundColor: colors.neutral[50],
                       borderColor: colors.border.light,
                       color: colors.text.primary,
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.backgroundColor =
-                        colors.background.primary;
-                      e.target.style.borderColor = colors.primary[500];
-                      e.target.style.boxShadow = `0 0 0 2px ${colors.primary[500]}40`;
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.backgroundColor = colors.neutral[50];
-                      e.target.style.borderColor = colors.border.light;
-                      e.target.style.boxShadow = "none";
                     }}
                     placeholder={
                       language === "hi"
@@ -396,7 +367,7 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                 </div>
               </div>
 
-              {/* Confirm Password for Registration */}
+              {/* Confirm Password */}
               {!isLogin && (
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
@@ -428,7 +399,7 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                 </div>
               )}
 
-              {/* Phone and Organization (for registration only) */}
+              {/* Phone and Organization
               {!isLogin && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -470,7 +441,7 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                     />
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* Error Message */}
               {error && (
@@ -489,16 +460,6 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                 className="w-full py-4 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-white"
                 style={{
                   background: `linear-gradient(135deg, ${colors.primary[600]} 0%, ${colors.secondary[600]} 100%)`,
-                }}
-                onMouseEnter={(e) => {
-                  if (!loading) {
-                    e.target.style.background = `linear-gradient(135deg, ${colors.primary[700]} 0%, ${colors.secondary[700]} 100%)`;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!loading) {
-                    e.target.style.background = `linear-gradient(135deg, ${colors.primary[600]} 0%, ${colors.secondary[600]} 100%)`;
-                  }
                 }}
               >
                 {loading ? (
@@ -526,9 +487,9 @@ const AuthenticationForm = ({ formData, onLogin }) => {
           </div>
         </div>
 
-        {/* Location Summary Card */}
+        {/* Selected Information Card */}
         <div
-          className="mt-6 rounded-xl border overflow-hidden"
+          className="rounded-xl border overflow-hidden"
           style={{
             backgroundColor: colors.background.primary,
             boxShadow: colors.shadow.lg,
