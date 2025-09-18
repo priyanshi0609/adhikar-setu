@@ -1,7 +1,7 @@
 // components/ClaimantDashboard.jsx
 import React, { useState, useEffect } from 'react';
 import { collection, query, where, onSnapshot, orderBy } from 'firebase/firestore';
-import { db } from '../firebase.js';
+import { db } from '../../firebase/firebase.js';
 import NewClaim from './NewClaim.jsx';
 import ClaimDetail from './ClaimDetail.jsx';
 import ClaimStatus from './ClaimStatus.jsx';

@@ -1,9 +1,9 @@
 // App.jsx
 import React, { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase.js';
+import { auth } from './../firebase/firebase.js';
 import ClaimantDashboard from './components/ClaimantDashboard.jsx';
-import './styles/components.css';
+// import './styles/components.css';
 
 // Simple login component (you can enhance this)
 const LoginForm = ({ onLogin }) => {
@@ -43,7 +43,7 @@ const LoginForm = ({ onLogin }) => {
   );
 };
 
-function App() {
+function FinalDoc() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -84,4 +84,4 @@ function App() {
   );
 }
 
-export default App;
+export default FinalDoc;

@@ -3,7 +3,7 @@ import React, { useState, useCallback } from 'react';
 import DocumentUploader from './DocumentUploader.jsx';
 import DocumentViewer from './DocumentViewer.jsx';
 import FieldExtractor from './FieldExtractor.jsx';
-import { db } from '../firebase.js';
+import { db } from '../../firebase/firebase.js';
 import { collection, addDoc } from 'firebase/firestore';
 
 const NewClaim = ({ user, onClaimCreated }) => {
