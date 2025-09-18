@@ -737,7 +737,7 @@ const Dashboard = ({ user, language }) => {
     ],
   );
 
-  const handleStateZoom = () => {
+  const handleLocationZoom = () => {
     const { center, zoom } = getCurrentCoordinates();
 
     if (mapRef.current) {
@@ -856,7 +856,7 @@ const Dashboard = ({ user, language }) => {
               </div>
             </div>
           ))}
-          <button onClick={handleStateZoom}>see</button>
+          <button onClick={handleLocationZoom}>see</button>
         </div>
       </div>
 
