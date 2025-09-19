@@ -164,7 +164,7 @@ const DSS = () => {
     const IconComponent = scheme.icon;
     return (
       <div 
-        className="bg-white rounded-lg transition-all duration-300 cursor-pointer hover:-translate-y-1 overflow-hidden"
+        className="bg-white rounded-lg p-4 border border-gray-200 transition-all duration-300 cursor-pointer hover:-translate-y-1 overflow-hidden"
         onClick={() => navigate(`/scheme/${scheme.id}`)}
       >
         <div className="p-6">
@@ -458,7 +458,7 @@ const DSS = () => {
         )}
 
         {/* Filters */}
-        <div className="bg-white rounded-lg p-6 mb-8">
+        <div className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
           <div className="flex items-center mb-5">
             <div className="p-2 bg-blue-100 rounded-lg mr-3">
               <Filter className="w-5 h-5 text-blue-600" />
