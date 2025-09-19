@@ -10,7 +10,7 @@ import {
   X,
 } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase/config";
+import { db } from "../firebase/firebase.js";
 
 const ProfilePage = ({ user, language, onScreenChange }) => {
   const [isEditing, setIsEditing] = useState(false);

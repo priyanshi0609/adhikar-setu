@@ -17,6 +17,7 @@ import DSS from "./dss/components/DSS";
 import SchemeDetail from "./dss/components/SchemeDetail";
 import FinalDoc from "./doc-digitize/FinalDoc";
 import DSSResults from "./dss/components/DSS_Result";
+import ProfilePage from "./Login/ProfilePage";
 
 // Lazy load route components for better performance
 const Dashboard = lazy(() => import("./components/Dashboard"));
@@ -319,8 +320,12 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-
+              {/* routes to test, this will be removed later from here and put in for specific roles */}
               <Route path="/doc-digitize" element={<FinalDoc />} />
+              <Route
+                path="/profile"
+                element={<ProfilePage user={currentUser} language={language} />}
+              />
 
               {/* Catch-all → Redirect to appropriate page */}
               <Route
