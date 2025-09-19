@@ -1,6 +1,3 @@
-"use client";
-
-// components/DocumentUploader.jsx
 import React, { useCallback, useState, useEffect } from "react";
 import { useOCR } from "../hooks/useOCR.js";
 
@@ -18,6 +15,10 @@ const DocumentUploader = ({ onDocumentsProcessed, onFieldsExtracted }) => {
     processDocuments,
     reprocessWithFormType,
   } = useOCR();
+
+  console.log("OCR Results:", results);
+  console.log("Extracted Fields:", extractedFields);
+  console.log("Detected Form Type:", formType);
 
   const handleDragOver = useCallback((e) => {
     e.preventDefault();

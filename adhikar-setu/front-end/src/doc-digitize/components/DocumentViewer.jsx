@@ -16,7 +16,7 @@ const DocumentViewer = ({ documents, currentPage, onPageChange }) => {
       return (
         <div className="flex justify-center items-center min-h-96">
           <img
-            src={URL.createObjectURL(document) || "/placeholder.svg"}
+            src={URL.createObjectURL(document)}
             alt={`Document page ${currentPage + 1}`}
             className="max-w-full h-auto shadow-lg rounded-lg"
             style={{

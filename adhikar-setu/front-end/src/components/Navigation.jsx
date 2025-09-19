@@ -96,12 +96,12 @@ const Navigation = ({
         icon: Globe,
         roles: ["gram_sabha", "frc", "sdlc", "dlc", "mota"],
       },
-      {
-        id: "profile",
-        name: language === "en" ? "Profile" : "प्रोफाइल",
-        icon: UserRound,
-        roles: ["gram_sabha", "frc", "sdlc", "dlc", "mota"],
-      },
+      // {
+      //   id: "profile",
+      //   name: language === "en" ? "Profile" : "प्रोफाइल",
+      //   icon: UserRound,
+      //   roles: ["gram_sabha", "frc", "sdlc", "dlc", "mota"],
+      // },
     ];
 
     return allItems.filter((item) => item.roles.includes(user.role));
@@ -293,6 +293,7 @@ const Navigation = ({
                       {language === "en" ? "Settings" : "सेटिंग्स"}
                     </button>
                     <button
+                      onClick={() => onScreenChange("settings")}
                       className={`flex items-center w-full px-4 py-2 text-sm transition-colors ${
                         isDarkMode
                           ? "text-gray-300 hover:bg-gray-700"
