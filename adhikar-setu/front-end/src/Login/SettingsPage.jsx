@@ -18,6 +18,7 @@ import {
 } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/firebase.js";
+import BackButton from "@/global/BackButton.jsx";
 
 const SettingsPage = ({ user, language, onScreenChange }) => {
   const [activeTab, setActiveTab] = useState("notifications");
@@ -238,13 +239,14 @@ const SettingsPage = ({ user, language, onScreenChange }) => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <BackButton />
+      <div className="border border-gray-200 rounded-lg overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-green-600 to-green-700 p-6 text-white">
+        <div className=" p-6 text-gray-800">
           <h1 className="text-2xl font-bold">
             {language === "en" ? "Settings" : "सेटिंग्स"}
           </h1>
-          <p className="text-green-100">
+          <p className="text-gray-600">
             {language === "en"
               ? "Customize your application preferences"
               : "अपनी एप्लिकेशन प्राथमिकताएं अनुकूलित करें"}
