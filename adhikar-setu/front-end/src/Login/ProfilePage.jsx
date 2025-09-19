@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase.js";
+import BackButton from "@/global/BackButton.jsx";
 
 const ProfilePage = ({ user, language, onScreenChange }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -104,6 +105,7 @@ const ProfilePage = ({ user, language, onScreenChange }) => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
+      <BackButton />
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-green-600 to-green-700 p-6 text-white">
