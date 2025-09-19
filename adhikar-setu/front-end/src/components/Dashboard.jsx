@@ -20,12 +20,18 @@ mapboxgl.accessToken =
   "pk.eyJ1IjoiYXJzaHRpd2FyaSIsImEiOiJjbTJhODE2dm8wZ2MxMmlxdTJkbnJ1aTZnIn0.m9ky2-2MfcdA37RIVoxC_w";
 
 const Dashboard = ({ user, language }) => {
+<<<<<<< HEAD
   const [selectedState, setSelectedState] = useState("Chhattisgarh");
   const [selectedDistrict, setSelectedDistrict] = useState("Bastar");
+=======
+  const [selectedState, setSelectedState] = useState("Tripura");
+  const [selectedDistrict, setSelectedDistrict] = useState("All Districts");
+>>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
   const [selectedVillage, setSelectedVillage] = useState("All Villages");
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
 
+<<<<<<< HEAD
   const states = ["Chhattisgarh", "Jharkhand", "Odisha", "Madhya Pradesh"];
   const districts = ["Bastar", "Kanker", "Kondagaon", "Sukma"];
   const villages = [
@@ -35,6 +41,199 @@ const Dashboard = ({ user, language }) => {
     "Keskal",
     "Bakawand",
   ];
+=======
+  const states = ["Tripura", "Telangana", "Odisha", "Madhya Pradesh"];
+
+  // Dynamic data structure for districts and villages based on state with coordinates
+  const stateData = {
+    "Madhya Pradesh": {
+      center: [78.6569, 23.2599],
+      zoom: 7,
+      districts: ["All Districts", "Bhind", "Satna"],
+      districtCoordinates: {
+        "All Districts": { center: [78.6569, 23.2599], zoom: 7 },
+        Bhind: { center: [78.7831, 26.5647], zoom: 10 },
+        Satna: { center: [80.8318, 24.5718], zoom: 10 },
+      },
+      villages: {
+        "All Districts": ["All Villages"],
+        Bhind: ["All Villages", "Bhind City", "Lahar", "Mehgaon"],
+        Satna: ["All Villages", "Satna City", "Maihar", "Nagod"],
+      },
+      villageCoordinates: {
+        "All Districts": {
+          "All Villages": { center: [78.6569, 23.2599], zoom: 7 },
+        },
+        Bhind: {
+          "All Villages": { center: [78.7831, 26.5647], zoom: 10 },
+          "Bhind City": { center: [78.7831, 26.5647], zoom: 12 },
+          Lahar: { center: [78.9436, 26.1963], zoom: 12 },
+          Mehgaon: { center: [78.6525, 26.5836], zoom: 12 },
+        },
+        Satna: {
+          "All Villages": { center: [80.8318, 24.5718], zoom: 10 },
+          "Satna City": { center: [80.8318, 24.5718], zoom: 12 },
+          Maihar: { center: [80.7589, 24.2659], zoom: 12 },
+          Nagod: { center: [80.5858, 24.5687], zoom: 12 },
+        },
+      },
+    },
+    Tripura: {
+      center: [91.9882, 23.9408],
+      zoom: 8,
+      districts: ["All Districts", "Nidaya", "Agartala"],
+      districtCoordinates: {
+        "All Districts": { center: [91.9882, 23.9408], zoom: 8 },
+        Nidaya: { center: [92.3372, 24.3259], zoom: 11 },
+        Agartala: { center: [91.2868, 23.8315], zoom: 11 },
+      },
+      villages: {
+        "All Districts": ["All Villages"],
+        Nidaya: ["All Villages", "Nidaya Town", "Kailashahar", "Dharmanagar"],
+        Agartala: ["All Villages", "Agartala City", "Udaipur", "Sonamura"],
+      },
+      villageCoordinates: {
+        "All Districts": {
+          "All Villages": { center: [91.9882, 23.9408], zoom: 8 },
+        },
+        Nidaya: {
+          "All Villages": { center: [92.3372, 24.3259], zoom: 11 },
+          "Nidaya Town": { center: [92.3372, 24.3259], zoom: 13 },
+          Kailashahar: { center: [92.0032, 24.332], zoom: 13 },
+          Dharmanagar: { center: [92.1676, 24.3738], zoom: 13 },
+        },
+        Agartala: {
+          "All Villages": { center: [91.2868, 23.8315], zoom: 11 },
+          "Agartala City": { center: [91.2868, 23.8315], zoom: 13 },
+          Udaipur: { center: [91.4985, 23.5333], zoom: 13 },
+          Sonamura: { center: [91.2794, 23.4984], zoom: 13 },
+        },
+      },
+    },
+    Odisha: {
+      center: [85.0985, 20.9517],
+      zoom: 7,
+      districts: ["All Districts", "Jagatsinghpur", "Kalahandi"],
+      districtCoordinates: {
+        "All Districts": { center: [85.0985, 20.9517], zoom: 7 },
+        Jagatsinghpur: { center: [86.1711, 20.2543], zoom: 10 },
+        Kalahandi: { center: [83.1656, 19.9151], zoom: 10 },
+      },
+      villages: {
+        "All Districts": ["All Villages"],
+        Jagatsinghpur: [
+          "All Villages",
+          "Jagatsinghpur Town",
+          "Paradeep",
+          "Tirtol",
+        ],
+        Kalahandi: ["All Villages", "Bhawanipatna", "Dharamgarh", "Junagarh"],
+      },
+      villageCoordinates: {
+        "All Districts": {
+          "All Villages": { center: [85.0985, 20.9517], zoom: 7 },
+        },
+        Jagatsinghpur: {
+          "All Villages": { center: [86.1711, 20.2543], zoom: 10 },
+          "Jagatsinghpur Town": { center: [86.1711, 20.2543], zoom: 12 },
+          Paradeep: { center: [86.61, 20.3102], zoom: 12 },
+          Tirtol: { center: [86.444, 20.3033], zoom: 12 },
+        },
+        Kalahandi: {
+          "All Villages": { center: [83.1656, 19.9151], zoom: 10 },
+          Bhawanipatna: { center: [83.1656, 19.9151], zoom: 12 },
+          Dharamgarh: { center: [83.1735, 20.4621], zoom: 12 },
+          Junagarh: { center: [82.9321, 20.2449], zoom: 12 },
+        },
+      },
+    },
+    Telangana: {
+      center: [79.0193, 18.1124],
+      zoom: 7,
+      districts: ["All Districts", "Narayanpet", "Venkatapur"],
+      districtCoordinates: {
+        "All Districts": { center: [79.0193, 18.1124], zoom: 7 },
+        Narayanpet: { center: [77.491, 16.7454], zoom: 10 },
+        Venkatapur: { center: [79.5941, 19.2183], zoom: 10 },
+      },
+      villages: {
+        "All Districts": ["All Villages"],
+        Narayanpet: ["All Villages", "Narayanpet Town", "Makthal", "Utkoor"],
+        Venkatapur: ["All Villages", "Venkatapur Town", "Asifabad", "Sirpur"],
+      },
+      villageCoordinates: {
+        "All Districts": {
+          "All Villages": { center: [79.0193, 18.1124], zoom: 7 },
+        },
+        Narayanpet: {
+          "All Villages": { center: [77.491, 16.7454], zoom: 10 },
+          "Narayanpet Town": { center: [77.491, 16.7454], zoom: 12 },
+          Makthal: { center: [77.6674, 16.4387], zoom: 12 },
+          Utkoor: { center: [77.3236, 16.0638], zoom: 12 },
+        },
+        Venkatapur: {
+          "All Villages": { center: [79.5941, 19.2183], zoom: 10 },
+          "Venkatapur Town": { center: [79.5941, 19.2183], zoom: 12 },
+          Asifabad: { center: [79.2881, 19.3592], zoom: 12 },
+          Sirpur: { center: [79.6, 18.8333], zoom: 12 },
+        },
+      },
+    },
+  };
+
+  // Get districts for selected state
+  const getDistrictsForState = (state) => {
+    return stateData[state]?.districts || [];
+  };
+
+  // Get villages for selected state and district
+  const getVillagesForDistrict = (state, district) => {
+    return stateData[state]?.villages[district] || ["All Villages"];
+  };
+
+  // Get coordinates based on current selection
+  const getCurrentCoordinates = () => {
+    // If a specific village is selected (not "All Villages"), use village coordinates
+    if (selectedVillage !== "All Villages") {
+      const villageCoord =
+        stateData[selectedState]?.villageCoordinates?.[selectedDistrict]?.[
+          selectedVillage
+        ];
+      if (villageCoord) {
+        return villageCoord;
+      }
+    }
+
+    // If "All Districts" is selected, use state coordinates
+    if (selectedDistrict === "All Districts") {
+      const stateCoord = stateData[selectedState];
+      if (stateCoord) {
+        return { center: stateCoord.center, zoom: stateCoord.zoom };
+      }
+    }
+
+    // If a specific district is selected, use district coordinates
+    if (selectedDistrict) {
+      const districtCoord =
+        stateData[selectedState]?.districtCoordinates?.[selectedDistrict];
+      if (districtCoord) {
+        return districtCoord;
+      }
+    }
+
+    // Otherwise use state coordinates
+    const stateCoord = stateData[selectedState];
+    if (stateCoord) {
+      return { center: stateCoord.center, zoom: stateCoord.zoom };
+    }
+
+    // Fallback to default coordinates
+    return { center: [85.0985, 20.9517], zoom: 7 };
+  };
+
+  const districts = getDistrictsForState(selectedState);
+  const villages = getVillagesForDistrict(selectedState, selectedDistrict);
+>>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
 
   const getKPIData = () => {
     switch (user.role) {
@@ -145,26 +344,426 @@ const Dashboard = ({ user, language }) => {
         ];
     }
   };
-  useEffect(() => {
-    if (mapRef.current) return; // prevent multiple maps on re-render
-    if (!mapContainerRef.current) return; // ensure container is available
 
-    mapRef.current = new mapboxgl.Map({
-      // container: mapContainerRef.current!, // container ID
-      container: mapContainerRef.current, // container ID
-      style: "mapbox://styles/mapbox/streets-v12", // style URL
-      center: [77.209, 28.6139], // [lng, lat] -> example: New Delhi
-      zoom: 10, // zoom level
-    });
+  // Mock GeoJSON data (fallback if file doesn't load)
+  const mockClaimsData = {
+    type: "FeatureCollection",
+    features: [
+      {
+        type: "Feature",
+        id: 1,
+        properties: {
+          claim_id: "TR-001",
+          status: "Submitted",
+          claimant_name: "Bijoy Chakraborty",
+          area_m2: 1025.4,
+          submitted_at: "2025-08-20",
+        },
+        geometry: {
+          type: "Polygon",
+          coordinates: [
+            [
+              [91.35, 23.82],
+              [91.36, 23.82],
+              [91.36, 23.83],
+              [91.35, 23.83],
+              [91.35, 23.82],
+            ],
+          ],
+        },
+      },
+      {
+        type: "Feature",
+        id: 2,
+        properties: {
+          claim_id: "TR-002",
+          status: "Verified",
+          claimant_name: "Asha Debnath",
+          area_m2: 840.2,
+          submitted_at: "2025-07-10",
+        },
+        geometry: {
+          type: "Polygon",
+          coordinates: [
+            [
+              [91.38, 23.85],
+              [91.39, 23.85],
+              [91.39, 23.86],
+              [91.38, 23.86],
+              [91.38, 23.85],
+            ],
+          ],
+        },
+      },
+      {
+        type: "Feature",
+        id: 3,
+        properties: {
+          claim_id: "TR-003",
+          status: "Approved",
+          claimant_name: "Suresh Tripura",
+          area_m2: 2230.0,
+          submitted_at: "2025-06-12",
+        },
+        geometry: {
+          type: "Polygon",
+          coordinates: [
+            [
+              [91.42, 23.88],
+              [91.43, 23.88],
+              [91.43, 23.89],
+              [91.42, 23.89],
+              [91.42, 23.88],
+            ],
+          ],
+        },
+      },
+      {
+        type: "Feature",
+        id: 4,
+        properties: {
+          claim_id: "TR-004",
+          status: "Rejected",
+          claimant_name: "Geeta Reang",
+          area_m2: 560.75,
+          submitted_at: "2025-05-30",
+        },
+        geometry: {
+          type: "Polygon",
+          coordinates: [
+            [
+              [91.33, 23.79],
+              [91.34, 23.79],
+              [91.34, 23.8],
+              [91.33, 23.8],
+              [91.33, 23.79],
+            ],
+          ],
+        },
+      },
+    ],
+  };
 
-    // ✅ Optional: Add navigation controls
-    mapRef.current.addControl(new mapboxgl.NavigationControl(), "top-right");
-
-    return () => {
-      mapRef.current?.remove(); // cleanup on unmount
-    };
-  }, []);
   const kpiData = getKPIData();
+
+  const loadClaimsData = async () => {
+    try {
+      // Try to fetch from file first
+      const response = await fetch("/data/claims.json");
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Successfully loaded claims.json from file");
+        return data;
+      } else {
+        throw new Error(`Failed to fetch: ${response.status}`);
+      }
+    } catch (error) {
+      console.warn(
+        "Could not load /mock-data/claims.json, using fallback data:",
+        error,
+      );
+      // Use embedded mock data as fallback
+      return mockClaimsData;
+    }
+  };
+
+  useEffect(
+    () => {
+      // Prevent map re-creation
+      if (mapRef.current) return;
+      if (!mapContainerRef.current) return;
+
+      console.log("Initializing map...");
+
+      // Center set to Bhubaneswar (Odisha). Zoom 6 to show state-level.
+      mapRef.current = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        style: "mapbox://styles/mapbox/streets-v12",
+        center: [91.3662, 23.8315], // [lng, lat] -> Agartala, Tripura
+        zoom: 20,
+      });
+
+      // Add nav controls
+      mapRef.current.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+      // Wait for both style and map to load
+      mapRef.current.on("style.load", async () => {
+        console.log("Map style loaded, loading data...");
+
+        try {
+          // State data with centroid points for text labels
+          const statesData = {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: { name: "Tripura", state_code: "TR" },
+                geometry: {
+                  type: "Point",
+                  coordinates: [91.9882, 23.9408], // Centroid of Tripura
+                },
+              },
+              {
+                type: "Feature",
+                properties: { name: "Telangana", state_code: "TG" },
+                geometry: {
+                  type: "Point",
+                  coordinates: [79.0193, 18.1124], // Centroid of Telangana
+                },
+              },
+              {
+                type: "Feature",
+                properties: { name: "Odisha", state_code: "OR" },
+                geometry: {
+                  type: "Point",
+                  coordinates: [84.5187, 20.1517], // Centroid of Odisha
+                },
+              },
+              {
+                type: "Feature",
+                properties: { name: "Madhya Pradesh", state_code: "MP" },
+                geometry: {
+                  type: "Point",
+                  coordinates: [78.6569, 23.5734], // Centroid of Madhya Pradesh
+                },
+              },
+            ],
+          };
+
+          // Add states source
+          mapRef.current.addSource("indian-states", {
+            type: "geojson",
+            data: statesData,
+          });
+
+          // Add text labels for states with size-based highlighting
+          mapRef.current.addLayer({
+            id: "state-labels",
+            type: "symbol",
+            source: "indian-states",
+            layout: {
+              "text-field": ["get", "name"],
+              "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
+              "text-size": [
+                "case",
+                ["in", ["get", "name"], ["literal", states]], // Target states
+                22, // Large text for target states
+                14, // Small text for other states
+              ],
+              "text-transform": "uppercase",
+            },
+            paint: {
+              "text-color": [
+                "case",
+                ["in", ["get", "name"], ["literal", states]],
+                "#16a34a", // Green color for target states
+                "#6b7280", // Gray color for other states
+              ],
+              "text-halo-color": "white",
+              "text-halo-width": 2,
+            },
+          });
+
+          // Fit map to show all target states
+          const targetStateFeatures = statesData.features.filter((feature) =>
+            states.includes(feature.properties.name),
+          );
+
+          if (targetStateFeatures.length > 0) {
+            const bounds = new mapboxgl.LngLatBounds();
+            targetStateFeatures.forEach((feature) => {
+              bounds.extend(feature.geometry.coordinates);
+            });
+            mapRef.current.fitBounds(bounds, { padding: 100, maxZoom: 7 });
+          }
+
+          // Load claims data
+          const geojson = await loadClaimsData();
+          console.log("Claims data loaded:", geojson);
+
+          // Add source and layers
+          mapRef.current.addSource("claims", {
+            type: "geojson",
+            data: geojson,
+          });
+
+          // Fill layer colored by status
+          mapRef.current.addLayer({
+            id: "claims-fill",
+            type: "fill",
+            source: "claims",
+            paint: {
+              "fill-color": [
+                "match",
+                ["get", "status"],
+                "Submitted",
+                "#f9a825",
+                "Verified",
+                "#1976d2",
+                "Approved",
+                "#2e7d32",
+                "Rejected",
+                "#d32f2f",
+                "#cccccc",
+              ],
+              "fill-opacity": [
+                "case",
+                ["boolean", ["feature-state", "hover"], false],
+                0.85,
+                0.5,
+              ],
+            },
+          });
+
+          // Outline
+          mapRef.current.addLayer({
+            id: "claims-outline",
+            type: "line",
+            source: "claims",
+            paint: {
+              "line-color": [
+                "match",
+                ["get", "status"],
+                "Submitted",
+                "#c17900",
+                "Verified",
+                "#0b5b9a",
+                "Approved",
+                "#1b5e20",
+                "Rejected",
+                "#a91d1d",
+                "#888888",
+              ],
+              "line-width": 2,
+            },
+          });
+
+          console.log("Layers added successfully");
+
+          // Fit to data bounds (calculate simple bbox)
+          try {
+            const bounds = new mapboxgl.LngLatBounds();
+            geojson.features.forEach((f) => {
+              // handle polygons only (simple example); extend by each coordinate in first ring
+              const coords = f.geometry.coordinates;
+              if (f.geometry.type === "Polygon") {
+                coords[0].forEach(([lng, lat]) => bounds.extend([lng, lat]));
+              } else if (f.geometry.type === "MultiPolygon") {
+                f.geometry.coordinates.forEach((polygon) =>
+                  polygon[0].forEach(([lng, lat]) => bounds.extend([lng, lat])),
+                );
+              }
+            });
+            if (!bounds.isEmpty()) {
+              mapRef.current.fitBounds(bounds, { padding: 40, maxZoom: 12 });
+              console.log("Fitted to bounds");
+            }
+          } catch (err) {
+            console.warn("Could not compute bounds", err);
+          }
+
+          // Hover (feature-state)
+          let hoveredId = null;
+          mapRef.current.on("mousemove", "claims-fill", (e) => {
+            if (!e.features || !e.features.length) return;
+            const feature = e.features[0];
+            if (hoveredId !== null) {
+              mapRef.current.setFeatureState(
+                { source: "claims", id: hoveredId },
+                { hover: false },
+              );
+            }
+            hoveredId = feature.id;
+            mapRef.current.setFeatureState(
+              { source: "claims", id: hoveredId },
+              { hover: true },
+            );
+            mapRef.current.getCanvas().style.cursor = "pointer";
+          });
+
+          mapRef.current.on("mouseleave", "claims-fill", () => {
+            if (hoveredId !== null) {
+              mapRef.current.setFeatureState(
+                { source: "claims", id: hoveredId },
+                { hover: false },
+              );
+            }
+            hoveredId = null;
+            mapRef.current.getCanvas().style.cursor = "";
+          });
+
+          // Click -> popup
+          mapRef.current.on("click", "claims-fill", (e) => {
+            if (!e.features || !e.features.length) return;
+            const feat = e.features[0];
+            const p = feat.properties || {};
+            // area_m2 might be string — format defensively
+            const area = p.area_m2 ? Number(p.area_m2).toFixed(2) + " m²" : "—";
+            const html = `
+            <div style="font-size:13px">
+              <strong>${p.claimant_name || "—"}</strong><br/>
+              ID: ${p.claim_id || "—"}<br/>
+              Status: ${p.status || "—"}<br/>
+              Area: ${area}
+            </div>
+          `;
+            new mapboxgl.Popup({ offset: 12 })
+              .setLngLat(e.lngLat)
+              .setHTML(html)
+              .addTo(mapRef.current);
+          });
+
+          // Simple legend inserted into map container (optional)
+          const existingLegend = document.getElementById("claims-legend");
+          if (!existingLegend && mapContainerRef.current) {
+            const legend = document.createElement("div");
+            legend.id = "claims-legend";
+            legend.style.position = "absolute";
+            legend.style.top = "12px";
+            legend.style.right = "12px";
+            legend.style.background = "white";
+            legend.style.padding = "8px 10px";
+            legend.style.borderRadius = "6px";
+            legend.style.fontSize = "13px";
+            legend.style.boxShadow = "0 2px 6px rgba(0,0,0,0.15)";
+            legend.innerHTML = `
+            <div style="margin-bottom:6px;font-weight:600">Claim Status</div>
+            <div style="display:flex;gap:8px;align-items:center;margin:2px 0"><span style="width:12px;height:12px;background:#f9a825;display:inline-block;border:1px solid #ccc"></span>Submitted</div>
+            <div style="display:flex;gap:8px;align-items:center;margin:2px 0"><span style="width:12px;height:12px;background:#1976d2;display:inline-block;border:1px solid #ccc"></span>Verified</div>
+            <div style="display:flex;gap:8px;align-items:center;margin:2px 0"><span style="width:12px;height:12px;background:#2e7d32;display:inline-block;border:1px solid #ccc"></span>Approved</div>
+            <div style="display:flex;gap:8px;align-items:center;margin:2px 0"><span style="width:12px;height:12px;background:#d32f2f;display:inline-block;border:1px solid #ccc"></span>Rejected</div>
+          `;
+            // append to the map container parent so it floats over the map
+            mapContainerRef.current.appendChild(legend);
+          }
+        } catch (error) {
+          console.error("Error setting up claims visualization:", error);
+        }
+      });
+
+      // Cleanup on unmount
+      return () => {
+        if (mapRef.current) {
+          mapRef.current.remove();
+          mapRef.current = null;
+        }
+      };
+    },
+    [
+      /* empty */
+    ],
+  );
+
+  const handleStateZoom = () => {
+    const { center, zoom } = getCurrentCoordinates();
+
+    if (mapRef.current) {
+      mapRef.current.flyTo({
+        center: center,
+        zoom: zoom,
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-6 space-y-6">
@@ -212,19 +811,47 @@ const Dashboard = ({ user, language }) => {
             {language === "en" ? "Reset Filters" : "फिल्टर रीसेट करें"}
           </button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {[
             {
               label: language === "en" ? "State" : "राज्य",
               value: selectedState,
               options: states,
+<<<<<<< HEAD
               onChange: setSelectedState,
+=======
+              onChange: (newState) => {
+                setSelectedState(newState);
+                // Reset district and village when state changes
+                const newDistricts = getDistrictsForState(newState);
+                if (newDistricts.length > 0) {
+                  setSelectedDistrict("All Districts");
+                  setSelectedVillage("All Villages");
+                }
+              },
+>>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
             },
             {
               label: language === "en" ? "District" : "जिला",
               value: selectedDistrict,
               options: districts,
+<<<<<<< HEAD
               onChange: setSelectedDistrict,
+=======
+              onChange: (newDistrict) => {
+                setSelectedDistrict(newDistrict);
+                // Reset village when district changes
+                if (newDistrict === "All Districts") {
+                  setSelectedVillage("All Villages");
+                } else {
+                  const newVillages = getVillagesForDistrict(
+                    selectedState,
+                    newDistrict,
+                  );
+                  setSelectedVillage(newVillages[0] || "All Villages");
+                }
+              },
+>>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
             },
             {
               label: language === "en" ? "Village" : "गांव",
@@ -254,6 +881,7 @@ const Dashboard = ({ user, language }) => {
               </div>
             </div>
           ))}
+          <button onClick={handleStateZoom}>see</button>
         </div>
       </div>
 
@@ -265,8 +893,13 @@ const Dashboard = ({ user, language }) => {
             kpi.trend === "up"
               ? "text-green-500"
               : kpi.trend === "down"
+<<<<<<< HEAD
               ? "text-red-500"
               : "text-gray-500";
+=======
+                ? "text-red-500"
+                : "text-gray-500";
+>>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
           const trendIcon =
             kpi.trend === "up" ? (
               <TrendingUp className="h-4 w-4" />
@@ -359,10 +992,17 @@ const Dashboard = ({ user, language }) => {
                       activity.status === "pending"
                         ? "bg-amber-500"
                         : activity.status === "completed"
+<<<<<<< HEAD
                         ? "bg-blue-500"
                         : activity.status === "success"
                         ? "bg-green-500"
                         : "bg-gray-400"
+=======
+                          ? "bg-blue-500"
+                          : activity.status === "success"
+                            ? "bg-green-500"
+                            : "bg-gray-400"
+>>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
                     }`}
                   />
                   <div className="flex-1 min-w-0">
