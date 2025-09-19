@@ -1,10 +1,9 @@
-// components/NewClaim.jsx
-import React, { useState, useCallback } from 'react';
-import DocumentUploader from './DocumentUploader.jsx';
-import DocumentViewer from './DocumentViewer.jsx';
-import FieldExtractor from './FieldExtractor.jsx';
-import { db } from '../../firebase/firebase.js';
-import { collection, addDoc } from 'firebase/firestore';
+import { useState, useCallback } from "react";
+import DocumentUploader from "./DocumentUploader";
+import DocumentViewer from "./DocumentViewer";
+import FieldExtractor from "./FieldExtractor";
+import { db } from "../../firebase/firebase.js";
+import { collection, addDoc } from "firebase/firestore";
 
 const NewClaim = ({ user, onClaimCreated }) => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -16,9 +15,15 @@ const NewClaim = ({ user, onClaimCreated }) => {
   const [isSaving, setIsSaving] = useState(false);
 
   const steps = [
-    { title: 'Upload Documents', description: 'Upload your FRA form documents' },
-    { title: 'Review & Edit', description: 'Review extracted information and make corrections' },
-    { title: 'Submit Claim', description: 'Confirm and submit your claim' }
+    {
+      title: "Upload Documents",
+      description: "Upload your FRA form documents",
+    },
+    {
+      title: "Review & Edit",
+      description: "Review extracted information and make corrections",
+    },
+    { title: "Submit Claim", description: "Confirm and submit your claim" },
   ];
 
   const handleDocumentsProcessed = useCallback((results) => {
@@ -36,51 +41,52 @@ const NewClaim = ({ user, onClaimCreated }) => {
   }, []);
 
   const handleFieldChange = useCallback((fieldKey, value) => {
-    setExtractedFields(prev => ({
+    setExtractedFields((prev) => ({
       ...prev,
-      [fieldKey]: value
+      [fieldKey]: value,
     }));
   }, []);
 
-  const handleSaveFields = useCallback(async (fields) => {
-    setIsSaving(true);
-    try {
-      // Save to Firebase
-      const claimData = {
-        userId: user.uid,
-        userEmail: user.email,
-        formType,
-        fields,
-        status: 'SUBMITTED',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        ocrResults,
-        documents: uploadedDocuments.map(doc => ({
-          name: doc.name,
-          size: doc.size,
-          type: doc.type
-        }))
-      };
+  const handleSaveFields = useCallback(
+    async (fields) => {
+      setIsSaving(true);
+      try {
+        const claimData = {
+          userId: user.uid,
+          userEmail: user.email,
+          formType,
+          fields,
+          status: "SUBMITTED",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          ocrResults,
+          documents: uploadedDocuments.map((doc) => ({
+            name: doc.name,
+            size: doc.size,
+            type: doc.type,
+          })),
+        };
 
-      const docRef = await addDoc(collection(db, 'fra_claims'), claimData);
-      
-      setCurrentStep(2);
-      
-      if (onClaimCreated) {
-        onClaimCreated({ id: docRef.id, ...claimData });
+        const docRef = await addDoc(collection(db, "fra_claims"), claimData);
+
+        setCurrentStep(2);
+
+        if (onClaimCreated) {
+          onClaimCreated({ id: docRef.id, ...claimData });
+        }
+      } catch (error) {
+        console.error("Error saving claim:", error);
+        alert("Failed to save claim. Please try again.");
+      } finally {
+        setIsSaving(false);
       }
-    } catch (error) {
-      console.error('Error saving claim:', error);
-      alert('Failed to save claim. Please try again.');
-    } finally {
-      setIsSaving(false);
-    }
-  }, [user, formType, ocrResults, uploadedDocuments, onClaimCreated]);
+    },
+    [user, formType, ocrResults, uploadedDocuments, onClaimCreated]
+  );
 
   const handleSubmitClaim = useCallback(() => {
-    // Navigate back to dashboard or show success message
     if (onClaimCreated) {
-      onClaimCreated(null); // Signal completion
+      onClaimCreated(null);
     }
   }, [onClaimCreated]);
 
@@ -88,7 +94,7 @@ const NewClaim = ({ user, onClaimCreated }) => {
     switch (currentStep) {
       case 0:
         return (
-          <div className="step-content upload-step">
+          <div className="max-w-4xl mx-auto">
             <DocumentUploader
               onDocumentsProcessed={handleDocumentsProcessed}
               onFieldsExtracted={handleFieldsExtracted}
@@ -98,19 +104,19 @@ const NewClaim = ({ user, onClaimCreated }) => {
 
       case 1:
         return (
-          <div className="step-content review-step">
-            <div className="review-layout">
-              <div className="document-panel">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+              {/* Document Panel - Left Side */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full min-h-96">
                 <DocumentViewer
                   documents={uploadedDocuments}
                   currentPage={currentDocumentPage}
                   onPageChange={setCurrentDocumentPage}
                 />
               </div>
-              
-              <div className="separator"></div>
-              
-              <div className="fields-panel">
+
+              {/* Fields Panel - Right Side */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 h-full overflow-auto">
                 <FieldExtractor
                   extractedFields={extractedFields}
                   formType={formType}
@@ -125,39 +131,69 @@ const NewClaim = ({ user, onClaimCreated }) => {
 
       case 2:
         return (
-          <div className="step-content success-step">
-            <div className="success-message">
-              <div className="success-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22,4 12,14.01 9,11.01"></polyline>
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg
+                  className="w-8 h-8 text-green-600"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22,4 12,14.01 9,11.01" />
                 </svg>
               </div>
-              <h2>Claim Submitted Successfully!</h2>
-              <p>Your FRA claim has been submitted and is now under review.</p>
-              
-              <div className="claim-summary">
-                <div className="summary-item">
-                  <strong>Form Type:</strong> {formType?.replace('_', ' ')}
-                </div>
-                <div className="summary-item">
-                  <strong>Status:</strong> Submitted
-                </div>
-                <div className="summary-item">
-                  <strong>Documents:</strong> {uploadedDocuments.length} files uploaded
-                </div>
-                <div className="summary-item">
-                  <strong>Next Steps:</strong> Your claim will be verified by the Forest Rights Committee
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Claim Submitted Successfully!
+              </h2>
+              <p className="text-gray-600 mb-8">
+                Your FRA claim has been submitted and is now under review.
+              </p>
+
+              <div className="bg-gray-50 rounded-lg p-6 mb-8 text-left">
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="font-medium text-gray-900">
+                      Form Type:
+                    </span>
+                    <span className="text-gray-600">
+                      {formType?.replace("_", " ")}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium text-gray-900">Status:</span>
+                    <span className="text-gray-600">Submitted</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium text-gray-900">
+                      Documents:
+                    </span>
+                    <span className="text-gray-600">
+                      {uploadedDocuments.length} files uploaded
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-medium text-gray-900">
+                      Next Steps:
+                    </span>
+                    <span className="text-gray-600">
+                      Committee verification
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <div className="success-actions">
-                <button onClick={handleSubmitClaim} className="primary-button">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={handleSubmitClaim}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                >
                   Go to Dashboard
                 </button>
-                <button 
-                  onClick={() => window.location.reload()} 
-                  className="secondary-button"
+                <button
+                  onClick={() => window.location.reload()}
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-6 py-3 rounded-lg transition-colors"
                 >
                   Submit Another Claim
                 </button>
@@ -172,36 +208,78 @@ const NewClaim = ({ user, onClaimCreated }) => {
   };
 
   return (
-    <div className="new-claim">
-      <div className="claim-header">
-        <h1>New FRA Claim</h1>
-        <p>Submit your Forest Rights Act claim by uploading documents and filling required information</p>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <h1 className="text-3xl font-bold text-gray-900">New FRA Claim</h1>
+          <p className="text-gray-600 mt-1">
+            Submit your Forest Rights Act claim by uploading documents and
+            filling required information
+          </p>
+        </div>
       </div>
 
-      <div className="progress-stepper">
-        {steps.map((step, index) => (
-          <div key={index} className={`step ${index <= currentStep ? 'completed' : ''}`}>
-            <div className="step-number">{index + 1}</div>
-            <div className="step-info">
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
+      {/* Progress Stepper */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex items-center justify-between mb-8">
+          {steps.map((step, index) => (
+            <div key={index} className="flex items-center">
+              <div
+                className={`flex items-center ${
+                  index <= currentStep ? "text-emerald-600" : "text-gray-400"
+                }`}
+              >
+                <div
+                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
+                    index <= currentStep
+                      ? "bg-emerald-600 text-white"
+                      : "bg-gray-200 text-gray-600"
+                  }`}
+                >
+                  {index + 1}
+                </div>
+                <div className="ml-4">
+                  <h3 className="font-semibold">{step.title}</h3>
+                  <p className="text-sm">{step.description}</p>
+                </div>
+              </div>
+              {index < steps.length - 1 && (
+                <div
+                  className={`flex-1 h-0.5 mx-8 ${
+                    index < currentStep ? "bg-emerald-600" : "bg-gray-200"
+                  }`}
+                />
+              )}
             </div>
-            {index < steps.length - 1 && <div className="step-connector"></div>}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <div className="step-container">
-        {renderStepContent()}
-      </div>
+      {/* Step Content */}
+      <div className="px-4 sm:px-6 lg:px-8 pb-8">{renderStepContent()}</div>
 
+      {/* Navigation */}
       {currentStep === 1 && (
-        <div className="step-navigation">
-          <button 
-            onClick={() => setCurrentStep(0)} 
-            className="nav-button secondary"
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <button
+            onClick={() => setCurrentStep(0)}
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
-            Back to Upload
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+            <span>Back to Upload</span>
           </button>
         </div>
       )}

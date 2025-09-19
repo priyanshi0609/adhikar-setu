@@ -8,17 +8,25 @@ class OCRProcessor {
     }
 
     async initialize() {
-        if (this.isInitialized) return;
-
-        this.worker = await createWorker();
-        await this.worker.loadLanguage('eng+hin');
-        await this.worker.initialize('eng+hin');
-        await this.worker.setParameters({
-            tessedit_page_seg_mode: '1',
-            tessedit_ocr_engine_mode: '2',
-        });
-
-        this.isInitialized = true;
+        if (this.isInitialized && this.worker) return;
+        
+        try {
+            this.worker = await createWorker('eng+hin', 1, {
+                logger: m => console.log('Tesseract:', m)
+            });
+            
+            // Set parameters after worker is created
+            await this.worker.setParameters({
+                tessedit_page_seg_mode: '1',
+                tessedit_ocr_engine_mode: '2',
+            });
+            
+            this.isInitialized = true;
+            console.log('OCR Worker initialized successfully');
+        } catch (error) {
+            console.error('OCR Initialization Error:', error);
+            throw error;
+        }
     }
 
     async processImage(imageFile, onProgress = null) {
@@ -27,22 +35,23 @@ class OCRProcessor {
                 await this.initialize();
             }
 
-            const { data: { text, confidence, words, lines } } = await this.worker.recognize(
-                imageFile,
-                {
-                    logger: onProgress ? (m) => {
-                        if (m.status === 'recognizing text') {
-                            onProgress(Math.round(m.progress * 100));
-                        }
-                    } : undefined
-                }
-            );
+            console.log('Processing image:', imageFile.name);
 
+            const result = await this.worker.recognize(imageFile, {
+                logger: onProgress ? (m) => {
+                    if (m.status === 'recognizing text') {
+                        onProgress(Math.round(m.progress * 100));
+                    }
+                } : undefined
+            });
+
+            const { data } = result;
+            
             return {
-                text: text.trim(),
-                confidence,
-                words: words || [],
-                lines: lines || [],
+                text: data.text.trim(),
+                confidence: data.confidence,
+                words: data.words || [],
+                lines: data.lines || [],
                 success: true
             };
         } catch (error) {
@@ -60,12 +69,13 @@ class OCRProcessor {
 
     async processMultiplePages(files, onProgress = null) {
         const results = [];
-
+        
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
+            
             const pageProgress = (pageNum) => {
                 if (onProgress) {
-                    const overallProgress = ((i / files.length) * 100) + ((pageNum / files.length) / 100);
+                    const overallProgress = ((i / files.length) * 100) + ((pageNum / 100) / files.length);
                     onProgress(Math.round(overallProgress));
                 }
             };
@@ -77,33 +87,44 @@ class OCRProcessor {
                 ...result
             });
         }
-
+        
         return results;
     }
 
     async terminate() {
         if (this.worker) {
-            await this.worker.terminate();
-            this.worker = null;
-            this.isInitialized = false;
+            try {
+                await this.worker.terminate();
+            } catch (error) {
+                console.error('Error terminating worker:', error);
+            } finally {
+                this.worker = null;
+                this.isInitialized = false;
+            }
         }
     }
 
     // Extract structured data from OCR text
     extractStructuredData(ocrText) {
+        if (!ocrText || typeof ocrText !== 'string') {
+            return {};
+        }
+
         const extractedData = {};
         const lines = ocrText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
-
+        
         // Common patterns for FRA forms
         const patterns = {
             name: /(?:name|nama|नाम)[\s:]*(.+)/i,
-            father: /(?:father|पिता|पिता का नाम)[\s:]*(.+)/i,
+            fatherName: /(?:father|पिता|पिता का नाम|father's name)[\s:]*(.+)/i,
             village: /(?:village|गांव|ग्राम)[\s:]*(.+)/i,
             district: /(?:district|जिला)[\s:]*(.+)/i,
             tehsil: /(?:tehsil|तहसील)[\s:]*(.+)/i,
             gramPanchayat: /(?:gram panchayat|ग्राम पंचायत)[\s:]*(.+)/i,
             scheduledTribe: /(?:scheduled tribe|अनुसूचित जनजाति)[\s:]*(.+)/i,
             area: /(?:area|क्षेत्रफल|hectare|हेक्टेयर)[\s:]*([0-9.]+)/i,
+            extentForHabitation: /(?:extent.*habitation|निवास.*क्षेत्र)[\s:]*([0-9.]+)/i,
+            extentForCultivation: /(?:extent.*cultivation|खेती.*क्षेत्र)[\s:]*([0-9.]+)/i,
             date: /([0-9]{1,2}[\/\-][0-9]{1,2}[\/\-][0-9]{4})/g,
         };
 
@@ -111,7 +132,15 @@ class OCRProcessor {
             Object.entries(patterns).forEach(([key, pattern]) => {
                 const match = line.match(pattern);
                 if (match && match[1]) {
-                    extractedData[key] = match[1].trim();
+                    if (key === 'date') {
+                        // Handle multiple dates
+                        const dates = [...line.matchAll(pattern)];
+                        if (dates.length > 0) {
+                            extractedData[key] = dates.map(d => d[1]);
+                        }
+                    } else {
+                        extractedData[key] = match[1].trim();
+                    }
                 }
             });
         });
