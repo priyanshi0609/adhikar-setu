@@ -20,28 +20,12 @@ mapboxgl.accessToken =
   "pk.eyJ1IjoiYXJzaHRpd2FyaSIsImEiOiJjbTJhODE2dm8wZ2MxMmlxdTJkbnJ1aTZnIn0.m9ky2-2MfcdA37RIVoxC_w";
 
 const Dashboard = ({ user, language }) => {
-<<<<<<< HEAD
-  const [selectedState, setSelectedState] = useState("Chhattisgarh");
-  const [selectedDistrict, setSelectedDistrict] = useState("Bastar");
-=======
   const [selectedState, setSelectedState] = useState("Tripura");
   const [selectedDistrict, setSelectedDistrict] = useState("All Districts");
->>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
   const [selectedVillage, setSelectedVillage] = useState("All Villages");
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
 
-<<<<<<< HEAD
-  const states = ["Chhattisgarh", "Jharkhand", "Odisha", "Madhya Pradesh"];
-  const districts = ["Bastar", "Kanker", "Kondagaon", "Sukma"];
-  const villages = [
-    "All Villages",
-    "Jagdalpur",
-    "Kondagaon",
-    "Keskal",
-    "Bakawand",
-  ];
-=======
   const states = ["Tripura", "Telangana", "Odisha", "Madhya Pradesh"];
 
   // Dynamic data structure for districts and villages based on state with coordinates
@@ -233,7 +217,6 @@ const Dashboard = ({ user, language }) => {
 
   const districts = getDistrictsForState(selectedState);
   const villages = getVillagesForDistrict(selectedState, selectedDistrict);
->>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
 
   const getKPIData = () => {
     switch (user.role) {
@@ -817,9 +800,6 @@ const Dashboard = ({ user, language }) => {
               label: language === "en" ? "State" : "राज्य",
               value: selectedState,
               options: states,
-<<<<<<< HEAD
-              onChange: setSelectedState,
-=======
               onChange: (newState) => {
                 setSelectedState(newState);
                 // Reset district and village when state changes
@@ -829,15 +809,11 @@ const Dashboard = ({ user, language }) => {
                   setSelectedVillage("All Villages");
                 }
               },
->>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
             },
             {
               label: language === "en" ? "District" : "जिला",
               value: selectedDistrict,
               options: districts,
-<<<<<<< HEAD
-              onChange: setSelectedDistrict,
-=======
               onChange: (newDistrict) => {
                 setSelectedDistrict(newDistrict);
                 // Reset village when district changes
@@ -851,7 +827,6 @@ const Dashboard = ({ user, language }) => {
                   setSelectedVillage(newVillages[0] || "All Villages");
                 }
               },
->>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
             },
             {
               label: language === "en" ? "Village" : "गांव",
@@ -893,13 +868,8 @@ const Dashboard = ({ user, language }) => {
             kpi.trend === "up"
               ? "text-green-500"
               : kpi.trend === "down"
-<<<<<<< HEAD
-              ? "text-red-500"
-              : "text-gray-500";
-=======
                 ? "text-red-500"
                 : "text-gray-500";
->>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
           const trendIcon =
             kpi.trend === "up" ? (
               <TrendingUp className="h-4 w-4" />
@@ -992,17 +962,10 @@ const Dashboard = ({ user, language }) => {
                       activity.status === "pending"
                         ? "bg-amber-500"
                         : activity.status === "completed"
-<<<<<<< HEAD
-                        ? "bg-blue-500"
-                        : activity.status === "success"
-                        ? "bg-green-500"
-                        : "bg-gray-400"
-=======
                           ? "bg-blue-500"
                           : activity.status === "success"
                             ? "bg-green-500"
                             : "bg-gray-400"
->>>>>>> 91e849e (mapboxFeature : highlights 4 states and adds redirection to seleacted states, districts or villages)
                     }`}
                   />
                   <div className="flex-1 min-w-0">
