@@ -38,7 +38,7 @@ import { useEffect, useState } from "react";
 // Import images (you'll need to add these to your assets folder)
 import digitalMap from "@/assets/digital-map.jpg";
 import tribalCommunity from "@/assets/tribal-community.jpg";
-// import fraProcess from "@/assets/fra-process.png";
+import fraProcess from "@/assets/fra-process.png";
 import stateMap from "@/assets/state-map.png";
 // import teamMeeting from "@/assets/team-meeting.jpg";
 
@@ -502,7 +502,7 @@ export default function HomePage() {
       </section>
 
       {/* Process Section */}
-      <section id="process" className="py-16 bg-white">
+      <section id="process" className="py-16 bg-white relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -513,32 +513,45 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="relative">
-            <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 h-full w-1 bg-green-200"></div>
+          <div className="relative flex flex-col md:flex-row items-start md:items-start md:ml-30 ">
+            {/* Timeline */}
+            <div className="relative md:flex-[2] w-full">
+              <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 h-full w-1 bg-green-200"></div>
 
-            <div className="space-y-12">
-              {processSteps.map((step, index) => (
-                <div key={index} className="relative">
-                  <div className="md:flex items-center">
-                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-green-600 text-white font-bold z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
-                      {step.step}
-                    </div>
-                    <div
-                      className={`ml-10 md:ml-0 md:w-1/2 ${
-                        index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12"
-                      }`}
-                    >
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                        {step.title}
-                      </h3>
-                      <p className="text-gray-600">{step.description}</p>
+              <div className="space-y-12">
+                {processSteps.map((step, index) => (
+                  <div key={index} className="relative">
+                    <div className="md:flex items-center">
+                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-green-600 text-white font-bold z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+                        {step.step}
+                      </div>
+                      <div
+                        className={`ml-0 md:ml-0 md:w-1/2 ${
+                          index % 2 === 0 ? "md:pr-4 md:text-right" : "md:pl-4"
+                        }`}
+                      >
+                        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                          {step.title}
+                        </h3>
+                        <p className="text-gray-600">{step.description}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Right-side Image */}
+            <div className="md:flex-1 flex justify-center mt-8 md:mt-0 md:mr-30">
+              <img
+                src={fraProcess}
+                alt="FRA Process Illustration"
+                className="w-full max-w-md rounded-2xl shadow-lg"
+              />
             </div>
           </div>
 
+          {/* Statutory Workflow Box */}
           <div className="mt-12 bg-gray-100 rounded-2xl p-6">
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
               Statutory Workflow Compliance
@@ -579,7 +592,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Target States Section */}
+      {/* Initial States Section */}
       <section className="py-16 bg-green-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -713,7 +726,7 @@ export default function HomePage() {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-white text-white hover:bg-green-700 px-8"
+                className="border-white text-green-700 hover:bg-gray-100 px-8"
               >
                 Contact Us
               </Button>
@@ -832,11 +845,9 @@ export default function HomePage() {
 
           <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2023 Adhikar Setu. Developed for Ministry of Tribal Affairs.
+              © 2025 Adhikar Setu. Developed for Ministry of Tribal Affairs.
             </p>
-            <p className="text-gray-400 text-sm mt-4 md:mt-0">
-              Forest Rights Act, 2006 Implementation Platform
-            </p>
+            <p className="text-gray-400 text-sm mt-4 md:mt-0">Team - Synapse</p>
           </div>
         </div>
       </footer>
