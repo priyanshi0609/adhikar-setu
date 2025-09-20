@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Globe, Search, MapPin, BarChart3, Download, Filter, Eye } from 'lucide-react';
+import MapComponent from './MapComponent';
 
 const PublicAtlas = ({ language }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -198,53 +199,14 @@ const PublicAtlas = ({ language }) => {
             </div>
           </div>
 
-          {/* Map Visualization */}
-          <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-lg h-96 flex items-center justify-center border-2 border-dashed border-green-200 relative">
-            <div className="text-center">
-              <Globe className="h-16 w-16 text-green-500 mx-auto mb-4" />
-              <p className="text-xl font-semibold text-gray-700">
-                {language === 'en' ? 'Public FRA Atlas Map' : 'सार्वजनिक FRA एटलस मैप'}
-              </p>
-              <p className="text-gray-500 mt-2">
-                {language === 'en'
-                  ? `Showing granted forest rights polygons for ${selectedDistrict} district`
-                  : `${selectedDistrict} जिले के लिए प्रदत्त वन अधिकार बहुभुज दिखा रहा है`}
-              </p>
-            </div>
-
-            {/* Map Controls */}
-            <div className="absolute top-4 right-4 bg-white p-2 rounded-lg shadow-sm">
-              <div className="flex flex-col space-y-2">
-                <button className="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded flex items-center justify-center">+</button>
-                <button className="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded flex items-center justify-center">-</button>
-              </div>
-            </div>
-          </div>
-
-          {/* Map Legend */}
-          <div className="mt-4 bg-gray-50 rounded-lg p-4">
-            <h4 className="font-semibold text-gray-900 mb-3">
-              {language === 'en' ? 'Map Legend' : 'मैप व्याख्या'}
-            </h4>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-green-500 rounded mr-2"></div>
-                <span className="text-sm">{language === 'en' ? 'Granted Rights' : 'प्रदत्त अधिकार'}</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-yellow-500 rounded mr-2"></div>
-                <span className="text-sm">{language === 'en' ? 'Under Process' : 'प्रक्रियाधीन'}</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-blue-500 rounded mr-2"></div>
-                <span className="text-sm">{language === 'en' ? 'Community Rights' : 'सामुदायिक अधिकार'}</span>
-              </div>
-              <div className="flex items-center">
-                <div className="w-4 h-4 bg-purple-500 rounded mr-2"></div>
-                <span className="text-sm">{language === 'en' ? 'Individual Rights' : 'व्यक्तिगत अधिकार'}</span>
-              </div>
-            </div>
-          </div>
+          {/* Interactive Map */}
+          <MapComponent 
+            selectedState={selectedState}
+            selectedDistrict={selectedDistrict}
+            language={language}
+            onExport={() => console.log('Export map data')}
+            onLayerToggle={() => console.log('Toggle layers')}
+          />
         </div>
       ) : (
         <div className="space-y-6">
