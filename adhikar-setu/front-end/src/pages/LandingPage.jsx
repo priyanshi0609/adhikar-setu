@@ -51,6 +51,7 @@ import digitalMap from "@/assets/digital-map.jpg";
 import tribalCommunity from "@/assets/tribal-community.jpg";
 import fraProcess from "@/assets/fra-process.png";
 import stateMap from "@/assets/state-map.png";
+import AS from "@/assets/AS.png";
 // import teamMeeting from "@/assets/team-meeting.jpg";
 
 export default function HomePage() {
@@ -211,7 +212,11 @@ const fraData = [
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-2">
-              <TreePine className="h-8 w-8 text-green-600" />
+                <img
+                src={AS}
+                alt="Adhikar Setu Logo"
+                className="w-10 h-10 object-contain rounded-lg"
+              />
               <span className="text-2xl font-bold text-gray-900">
                 Adhikar Setu
               </span>
