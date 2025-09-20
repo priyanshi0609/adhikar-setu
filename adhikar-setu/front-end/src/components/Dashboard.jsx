@@ -13,6 +13,7 @@ import {
   Plus,
   Download,
   Map,
+  X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import mapboxgl from "mapbox-gl"; // Import mapbox-gl
@@ -27,6 +28,7 @@ const Dashboard = ({ user, language }) => {
   const [selectedVillage, setSelectedVillage] = useState("All Villages");
   const [selectedClaimStatus, setSelectedClaimStatus] = useState("All Statuses");
   const [selectedTribalGroup, setSelectedTribalGroup] = useState("All Groups");
+  const [showMapNote, setShowMapNote] = useState(true);
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
 
@@ -854,6 +856,37 @@ const Dashboard = ({ user, language }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Map View */}
         <div className="lg:col-span-2 space-y-6">
+          {/* Map Scope Note */}
+          {showMapNote && (
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-4 shadow-lg">
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                    <MapPin className="h-4 w-4 text-blue-600" />
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-sm font-bold text-blue-800 mb-1">
+                    {language === "en" ? "Map Coverage Information" : "मानचित्र कवरेज जानकारी"}
+                  </h4>
+                  <p className="text-sm text-blue-700 leading-relaxed">
+                    {language === "en" 
+                      ? "This interactive map displays Forest Rights Act (FRA) claims data specifically for India, focusing on four key states: Odisha, Tripura, Telangana, and Madhya Pradesh. The visualization helps track claim statuses, geographical distribution, and progress across these regions as per FRA implementation guidelines."
+                      : "यह इंटरैक्टिव मानचित्र भारत के लिए विशेष रूप से वन अधिकार अधिनियम (FRA) दावा डेटा प्रदर्शित करता है, जो चार प्रमुख राज्यों पर केंद्रित है: ओडिशा, त्रिपुरा, तेलंगाना और मध्य प्रदेश। यह दृश्यीकरण FRA कार्यान्वयन दिशानिर्देशों के अनुसार इन क्षेत्रों में दावा स्थिति, भौगोलिक वितरण और प्रगति को ट्रैक करने में मदद करता है।"
+                    }
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowMapNote(false)}
+                  className="flex-shrink-0 p-1 hover:bg-blue-100 rounded-full transition-colors duration-200"
+                  aria-label={language === "en" ? "Close notice" : "सूचना बंद करें"}
+                >
+                  <X className="h-4 w-4 text-blue-600" />
+                </button>
+              </div>
+            </div>
+          )}
+
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
             <div className="p-4 bg-gradient-to-r from-green-600 to-emerald-600">
               <h3 className="text-lg font-bold text-white flex items-center">
