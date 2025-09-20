@@ -6,8 +6,8 @@ export const stateVillageData = {
     zoom: 7,
     districts: ["Bhind", "Satna"],
     villages: {
-      "Bhind": ["Bhind", "Lahar", "Mehgaon"],
-      "Satna": ["Satna", "Maihar", "Nagod"]
+      "Bhind": ["Bhind"],
+      "Satna": ["Satna"]
     },
     coordinates: {
       "Bhind": { center: [78.7831, 26.5647], zoom: 10 },
@@ -20,8 +20,8 @@ export const stateVillageData = {
     zoom: 8,
     districts: ["Nidaya", "Agartala"],
     villages: {
-      "Nidaya": ["Nidaya", "Kailashahar", "Dharmanagar"],
-      "Agartala": ["Agartala", "Udaipur", "Sonamura"]
+      "Nidaya": ["Nidaya"],
+      "Agartala": ["Agartala"]
     },
     coordinates: {
       "Nidaya": { center: [92.3372, 24.3259], zoom: 11 },
@@ -34,8 +34,8 @@ export const stateVillageData = {
     zoom: 7,
     districts: ["Jagatsinghpur", "Kalahandi"],
     villages: {
-      "Jagatsinghpur": ["Jagatsinghpur", "Paradeep", "Tirtol"],
-      "Kalahandi": ["Bhawanipatna", "Dharamgarh", "Junagarh"]
+      "Jagatsinghpur": ["Jagatsinghpur"],
+      "Kalahandi": ["Kalahandi"]
     },
     coordinates: {
       "Jagatsinghpur": { center: [86.1711, 20.2543], zoom: 10 },
@@ -48,8 +48,8 @@ export const stateVillageData = {
     zoom: 7,
     districts: ["Narayanpet", "Venkatapur"],
     villages: {
-      "Narayanpet": ["Narayanpet", "Makthal", "Utkoor"],
-      "Venkatapur": ["Venkatapur", "Asifabad", "Sirpur"]
+      "Narayanpet": ["Narayanpet"],
+      "Venkatapur": ["Venkatapur"]
     },
     coordinates: {
       "Narayanpet": { center: [77.491, 16.7454], zoom: 10 },
