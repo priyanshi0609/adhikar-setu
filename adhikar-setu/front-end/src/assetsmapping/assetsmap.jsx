@@ -1,71 +1,59 @@
-import React, { useMemo, useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { MapPin, BarChart3, Image, TrendingUp, Users, FileText, CheckCircle, Clock, AlertTriangle } from "lucide-react";
+import React, { useMemo, useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  MapPin,
+  BarChart3,
+  Image,
+  TrendingUp,
+  Users,
+  FileText,
+  CheckCircle,
+  Clock,
+  AlertTriangle,
+  Leaf,
+  Home,
+  Wheat,
+  Droplets,
+} from "lucide-react";
 
-import { stateVillageData, analyticsData, imageMapping } from './data/stateVillageData';
+import {
+  // newStateVillageData,
+  getDistricts,
+  getConditionData,
+  calculateLandUseChange,
+} from "./data/newStateVillageData";
 
 function AssetMapping() {
-  const [selectedState, setSelectedState] = useState('');
-  const [village, setVillage] = useState('');
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
   const [mode, setMode] = useState(null); // 'analytics' | 'mapping' | null
 
-  const isVillageEnabled = selectedState.length > 0;
-  
-  // Get villages for selected state
-  const getVillagesForState = (state) => {
-    if (!state || !stateVillageData[state]) return [];
-    const villages = [];
-    Object.values(stateVillageData[state].villages).forEach(villageList => {
-      villages.push(...villageList);
-    });
-    return [...new Set(villages)]; // Remove duplicates
-  };
+  const isDistrictEnabled = selectedState.length > 0;
 
-  const villages = getVillagesForState(selectedState);
-  
-  // Get current analytics data
-  const getCurrentAnalytics = () => {
-    if (!selectedState || !village) return null;
-    return analyticsData[selectedState]?.[village] || null;
-  };
+  const districts = getDistricts(selectedState);
 
   // Get current images
   const getCurrentImages = () => {
-    if (!selectedState || !village) return [];
-    return imageMapping[selectedState]?.[village] || [];
+    if (!selectedState || !selectedDistrict) return [];
+    return ["overlay1.png", "overlay2.png", "overlay3.png"];
   };
 
-  const currentAnalytics = getCurrentAnalytics();
+  // const currentAnalytics = getCurrentAnalytics();
   const currentImages = getCurrentImages();
 
   const indiaOsmEmbedSrc = useMemo(() => {
     // India bounding box approximate (lng/lat): [minLon, minLat, maxLon, maxLat]
     const bbox = [68.1766, 6.5546, 97.4026, 35.6745];
-    return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox.join('%2C')}&layer=mapnik`;
+    return `https://www.openstreetmap.org/export/embed.html?bbox=${bbox.join("%2C")}&layer=mapnik`;
   }, []);
 
-  const handleShowAnalytics = () => setMode('analytics');
-  const handleCheckMapping = () => setMode('mapping');
+  const handleShowAnalytics = () => setMode("analytics");
+  const handleCheckMapping = () => setMode("mapping");
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 lg:p-6 space-y-8">
-      {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between bg-white rounded-2xl p-6 shadow-xl border border-gray-100">
-        <div className="space-y-2">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 bg-clip-text text-transparent">
-            Asset Mapping Dashboard
-          </h1>
-          <p className="text-lg text-gray-600 font-medium">
-            Welcome back, Guest
-          </p>
-          <p className="text-sm text-gray-500">
-            Interactive Forest Rights Asset Mapping and Analytics
-          </p>
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_420px]">
         <Card className="min-h-[420px]">
           <CardHeader>
@@ -91,12 +79,13 @@ function AssetMapping() {
           <CardContent>
             <div className="flex flex-col gap-4">
               <div>
-                <label className="mb-1 block text-sm font-medium">Enter state</label>
+                <label className="mb-1 block text-sm font-medium">
+                  Enter state
+                </label>
                 <select
                   value={selectedState}
                   onChange={(e) => {
                     setSelectedState(e.target.value);
-                    setVillage('');
                   }}
                   className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]"
                 >
@@ -109,34 +98,44 @@ function AssetMapping() {
                   <option value="Telangana">Telangana</option>
                 </select>
               </div>
-
               <div>
-                <label className="mb-1 block text-sm font-medium">Select village</label>
+                <label className="mb-1 block text-sm font-medium">
+                  Select district
+                </label>
                 <select
-                  value={village}
+                  value={selectedDistrict}
                   onChange={(e) => {
-                    setVillage(e.target.value);
-                    setMode(null); // Reset mode when village changes
+                    setSelectedDistrict(e.target.value);
+                    setMode(null); // Reset mode when district changes
                   }}
-                  disabled={!isVillageEnabled}
+                  disabled={!isDistrictEnabled}
                   className="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]"
                 >
                   <option value="" disabled>
-                    {isVillageEnabled ? `Select a village in ${selectedState}` : 'Select a state first'}
+                    {isDistrictEnabled
+                      ? `Select a district in ${selectedState}`
+                      : "Select a state first"}
                   </option>
-                  {villages.map((villageName) => (
-                    <option key={villageName} value={villageName}>
-                      {villageName}
+                  {districts.map((districtName) => (
+                    <option key={districtName} value={districtName}>
+                      {districtName}
                     </option>
                   ))}
                 </select>
               </div>
 
               <div className="flex flex-wrap items-center gap-3 pt-2">
-                <Button onClick={handleShowAnalytics} disabled={!selectedState || !village}>
+                <Button
+                  onClick={handleShowAnalytics}
+                  disabled={!selectedState || !selectedDistrict}
+                >
                   Show Data Analytics
                 </Button>
-                <Button variant="outline" onClick={handleCheckMapping} disabled={!selectedState || !village}>
+                <Button
+                  variant="outline"
+                  onClick={handleCheckMapping}
+                  disabled={!selectedState || !selectedDistrict}
+                >
                   Check Mapping
                 </Button>
               </div>
@@ -144,129 +143,187 @@ function AssetMapping() {
           </CardContent>
         </Card>
       </div>
+      {mode === "analytics" &&
+        selectedState &&
+        selectedDistrict &&
+        (() => {
+          const oldData = getConditionData(
+            selectedState,
+            selectedDistrict,
+            "old",
+          );
+          const newData = getConditionData(
+            selectedState,
+            selectedDistrict,
+            "new",
+          );
+          const changeData = calculateLandUseChange(
+            selectedState,
+            selectedDistrict,
+          );
 
-      {mode === 'analytics' && currentAnalytics && (
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <BarChart3 className="h-5 w-5 mr-2 text-green-600" />
-              Analytics for {village}, {selectedState}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              {/* KPI Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-4 text-white">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-blue-100 text-sm font-semibold">Total Claims</p>
-                      <p className="text-2xl font-bold">{currentAnalytics.totalClaims}</p>
+          const categories = [
+            {
+              key: "agriculture",
+              name: "Agriculture",
+              icon: Wheat,
+              color: "from-amber-500 to-amber-600",
+            },
+            {
+              key: "forest",
+              name: "Forest",
+              icon: Leaf,
+              color: "from-green-500 to-green-600",
+            },
+            {
+              key: "residential",
+              name: "Residential",
+              icon: Home,
+              color: "from-blue-500 to-blue-600",
+            },
+            {
+              key: "waterBodies",
+              name: "Water Bodies",
+              icon: Droplets,
+              color: "from-cyan-500 to-cyan-600",
+            },
+          ];
+
+          return (
+            <Card className="mt-6">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <BarChart3 className="h-5 w-5 mr-2 text-green-600" />
+                  Land Use Analytics for {selectedDistrict}, {selectedState}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {/* Current Land Use */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {categories.map((cat) => {
+                      const Icon = cat.icon;
+                      return (
+                        <div
+                          key={cat.key}
+                          className={`bg-gradient-to-r ${cat.color} rounded-xl p-4 text-white`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-white/80 text-sm font-semibold">
+                                {cat.name}
+                              </p>
+                              <p className="text-2xl font-bold">
+                                {newData[cat.key]}%
+                              </p>
+                            </div>
+                            <Icon className="h-6 w-6 text-white/70" />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Comparison */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="bg-gray-50 rounded-xl p-4">
+                      <h3 className="text-lg font-bold text-gray-900 mb-3">
+                        Historical vs Current
+                      </h3>
+                      <div className="space-y-3">
+                        {categories.map((cat) => (
+                          <div
+                            key={cat.key}
+                            className="flex justify-between items-center"
+                          >
+                            <span className="text-gray-600">{cat.name}</span>
+                            <span className="text-sm">
+                              {oldData[cat.key]}% → {newData[cat.key]}%
+                              <span
+                                className={`ml-2 font-bold ${changeData[cat.key] >= 0 ? "text-green-600" : "text-red-600"}`}
+                              >
+                                ({changeData[cat.key] > 0 ? "+" : ""}
+                                {changeData[cat.key]}%)
+                              </span>
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <FileText className="h-6 w-6 text-blue-200" />
+
+                    <div className="bg-gray-50 rounded-xl p-4">
+                      <h3 className="text-lg font-bold text-gray-900 mb-3">
+                        Key Insights
+                      </h3>
+                      <div className="space-y-2">
+                        <p className="text-sm text-gray-700">
+                          <strong>Dominant:</strong>{" "}
+                          {
+                            categories.find(
+                              (c) =>
+                                newData[c.key] ===
+                                Math.max(
+                                  ...categories.map((cat) => newData[cat.key]),
+                                ),
+                            )?.name
+                          }{" "}
+                          ({Math.max(...categories.map((c) => newData[c.key]))}
+                          %)
+                        </p>
+                        <p className="text-sm text-gray-700">
+                          <strong>Biggest Change:</strong>{" "}
+                          {(() => {
+                            const maxChange = Math.max(
+                              ...Object.values(changeData).map(Math.abs),
+                            );
+                            const cat = categories.find(
+                              (c) => Math.abs(changeData[c.key]) === maxChange,
+                            );
+                            return `${cat?.name} (${changeData[cat?.key] > 0 ? "+" : ""}${changeData[cat?.key]}%)`;
+                          })()}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-4 text-white">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-green-100 text-sm font-semibold">Approved Claims</p>
-                      <p className="text-2xl font-bold">{currentAnalytics.approvedClaims}</p>
-                    </div>
-                    <CheckCircle className="h-6 w-6 text-green-200" />
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-r from-amber-500 to-amber-600 rounded-xl p-4 text-white">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-amber-100 text-sm font-semibold">Pending Claims</p>
-                      <p className="text-2xl font-bold">{currentAnalytics.pendingClaims}</p>
-                    </div>
-                    <Clock className="h-6 w-6 text-amber-200" />
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-xl p-4 text-white">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-red-100 text-sm font-semibold">Rejected Claims</p>
-                      <p className="text-2xl font-bold">{currentAnalytics.rejectedClaims}</p>
-                    </div>
-                    <AlertTriangle className="h-6 w-6 text-red-200" />
-                  </div>
-                </div>
-              </div>
-
-              {/* Detailed Analytics */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-gray-50 rounded-xl p-4">
-                  <h3 className="text-lg font-bold text-gray-900 mb-3">Area & Coverage</h3>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Total Area (Hectares)</span>
-                      <span className="font-bold text-gray-900">{currentAnalytics.totalArea}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Forest Cover (%)</span>
-                      <span className="font-bold text-green-600">{currentAnalytics.forestCover}%</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Tribal Population</span>
-                      <span className="font-bold text-blue-600">{currentAnalytics.tribalPopulation.toLocaleString()}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-gray-50 rounded-xl p-4">
-                  <h3 className="text-lg font-bold text-gray-900 mb-3">Performance Metrics</h3>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Success Rate (%)</span>
-                      <span className="font-bold text-green-600">{currentAnalytics.successRate}%</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Avg Processing Time (Days)</span>
-                      <span className="font-bold text-amber-600">{currentAnalytics.avgProcessingTime}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Literacy Rate (%)</span>
-                      <span className="font-bold text-purple-600">{currentAnalytics.literacyRate}%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {mode === 'mapping' && (
+              </CardContent>
+            </Card>
+          );
+        })()}
+      {mode === "mapping" && (
         <Card className="mt-6">
           <CardHeader>
             <CardTitle className="flex items-center">
               <Image className="h-5 w-5 mr-2 text-purple-600" />
-              Mapping Preview for {village}, {selectedState}
+              Mapping Preview for {selectedDistrict}, {selectedState}
             </CardTitle>
           </CardHeader>
           <CardContent>
             {currentImages.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
                 {currentImages.map((image, index) => (
-                  <div key={index} className="bg-gray-100 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-                    <div className="aspect-w-16 aspect-h-9 bg-gray-200 flex items-center justify-center">
-                      <div className="text-center p-8">
-                        <Image className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                  <div
+                    key={index}
+                    className="bg-gray-100 rounded-xl
+                    // overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105
+                    flex flex-col items-center justify-center"
+                  >
+                    <div className="aspect-w-16 aspect-h-9 w-250">
+                      {/* <div className="text-center p-8">*/}
+                      {/* <Image className="h-16 w-16 text-gray-400 mx-auto mb-4" />
                         <p className="text-gray-600 font-medium">{image}</p>
-                        <p className="text-sm text-gray-500 mt-2">Image placeholder</p>
-                      </div>
+                        <p className="text-sm text-gray-500 mt-2">
+                          Image placeholder
+                        </p>*/}
+                      <img src={image} />
+                      {/* </div>*/}
                     </div>
                     <div className="p-4">
                       <h3 className="font-semibold text-gray-900 capitalize">
-                        {image.replace(/_/g, ' ').replace('.jpg', '')}
+                        {image.replace(/_/g, " ").replace(".jpg", "")}
                       </h3>
                       <p className="text-sm text-gray-600 mt-1">
-                        {village}, {selectedState}
+                        {selectedDistrict}, {selectedState}
                       </p>
                     </div>
                   </div>
@@ -275,9 +332,12 @@ function AssetMapping() {
             ) : (
               <div className="text-center py-12">
                 <Image className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">No Images Available</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  No Images Available
+                </h3>
                 <p className="text-gray-600">
-                  No mapping images are currently available for {village}, {selectedState}.
+                  No mapping images are currently available for{" "}
+                  {selectedDistrict}, {selectedState}.
                 </p>
               </div>
             )}
@@ -287,7 +347,4 @@ function AssetMapping() {
     </div>
   );
 }
-
 export default AssetMapping;
-
-
