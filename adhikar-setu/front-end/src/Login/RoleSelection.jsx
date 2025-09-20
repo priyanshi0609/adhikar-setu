@@ -92,8 +92,8 @@ const RoleSelection = ({ selectedRole, onRoleSelect, language }) => {
             className={`w-full p-5 border-2 rounded-xl text-left shadow-sm transition-all duration-200 flex items-center justify-between
               ${
                 selectedRole === role.id
-                  ? "border-green-600 bg-green-50"
-                  : "border-gray-200 hover:border-green-300 hover:bg-gray-50"
+                  ? "border-green-600 bg-green-50 cursor-pointer"
+                  : "border-gray-200 hover:border-green-300 hover:bg-gray-50 cursor-pointer"
               }`}
           >
             <div>

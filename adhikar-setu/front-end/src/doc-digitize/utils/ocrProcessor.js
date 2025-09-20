@@ -1,5 +1,4 @@
 // utils/ocrProcessor.js
-import * as pdfjsLib from 'pdfjs-dist';
 import Tesseract from 'tesseract.js';
 
 class OCRProcessor {
@@ -12,59 +11,81 @@ class OCRProcessor {
         if (this.isInitialized) return;
         
         try {
-            // Initialize PDF.js worker
-            const pdfjsWorkerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${this.pdfjsVersion}/pdf.worker.min.js`;
-            
-            // Create a script element for PDF.js worker
-            const script = document.createElement('script');
-            script.src = pdfjsWorkerSrc;
-            script.async = true;
-            
-            script.onload = () => {
-                pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerSrc;
-                this.isInitialized = true;
-                console.log('OCR Processor initialized successfully');
-            };
-            
-            document.body.appendChild(script);
-            
+            // Wait for PDF.js to be loaded by DocumentViewer or load it ourselves
+            await this.ensurePdfJsLoaded();
+            this.isInitialized = true;
+            console.log('OCR Processor initialized successfully');
         } catch (error) {
             console.error('OCR Initialization Error:', error);
             throw error;
         }
     }
 
+    async ensurePdfJsLoaded() {
+        return new Promise((resolve, reject) => {
+            // Check if PDF.js is already loaded
+            if (window.pdfjsLib && window.pdfjsLib.GlobalWorkerOptions.workerSrc) {
+                resolve();
+                return;
+            }
+
+            // If PDF.js is loaded but worker not set, set the worker
+            if (window.pdfjsLib && !window.pdfjsLib.GlobalWorkerOptions.workerSrc) {
+                window.pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${this.pdfjsVersion}/pdf.worker.min.js`;
+                resolve();
+                return;
+            }
+
+            // Load PDF.js if not already loaded
+            const script = document.createElement('script');
+            script.src = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${this.pdfjsVersion}/pdf.min.js`;
+            script.async = true;
+            
+            script.onload = () => {
+                if (window.pdfjsLib) {
+                    window.pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${this.pdfjsVersion}/pdf.worker.min.js`;
+                    resolve();
+                } else {
+                    reject(new Error('PDF.js failed to load'));
+                }
+            };
+            
+            script.onerror = () => {
+                reject(new Error('Failed to load PDF.js script'));
+            };
+            
+            document.head.appendChild(script);
+        });
+    }
+
     async convertPdfPageToImage(pdfFile, pageNum) {
         try {
-            const fileReader = new FileReader();
+            // Ensure PDF.js is loaded and ready
+            if (!window.pdfjsLib) {
+                throw new Error('PDF.js not loaded');
+            }
+
+            const arrayBuffer = await pdfFile.arrayBuffer();
+            const pdf = await window.pdfjsLib.getDocument({
+                data: arrayBuffer,
+                cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${this.pdfjsVersion}/cmaps/`,
+                cMapPacked: true,
+            }).promise;
             
-            return new Promise((resolve, reject) => {
-                fileReader.onload = async function() {
-                    const typedArray = new Uint8Array(this.result);
-                    try {
-                        const pdf = await pdfjsLib.getDocument(typedArray).promise;
-                        const page = await pdf.getPage(pageNum);
-                        
-                        const viewport = page.getViewport({ scale: 2.0 });
-                        const canvas = document.createElement("canvas");
-                        const context = canvas.getContext("2d");
-                        
-                        canvas.width = viewport.width;
-                        canvas.height = viewport.height;
-                        
-                        await page.render({
-                            canvasContext: context,
-                            viewport: viewport,
-                        }).promise;
-                        
-                        resolve(canvas.toDataURL("image/png"));
-                    } catch (error) {
-                        reject(error);
-                    }
-                };
-                
-                fileReader.readAsArrayBuffer(pdfFile);
-            });
+            const page = await pdf.getPage(pageNum);
+            const viewport = page.getViewport({ scale: 2.0 });
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            
+            await page.render({
+                canvasContext: context,
+                viewport: viewport,
+            }).promise;
+            
+            return canvas.toDataURL("image/png");
         } catch (error) {
             console.error("Error converting PDF to image:", error);
             throw error;
@@ -73,10 +94,6 @@ class OCRProcessor {
 
     async processImage(imageFile, onProgress = null) {
         try {
-            if (!this.isInitialized) {
-                await this.initialize();
-            }
-
             console.log('Processing image:', imageFile.name);
 
             const result = await Tesseract.recognize(imageFile, "eng", {
@@ -112,14 +129,20 @@ class OCRProcessor {
 
     async processPdf(pdfFile, onProgress = null) {
         try {
+            // Ensure PDF.js is initialized
             if (!this.isInitialized) {
                 await this.initialize();
             }
 
             console.log('Processing PDF:', pdfFile.name);
 
+            // Double check PDF.js is ready
+            if (!window.pdfjsLib || !window.pdfjsLib.GlobalWorkerOptions.workerSrc) {
+                throw new Error('PDF.js not properly initialized');
+            }
+
             const arrayBuffer = await pdfFile.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument({
+            const pdf = await window.pdfjsLib.getDocument({
                 data: arrayBuffer,
                 cMapUrl: `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${this.pdfjsVersion}/cmaps/`,
                 cMapPacked: true,

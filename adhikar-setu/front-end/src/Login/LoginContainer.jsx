@@ -4,6 +4,7 @@ import RoleSelection from "./RoleSelection";
 import LanguageSelection from "./LanguageSelection";
 import LocationSelection from "./LocationSelection";
 import AuthenticationForm from "./AuthenticationForm";
+import BackButton from "@/global/BackButton";
 
 const LoginContainer = ({ onLogin }) => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -105,8 +106,8 @@ const LoginContainer = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="max-w-4xl w-full overflow-hidden">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 ">
+      <div className="max-w-4xl w-full overflow-hidden border border-gray-200 rounded-2xl ">
         {/* Header */}
         <div className="bg-green-600 p-6 text-white text-center">
           <h1 className="text-2xl font-bold">Adhikar Setu</h1>
@@ -145,7 +146,7 @@ const LoginContainer = ({ onLogin }) => {
               <button
                 onClick={handleBack}
                 disabled={currentStep === 1}
-                className="px-6 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 {formData.language === "hi" ? "पिछला" : "Back"}
               </button>
@@ -153,7 +154,7 @@ const LoginContainer = ({ onLogin }) => {
               <button
                 onClick={handleNext}
                 disabled={!canProceed()}
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
+                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2 cursor-pointer"
               >
                 <span>{formData.language === "hi" ? "आगे" : "Next"}</span>
                 <ArrowRight className="h-4 w-4" />

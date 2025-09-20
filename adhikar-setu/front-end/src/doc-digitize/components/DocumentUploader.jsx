@@ -1,7 +1,11 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { useOCR } from "../hooks/useOCR.js";
 
-const DocumentUploader = ({ onDocumentsProcessed, onFieldsExtracted }) => {
+const DocumentUploader = ({
+  onDocumentsProcessed,
+  onFieldsExtracted,
+  onDocumentsUploaded,
+}) => {
   const [dragOver, setDragOver] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
@@ -42,10 +46,14 @@ const DocumentUploader = ({ onDocumentsProcessed, onFieldsExtracted }) => {
 
       if (files.length > 0) {
         setUploadedFiles(files);
+        // Pass the files to parent component immediately
+        if (onDocumentsUploaded) {
+          onDocumentsUploaded(files);
+        }
         await processDocuments(files);
       }
     },
-    [processDocuments]
+    [processDocuments, onDocumentsUploaded]
   );
 
   const handleFileSelect = useCallback(
@@ -57,10 +65,14 @@ const DocumentUploader = ({ onDocumentsProcessed, onFieldsExtracted }) => {
 
       if (files.length > 0) {
         setUploadedFiles(files);
+        // Pass the files to parent component immediately
+        if (onDocumentsUploaded) {
+          onDocumentsUploaded(files);
+        }
         await processDocuments(files);
       }
     },
-    [processDocuments]
+    [processDocuments, onDocumentsUploaded]
   );
 
   const handleFormTypeChange = useCallback(

@@ -36,7 +36,9 @@ const NewClaim = ({ user, onClaimCreated }) => {
     setFormType(detectedFormType);
   }, []);
 
-  const handleDocumentUpload = useCallback((files) => {
+  // New callback to handle document upload
+  const handleDocumentsUploaded = useCallback((files) => {
+    console.log("Documents uploaded:", files);
     setUploadedDocuments(Array.from(files));
   }, []);
 
@@ -98,6 +100,7 @@ const NewClaim = ({ user, onClaimCreated }) => {
             <DocumentUploader
               onDocumentsProcessed={handleDocumentsProcessed}
               onFieldsExtracted={handleFieldsExtracted}
+              onDocumentsUploaded={handleDocumentsUploaded}
             />
           </div>
         );
