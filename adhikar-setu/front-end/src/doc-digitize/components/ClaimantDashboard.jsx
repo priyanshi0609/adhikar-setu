@@ -322,9 +322,13 @@ const ClaimantDashboard = ({ user }) => {
                             </p>
                           </div>
                           <span className="text-sm text-gray-500">
-                            {new Date(
-                              claim.createdAt?.toDate()
-                            ).toLocaleDateString("en-IN")}
+                            {claim.createdAt
+                              ? new Date(
+                                  claim.createdAt.toDate
+                                    ? claim.createdAt.toDate() // Firestore Timestamp
+                                    : claim.createdAt // Already a Date/string/number
+                                ).toLocaleDateString("en-IN")
+                              : "N/A"}
                           </span>
                         </div>
 
