@@ -20,6 +20,7 @@ import ProfilePage from "./Login/ProfilePage";
 import SettingsPage from "./Login/SettingsPage";
 import ClaimantDashboard from "./doc-digitize/components/ClaimantDashboard";
 import Map from "./components/Map";
+import AssetMapping from "./assetsmapping/assetsmap";
 
 // Lazy load route components for better performance
 const Dashboard = lazy(() => import("./components/Dashboard"));
@@ -212,6 +213,7 @@ function App() {
               <Route path="/dss" element={<DSS />} />
               <Route path="/dss_results" element={<DSSResults />} />
               <Route path="/map" element={<Map />} />
+              <Route path="/asset-mapping" element={<AssetMapping />} />
 
               {/* Login Route */}
               <Route
