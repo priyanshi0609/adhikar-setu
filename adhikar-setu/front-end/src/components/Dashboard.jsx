@@ -12,20 +12,27 @@ import {
   Filter,
   Plus,
   Download,
+  Map,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import mapboxgl from "mapbox-gl"; // Import mapbox-gl
 import "mapbox-gl/dist/mapbox-gl.css"; // Import default Mapbox CSS
- mapboxgl.accessToken = "pk.eyJ1IjoiYXJzaHRpd2FyaSIsImEiOiJjbTJhODE2dm8wZ2MxMmlxdTJkbnJ1aTZnIn0.m9ky2-2MfcdA37RIVoxC_w";
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
+
+//  import data from "../data/claims.json"; // Sample GeoJSON data
 
 const Dashboard = ({ user, language }) => {
   const [selectedState, setSelectedState] = useState("Tripura");
   const [selectedDistrict, setSelectedDistrict] = useState("All Districts");
   const [selectedVillage, setSelectedVillage] = useState("All Villages");
+  const [selectedClaimStatus, setSelectedClaimStatus] = useState("All Statuses");
+  const [selectedTribalGroup, setSelectedTribalGroup] = useState("All Groups");
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
 
   const states = ["Tripura", "Telangana", "Odisha", "Madhya Pradesh"];
+  const claimStatuses = ["All Statuses", "IFR", "CFR", "CR", "Submitted", "Verified", "Approved", "Rejected", "Under Review"];
+  const tribalGroups = ["All Groups", "Santhal", "Gond", "Oraon", "Munda", "Bhil", "Kol", "Kharia", "Ho", "Sabar", "Bhumij"];
 
   // Dynamic data structure for districts and villages based on state with coordinates
   const stateData = {
@@ -225,7 +232,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "My Claims" : "मेरे दावे",
             value: "12",
             icon: FileText,
-            color: "bg-blue-500",
+            color: "bg-gradient-to-r from-blue-500 to-blue-600",
             change: "+2 this month",
             trend: "up",
           },
@@ -233,7 +240,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Approved" : "स्वीकृत",
             value: "8",
             icon: CheckCircle,
-            color: "bg-green-500",
+            color: "bg-gradient-to-r from-green-500 to-green-600",
             change: "+1 this week",
             trend: "up",
           },
@@ -241,7 +248,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Pending" : "लंबित",
             value: "4",
             icon: Clock,
-            color: "bg-amber-500",
+            color: "bg-gradient-to-r from-amber-500 to-amber-600",
             change: "2 in review",
             trend: "neutral",
           },
@@ -249,7 +256,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Village Area" : "गांव का क्षेत्रफल",
             value: "450 Ha",
             icon: MapPin,
-            color: "bg-purple-500",
+            color: "bg-gradient-to-r from-purple-500 to-purple-600",
             change: "Total area",
             trend: "neutral",
           },
@@ -260,7 +267,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Total Claims" : "कुल दावे",
             value: "2,847",
             icon: FileText,
-            color: "bg-blue-500",
+            color: "bg-gradient-to-r from-blue-500 to-blue-600",
             change: "+47 this month",
             trend: "up",
           },
@@ -268,7 +275,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Verified Claims" : "सत्यापित दावे",
             value: "2,103",
             icon: CheckCircle,
-            color: "bg-green-500",
+            color: "bg-gradient-to-r from-green-500 to-green-600",
             change: "73.8% completion",
             trend: "up",
           },
@@ -276,7 +283,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Approved Titles" : "स्वीकृत पट्टे",
             value: "1,876",
             icon: CheckCircle,
-            color: "bg-green-600",
+            color: "bg-gradient-to-r from-emerald-500 to-emerald-600",
             change: "89.2% of verified",
             trend: "up",
           },
@@ -284,7 +291,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Pending Claims" : "लंबित दावे",
             value: "744",
             icon: Clock,
-            color: "bg-amber-500",
+            color: "bg-gradient-to-r from-amber-500 to-amber-600",
             change: "26.2% pending",
             trend: "down",
           },
@@ -295,7 +302,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Total Claims" : "कुल दावे",
             value: "1,234",
             icon: FileText,
-            color: "bg-blue-500",
+            color: "bg-gradient-to-r from-blue-500 to-blue-600",
             change: "+23 this week",
             trend: "up",
           },
@@ -303,7 +310,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Verified Claims" : "सत्यापित दावे",
             value: "987",
             icon: CheckCircle,
-            color: "bg-green-500",
+            color: "bg-gradient-to-r from-green-500 to-green-600",
             change: "80% completion",
             trend: "up",
           },
@@ -311,7 +318,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Pending Review" : "समीक्षा लंबित",
             value: "156",
             icon: Clock,
-            color: "bg-amber-500",
+            color: "bg-gradient-to-r from-amber-500 to-amber-600",
             change: "Avg: 7 days",
             trend: "down",
           },
@@ -319,7 +326,7 @@ const Dashboard = ({ user, language }) => {
             title: language === "en" ? "Active Users" : "सक्रिय उपयोगकर्ता",
             value: "89",
             icon: Users,
-            color: "bg-purple-500",
+            color: "bg-gradient-to-r from-purple-500 to-purple-600",
             change: "+12 this month",
             trend: "up",
           },
@@ -327,110 +334,10 @@ const Dashboard = ({ user, language }) => {
     }
   };
 
-  // Mock GeoJSON data (fallback if file doesn't load)
-  const mockClaimsData = {
-    type: "FeatureCollection",
-    features: [
-      {
-        type: "Feature",
-        id: 1,
-        properties: {
-          claim_id: "TR-001",
-          status: "Submitted",
-          claimant_name: "Bijoy Chakraborty",
-          area_m2: 1025.4,
-          submitted_at: "2025-08-20",
-        },
-        geometry: {
-          type: "Polygon",
-          coordinates: [
-            [
-              [91.35, 23.82],
-              [91.36, 23.82],
-              [91.36, 23.83],
-              [91.35, 23.83],
-              [91.35, 23.82],
-            ],
-          ],
-        },
-      },
-      {
-        type: "Feature",
-        id: 2,
-        properties: {
-          claim_id: "TR-002",
-          status: "Verified",
-          claimant_name: "Asha Debnath",
-          area_m2: 840.2,
-          submitted_at: "2025-07-10",
-        },
-        geometry: {
-          type: "Polygon",
-          coordinates: [
-            [
-              [91.38, 23.85],
-              [91.39, 23.85],
-              [91.39, 23.86],
-              [91.38, 23.86],
-              [91.38, 23.85],
-            ],
-          ],
-        },
-      },
-      {
-        type: "Feature",
-        id: 3,
-        properties: {
-          claim_id: "TR-003",
-          status: "Approved",
-          claimant_name: "Suresh Tripura",
-          area_m2: 2230.0,
-          submitted_at: "2025-06-12",
-        },
-        geometry: {
-          type: "Polygon",
-          coordinates: [
-            [
-              [91.42, 23.88],
-              [91.43, 23.88],
-              [91.43, 23.89],
-              [91.42, 23.89],
-              [91.42, 23.88],
-            ],
-          ],
-        },
-      },
-      {
-        type: "Feature",
-        id: 4,
-        properties: {
-          claim_id: "TR-004",
-          status: "Rejected",
-          claimant_name: "Geeta Reang",
-          area_m2: 560.75,
-          submitted_at: "2025-05-30",
-        },
-        geometry: {
-          type: "Polygon",
-          coordinates: [
-            [
-              [91.33, 23.79],
-              [91.34, 23.79],
-              [91.34, 23.8],
-              [91.33, 23.8],
-              [91.33, 23.79],
-            ],
-          ],
-        },
-      },
-    ],
-  };
-
   const kpiData = getKPIData();
 
   const loadClaimsData = async () => {
     try {
-      // Try to fetch from file first
       const response = await fetch("/data/claims.json");
       if (response.ok) {
         const data = await response.json();
@@ -441,11 +348,14 @@ const Dashboard = ({ user, language }) => {
       }
     } catch (error) {
       console.warn(
-        "Could not load /mock-data/claims.json, using fallback data:",
+        "Could not load /data/claims.json, using fallback data:",
         error,
       );
-      // Use embedded mock data as fallback
-      return mockClaimsData;
+      // Return empty data structure if file fails to load
+      return {
+        type: "FeatureCollection",
+        features: []
+      };
     }
   };
 
@@ -748,33 +658,37 @@ const Dashboard = ({ user, language }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 lg:p-6 space-y-8">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between bg-white rounded-2xl p-6 shadow-xl border border-gray-100">
+        <div className="space-y-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 bg-clip-text text-transparent">
             {language === "en" ? "Adhikar Setu" : "अधिकार सेतु"}
-            <span className="text-green-600 ml-2">|</span>
           </h1>
-          <p className="mt-1 text-gray-600">
+          <p className="text-lg text-gray-600 font-medium">
             {language === "en"
               ? `Welcome back, ${user.name}`
               : `वापसी पर स्वागत, ${user.name}`}
           </p>
+          <p className="text-sm text-gray-500">
+            {language === "en"
+              ? "Empowering Forest Rights Management"
+              : "वन अधिकार प्रबंधन को सशक्त बनाना"}
+          </p>
         </div>
 
         {/* Quick Actions */}
-        <div className="mt-4 lg:mt-0 flex flex-wrap gap-3">
+        <div className="mt-6 lg:mt-0 flex flex-wrap gap-4">
           {user.role === "gram_sabha" && (
             <Link to="/claim-submission">
-              <button className="flex items-center bg-gradient-to-r from-green-600 to-green-700 text-white px-5 py-2.5 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-md hover:shadow-lg">
+              <button className="flex items-center bg-gradient-to-r from-green-600 via-green-700 to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-700 hover:via-green-800 hover:to-emerald-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
                 <Plus className="h-5 w-5 mr-2" />
-                {language === "en" ? "m" : "नया दावा जमा करें"}
+                {language === "en" ? "New Claim" : "नया दावा जमा करें"}
               </button>
             </Link>
           )}
           <Link to="/reports">
-            <button className="flex items-center bg-white text-gray-700 border border-gray-300 px-5 py-2.5 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-200 shadow-sm hover:shadow-md">
+            <button className="flex items-center bg-white text-gray-700 border-2 border-gray-200 px-6 py-3 rounded-xl font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
               <Download className="h-5 w-5 mr-2" />
               {language === "en" ? "Generate Report" : "रिपोर्ट बनाएं"}
             </button>
@@ -782,18 +696,75 @@ const Dashboard = ({ user, language }) => {
         </div>
       </div>
 
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {kpiData.map((kpi, index) => {
+          const Icon = kpi.icon;
+          const trendColor =
+            kpi.trend === "up"
+              ? "text-green-600"
+              : kpi.trend === "down"
+                ? "text-red-500"
+                : "text-gray-500";
+          const trendIcon =
+            kpi.trend === "up" ? (
+              <TrendingUp className="h-4 w-4" />
+            ) : kpi.trend === "down" ? (
+              <TrendingUp className="h-4 w-4 transform rotate-180" />
+            ) : null;
+
+          return (
+            <div
+              key={index}
+              className="bg-white rounded-2xl shadow-xl p-6 hover:shadow-2xl transition-all duration-300 border border-gray-100 transform hover:scale-105"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-gray-600 mb-2 uppercase tracking-wide">
+                    {kpi.title}
+                  </p>
+                  <p className="text-3xl font-bold text-gray-900 mb-1">
+                    {kpi.value}
+                  </p>
+                  <div className="flex items-center">
+                    <span
+                      className={`text-sm font-semibold ${trendColor} flex items-center`}
+                    >
+                      {trendIcon}
+                      <span className="ml-1">{kpi.change}</span>
+                    </span>
+                  </div>
+                </div>
+                <div className={`${kpi.color} p-4 rounded-xl shadow-lg`}>
+                  <Icon className="h-7 w-7 text-white" />
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900 flex items-center">
-            <Filter className="h-5 w-5 mr-2 text-green-600" />
-            {language === "en" ? "Location Filters" : "स्थान फिल्टर"}
+      <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-bold text-gray-900 flex items-center">
+            <Filter className="h-6 w-6 mr-3 text-green-600" />
+            {language === "en" ? "Location & Filter Controls" : "स्थान और फिल्टर नियंत्रण"}
           </h2>
-          <button className="text-sm text-green-600 hover:text-green-700 font-medium">
-            {language === "en" ? "Reset Filters" : "फिल्टर रीसेट करें"}
+          <button 
+            onClick={() => {
+              setSelectedState("Tripura");
+              setSelectedDistrict("All Districts");
+              setSelectedVillage("All Villages");
+              setSelectedClaimStatus("All Statuses");
+              setSelectedTribalGroup("All Groups");
+            }}
+            className="text-sm text-green-600 hover:text-green-700 font-semibold px-4 py-2 rounded-xl hover:bg-green-50 transition-all duration-300 border border-green-200 hover:border-green-300"
+          >
+            {language === "en" ? "Reset All" : "सभी रीसेट करें"}
           </button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {[
             {
               label: language === "en" ? "State" : "राज्य",
@@ -833,9 +804,21 @@ const Dashboard = ({ user, language }) => {
               options: villages,
               onChange: setSelectedVillage,
             },
+            {
+              label: language === "en" ? "Claim Status" : "दावा स्थिति",
+              value: selectedClaimStatus,
+              options: claimStatuses,
+              onChange: setSelectedClaimStatus,
+            },
+            {
+              label: language === "en" ? "Tribal Groups" : "आदिवासी समूह",
+              value: selectedTribalGroup,
+              options: tribalGroups,
+              onChange: setSelectedTribalGroup,
+            },
           ].map((filter, index) => (
             <div key={index}>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wide">
                 {filter.label}
               </label>
               <div className="relative">
@@ -843,7 +826,7 @@ const Dashboard = ({ user, language }) => {
                   aria-label={filter.label}
                   value={filter.value}
                   onChange={(e) => filter.onChange(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 appearance-none"
+                  className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 appearance-none bg-white font-medium transition-all duration-300 hover:border-gray-300"
                 >
                   {filter.options.map((option) => (
                     <option key={option} value={option}>
@@ -851,173 +834,214 @@ const Dashboard = ({ user, language }) => {
                     </option>
                   ))}
                 </select>
-                <ChevronDown className="absolute right-3 top-3 h-4 w-4 text-gray-400 pointer-events-none" />
+                <ChevronDown className="absolute right-4 top-4 h-5 w-5 text-gray-400 pointer-events-none" />
               </div>
             </div>
           ))}
-          <button onClick={handleLocationZoom}>see</button>
         </div>
-      </div>
-
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        {kpiData.map((kpi, index) => {
-          const Icon = kpi.icon;
-          const trendColor =
-            kpi.trend === "up"
-              ? "text-green-500"
-              : kpi.trend === "down"
-                ? "text-red-500"
-                : "text-gray-500";
-          const trendIcon =
-            kpi.trend === "up" ? (
-              <TrendingUp className="h-4 w-4" />
-            ) : kpi.trend === "down" ? (
-              <TrendingUp className="h-4 w-4 transform rotate-180" />
-            ) : null;
-
-          return (
-            <div
-              key={index}
-              className="bg-white rounded-xl shadow-sm p-5 hover:shadow-md transition-all duration-300 border border-gray-100"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600 mb-1">
-                    {kpi.title}
-                  </p>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {kpi.value}
-                  </p>
-                </div>
-                <div className={`${kpi.color} p-3 rounded-xl`}>
-                  <Icon className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <div className="mt-4 flex items-center">
-                <span
-                  className={`text-sm font-medium ${trendColor} flex items-center`}
-                >
-                  {trendIcon}
-                  <span className="ml-1">{kpi.change}</span>
-                </span>
-              </div>
-            </div>
-          );
-        })}
+        <div className="mt-6 flex justify-center">
+          <button 
+            onClick={handleLocationZoom}
+            className="bg-gradient-to-r from-green-600 via-green-700 to-emerald-700 text-white px-8 py-3 rounded-xl font-semibold hover:from-green-700 hover:via-green-800 hover:to-emerald-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center transform hover:scale-105"
+          >
+            <MapPin className="h-5 w-5 mr-2" />
+            {language === "en" ? "Zoom to Location" : "स्थान पर ज़ूम करें"}
+          </button>
+        </div>
       </div>
 
       {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Map View */}
-        <div className="lg:col-span-2">
-          <div
-            ref={mapContainerRef}
-            className="w-full h-[500px] rounded-xl shadow-sm border border-gray-200"
-          />
+        <div className="lg:col-span-2 space-y-6">
+          <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="p-4 bg-gradient-to-r from-green-600 to-emerald-600">
+              <h3 className="text-lg font-bold text-white flex items-center">
+                <Map className="h-5 w-5 mr-2" />
+                {language === "en" ? "Interactive Claims Map" : "इंटरैक्टिव दावा मानचित्र"}
+              </h3>
+            </div>
+            <div
+              ref={mapContainerRef}
+              className="w-full h-[500px]"
+            />
+          </div>
+          
+          <div className="flex justify-center">
+            <Link to="/map">
+              <button className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white px-8 py-3 rounded-xl font-semibold hover:from-blue-700 hover:via-blue-800 hover:to-indigo-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center transform hover:scale-105">
+                <MapPin className="h-5 w-5 mr-2" />
+                {language === "en" ? "View Full Map" : "पूरा नक्शा देखें"}
+              </button>
+            </Link>
+          </div>
         </div>
 
-        {/* Activity Panel */}
+        {/* Filter Panel */}
         <div className="space-y-6">
-          {/* Recent Activity */}
-          <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <BarChart3 className="h-5 w-5 mr-2 text-green-600" />
-              {language === "en" ? "Recent Activity" : "हाल की गतिविधि"}
+          {/* Advanced Filters */}
+          <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center">
+              <Filter className="h-5 w-5 mr-2 text-green-600" />
+              {language === "en" ? "Advanced Filters" : "उन्नत फिल्टर"}
             </h3>
-            <div className="space-y-4">
-              {[
-                {
-                  action: "Claim submitted",
-                  user: "Ram Singh",
-                  time: "2 hours ago",
-                  status: "pending",
-                },
-                {
-                  action: "Verification completed",
-                  user: "FRC Team",
-                  time: "4 hours ago",
-                  status: "completed",
-                },
-                {
-                  action: "Document uploaded",
-                  user: "Sita Devi",
-                  time: "6 hours ago",
-                  status: "info",
-                },
-                {
-                  action: "Approval granted",
-                  user: "DLC Officer",
-                  time: "1 day ago",
-                  status: "success",
-                },
-              ].map((activity, index) => (
-                <div
-                  key={index}
-                  className="flex items-start space-x-3 p-2 hover:bg-gray-50 rounded-lg transition-colors"
-                >
-                  <div
-                    className={`w-2.5 h-2.5 rounded-full mt-2.5 flex-shrink-0 ${
-                      activity.status === "pending"
-                        ? "bg-amber-500"
-                        : activity.status === "completed"
-                          ? "bg-blue-500"
-                          : activity.status === "success"
-                            ? "bg-green-500"
-                            : "bg-gray-400"
-                    }`}
-                  />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">
-                      {activity.action}
-                    </p>
-                    <p className="text-sm text-gray-500">{activity.user}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">
-                      {activity.time}
-                    </p>
-                  </div>
+            
+            <div className="space-y-6">
+              {/* Claim Status Filter */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
+                  {language === "en" ? "Claim Status" : "दावा स्थिति"}
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {["IFR", "CFR", "CR", "Submitted", "Verified", "Approved", "Rejected", "Under Review"].map((status) => (
+                    <button
+                      key={status}
+                      onClick={() => setSelectedClaimStatus(selectedClaimStatus === status ? "All Statuses" : status)}
+                      className={`px-3 py-2 text-sm rounded-lg border-2 transition-all duration-300 font-medium ${
+                        selectedClaimStatus === status
+                          ? "bg-green-100 border-green-500 text-green-700 shadow-md"
+                          : "bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300"
+                      }`}
+                    >
+                      {status}
+                    </button>
+                  ))}
                 </div>
-              ))}
+              </div>
+              
+              {/* Tribal Groups Filter */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
+                  {language === "en" ? "Tribal Groups" : "आदिवासी समूह"}
+                </label>
+                <div className="grid grid-cols-1 gap-2 max-h-48 overflow-y-auto">
+                  {tribalGroups.map((group) => (
+                    <button
+                      key={group}
+                      onClick={() => setSelectedTribalGroup(group)}
+                      className={`px-3 py-2 text-sm rounded-lg border-2 transition-all duration-300 font-medium ${
+                        selectedTribalGroup === group
+                          ? "bg-purple-100 border-purple-500 text-purple-700 shadow-md"
+                          : "bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300"
+                      }`}
+                    >
+                      {group}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Area Range Filter */}
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
+                  {language === "en" ? "Area Range (Hectares)" : "क्षेत्र सीमा (हेक्टेयर)"}
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    type="number"
+                    placeholder="Min"
+                    className="px-3 py-2 text-sm border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Max"
+                    className="px-3 py-2 text-sm border-2 border-gray-200 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300"
+                  />
+                </div>
+              </div>
             </div>
-            <button className="w-full mt-4 text-center text-sm text-green-600 font-medium hover:text-green-700 pt-2 border-t border-gray-100">
-              {language === "en" ? "View all activity" : "सभी गतिविधियाँ देखें"}
-            </button>
+            
+            <div className="mt-6 flex gap-3">
+              <button className="flex-1 bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-3 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-md hover:shadow-lg">
+                {language === "en" ? "Apply Filters" : "फिल्टर लगाएं"}
+              </button>
+              <button 
+                onClick={() => {
+                  setSelectedClaimStatus("All Statuses");
+                  setSelectedTribalGroup("All Groups");
+                }}
+                className="flex-1 bg-gray-200 text-gray-700 px-4 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all duration-300 shadow-md hover:shadow-lg"
+              >
+                {language === "en" ? "Clear" : "साफ करें"}
+              </button>
+            </div>
           </div>
 
           {/* Alerts */}
-          <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+          <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center">
               <AlertTriangle className="h-5 w-5 mr-2 text-amber-500" />
               {language === "en"
                 ? "Alerts & Notifications"
                 : "अलर्ट और सूचनाएं"}
             </h3>
-            <div className="space-y-3">
-              <div className="flex items-start space-x-3 p-3 bg-amber-50 rounded-lg border border-amber-100">
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-200 shadow-sm">
                 <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-sm font-medium text-amber-800">
-                    {language === "en" ? "Pending Reviewss" : "लंबित समीक्षा"}
+                  <p className="text-sm font-semibold text-amber-800">
+                    {language === "en" ? "Pending Reviews" : "लंबित समीक्षा"}
                   </p>
-                  <p className="text-xs text-amber-700">
+                  <p className="text-xs text-amber-700 mt-1">
                     {language === "en"
                       ? "15 claims need attention"
                       : "15 दावों पर ध्यान देने की जरूरत"}
                   </p>
                 </div>
               </div>
-              <div className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg border border-green-100">
+              <div className="flex items-start space-x-3 p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-200 shadow-sm">
                 <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-sm font-medium text-green-800">
+                  <p className="text-sm font-semibold text-green-800">
                     {language === "en" ? "System Update" : "सिस्टम अपडेट"}
                   </p>
-                  <p className="text-xs text-green-700">
+                  <p className="text-xs text-green-700 mt-1">
                     {language === "en"
                       ? "New features available"
                       : "नई सुविधाएं उपलब्ध"}
                   </p>
                 </div>
+              </div>
+              <div className="flex items-start space-x-3 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200 shadow-sm">
+                <BarChart3 className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="text-sm font-semibold text-blue-800">
+                    {language === "en" ? "Monthly Report" : "मासिक रिपोर्ट"}
+                  </p>
+                  <p className="text-xs text-blue-700 mt-1">
+                    {language === "en"
+                      ? "Performance analytics ready"
+                      : "प्रदर्शन विश्लेषण तैयार"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center">
+              <BarChart3 className="h-5 w-5 mr-2 text-blue-600" />
+              {language === "en" ? "Quick Statistics" : "त्वरित आंकड़े"}
+            </h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-sm font-medium text-gray-600">
+                  {language === "en" ? "Success Rate" : "सफलता दर"}
+                </span>
+                <span className="text-sm font-bold text-green-600">89.2%</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                <span className="text-sm font-medium text-gray-600">
+                  {language === "en" ? "Avg. Processing Time" : "औसत प्रसंस्करण समय"}
+                </span>
+                <span className="text-sm font-bold text-blue-600">12 days</span>
+              </div>
+              <div className="flex justify-between items-center py-2">
+                <span className="text-sm font-medium text-gray-600">
+                  {language === "en" ? "Total Area Covered" : "कुल क्षेत्र कवर"}
+                </span>
+                <span className="text-sm font-bold text-purple-600">2,847 Ha</span>
               </div>
             </div>
           </div>

@@ -19,6 +19,7 @@ import FinalDoc from "./doc-digitize/FinalDoc";
 import DSSResults from "./dss/components/DSS_Result";
 import ProfilePage from "./Login/ProfilePage";
 import SettingsPage from "./Login/SettingsPage";
+import Map from "./components/Map";
 
 // Lazy load route components for better performance
 const Dashboard = lazy(() => import("./components/Dashboard"));
@@ -191,11 +192,7 @@ function App() {
       )}
 
       {/* Routes */}
-<<<<<<< HEAD
-      <main className={currentUser ? '' : ''}>
-=======
       <main className={currentUser ? "pt-16" : ""}>
->>>>>>> b2994835708ef3b88f6cf105e2d1188ac227fd72
         <ErrorBoundary language={language}>
           <Suspense
             fallback={
@@ -214,6 +211,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/dss" element={<DSS />} />
               <Route path="/dss_results" element={<DSSResults />} />
+              <Route path="/map" element={<Map />} />
 
               {/* Login Route */}
               <Route
