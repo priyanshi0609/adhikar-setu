@@ -46,14 +46,12 @@ import { LoaderOne } from "@/components/ui/loader";
 import { useEffect, useState } from "react";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 
+
 import digitalMap from "@/assets/digital-map.jpg";
 import tribalCommunity from "@/assets/tribal-community.jpg";
 import fraProcess from "@/assets/fra-process.png";
 import stateMap from "@/assets/state-map.png";
 // import teamMeeting from "@/assets/team-meeting.jpg";
-
-
-
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,6 +64,7 @@ export default function HomePage() {
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
+
 
 
 const fraData = [
@@ -381,7 +380,7 @@ const fraData = [
            <InfiniteMovingCards
             items={fraData}
              direction="right"
-             speed="slow"
+             speed="normal"
              pauseOnHover={true}
               className="mt-8"/>
               </div>
@@ -519,13 +518,12 @@ const fraData = [
               Streamlining the statutory workflow for forest rights recognition
             </p>
           </div>
-
-         
-          <div className="relative flex flex-col md:flex-row items-start gap-8 lg:gap-20">
+          <div className="relative flex flex-col md:flex-row items-center gap-10 lg:gap-20 ">
             {/* Timeline */}
             <div className="relative flex-1">
               {/* Vertical Line */}
-              <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-green-300 rounded-full"></div>
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-green-300 rounded-full"></div>
+
 
               <div className="space-y-16">
                 {processSteps.map((step, index) => (
@@ -534,7 +532,7 @@ const fraData = [
                     className="relative flex flex-col md:flex-row md:items-center"
                   >
                     {/* Step Number */}
-                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-600 text-white font-bold shadow-md z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-600 text-white font-extrabold shadow-md z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
                       {step.step}
                     </div>
 
