@@ -104,8 +104,8 @@ const LanguageSelection = ({ selectedLanguage, onLanguageSelect, role }) => {
             onClick={() => onLanguageSelect(language.code)}
             className={`w-full p-6 border-2 rounded-lg text-center transition-all duration-200 ${
               selectedLanguage === language.code
-                ? "border-green-600 bg-green-50"
-                : "border-gray-200 hover:border-green-300 hover:bg-gray-50"
+                ? "border-green-600 bg-green-50 cursor-pointer"
+                : "border-gray-200 hover:border-green-300 hover:bg-gray-50 cursor-pointer"
             }`}
           >
             <div className="flex items-center justify-between">

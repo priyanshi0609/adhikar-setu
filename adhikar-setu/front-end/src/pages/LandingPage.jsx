@@ -50,7 +50,7 @@ export default function HomePage() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -206,7 +206,7 @@ export default function HomePage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="hidden sm:flex items-center space-x-2 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50"
+                  className="hidden sm:flex items-center space-x-2 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
                 >
                   <Github className="h-4 w-4" />
                   <span>GitHub</span>
@@ -216,7 +216,7 @@ export default function HomePage() {
               <Link to="/login">
                 <Button
                   size="sm"
-                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white"
+                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white cursor-pointer"
                 >
                   <LogIn className="h-4 w-4" />
                   <span>Login</span>
@@ -258,7 +258,7 @@ export default function HomePage() {
                 <Link to="/login">
                   <Button
                     size="lg"
-                    className="text-lg px-8 bg-green-600 hover:bg-green-700 text-white"
+                    className="text-lg px-8 bg-green-600 hover:bg-green-700 text-white cursor-pointer"
                   >
                     Get Started
                   </Button>
@@ -267,7 +267,7 @@ export default function HomePage() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="text-lg px-8 border-gray-300 text-gray-700 hover:bg-gray-50"
+                    className="text-lg px-8 border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
                   >
                     Learn More
                   </Button>
