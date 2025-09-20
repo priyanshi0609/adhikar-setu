@@ -8,7 +8,7 @@ export const InfiniteMovingCards = ({
   direction = "left",
   speed = "fast",
   pauseOnHover = true,
-  className
+  className,
 }) => {
   const containerRef = React.useRef(null);
   const scrollerRef = React.useRef(null);
@@ -16,7 +16,9 @@ export const InfiniteMovingCards = ({
   useEffect(() => {
     addAnimation();
   }, []);
+  
   const [start, setStart] = useState(false);
+  
   function addAnimation() {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
@@ -33,6 +35,7 @@ export const InfiniteMovingCards = ({
       setStart(true);
     }
   }
+  
   const getDirection = () => {
     if (containerRef.current) {
       if (direction === "left") {
@@ -42,6 +45,7 @@ export const InfiniteMovingCards = ({
       }
     }
   };
+  
   const getSpeed = () => {
     if (containerRef.current) {
       if (speed === "fast") {
@@ -53,48 +57,90 @@ export const InfiniteMovingCards = ({
       }
     }
   };
+  
   return (
-    <div
-      ref={containerRef}
-      className={cn(
-        "scroller relative z-20 max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]",
-        className
-      )}>
-      <ul
-        ref={scrollerRef}
+    <div className="w-full py-8 bg-gradient-to-b from-white to-emerald-50/30">
+      <div
+        ref={containerRef}
         className={cn(
-          "flex w-max min-w-full shrink-0 flex-nowrap gap-4 py-4",
-          start && "animate-scroll",
-          pauseOnHover && "hover:[animation-play-state:paused]"
-        )}>
-        {items.map((item, idx) => (
-          <li
-            className="relative w-[350px] max-w-full shrink-0 rounded-2xl border border-b-0 border-zinc-200 bg-[linear-gradient(180deg,#fafafa,#f5f5f5)] px-8 py-6 md:w-[450px] dark:border-zinc-700 dark:bg-[linear-gradient(180deg,#27272a,#18181b)]"
-            key={item.name}>
-            <blockquote>
-              <div
-                aria-hidden="true"
-                className="user-select-none pointer-events-none absolute -top-0.5 -left-0.5 -z-1 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"></div>
-              <span
-                className="relative z-20 text-sm leading-[1.6] font-normal text-neutral-800 dark:text-gray-100">
-                {item.quote}
-              </span>
-              <div className="relative z-20 mt-6 flex flex-row items-center">
-                <span className="flex flex-col gap-1">
-                  <span
-                    className="text-sm leading-[1.6] font-normal text-neutral-500 dark:text-gray-400">
+          "scroller relative z-20 w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_5%,white_95%,transparent)]",
+          className
+        )}
+      >
+        <ul
+          ref={scrollerRef}
+          className={cn(
+            "flex w-full min-w-full shrink-0 flex-nowrap gap-6 py-6",
+            start && "animate-scroll",
+            pauseOnHover && "hover:[animation-play-state:paused]"
+          )}
+        >
+          {items.map((item, idx) => (
+            <li
+              className="relative w-[350px] max-w-full shrink-0 rounded-xl bg-white px-8 py-7 shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1 border border-emerald-100 md:w-[400px] dark:bg-slate-900 dark:border-emerald-900/30"
+              key={idx}
+            >
+              <div className="h-full flex flex-col">
+                {/* Icon Container */}
+                <div className="w-14 h-14 bg-emerald-50 rounded-lg flex items-center justify-center mb-5 mx-auto dark:bg-emerald-900/20">
+                  <div className="text-emerald-600 dark:text-emerald-400">
+                    {item.icon}
+                  </div>
+                </div>
+                
+                {/* Quote */}
+                <p className="relative z-20 text-base leading-[1.7] font-normal text-slate-700 text-center mb-5 flex-grow dark:text-slate-300">
+                  {item.quote}
+                </p>
+                
+                {/* Name and Title */}
+                <div className="relative z-20 mt-auto flex flex-col items-center pt-5 border-t border-emerald-100 dark:border-emerald-800/30">
+                  <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-200">
                     {item.name}
-                  </span>
-                  <span
-                    className="text-sm leading-[1.6] font-normal text-neutral-500 dark:text-gray-400">
+                  </h4>
+                  <span className="text-sm font-medium text-emerald-700 dark:text-emerald-400 mt-2 bg-emerald-50 px-3 py-1 rounded-md dark:bg-emerald-900/20">
                     {item.title}
                   </span>
-                </span>
+                </div>
               </div>
-            </blockquote>
-          </li>
-        ))}
-      </ul>
+              
+              {/* Subtle corner accents */}
+              <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+                <div className="absolute top-0 right-0 w-4 h-4 bg-emerald-500/10 rounded-bl-full"></div>
+              </div>
+              <div className="absolute bottom-0 left-0 w-16 h-16 overflow-hidden">
+                <div className="absolute bottom-0 left-0 w-4 h-4 bg-emerald-500/10 rounded-tr-full"></div>
+              </div>
+            </li>
+          ))}
+        </ul>
+        
+        <style>{`
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(calc(-50% - 0.75rem));
+            }
+          }
+          
+          .animate-scroll {
+            animation: scroll var(--animation-duration, 40s) linear infinite;
+            animation-direction: var(--animation-direction, forwards);
+          }
+          
+          .animate-scroll:hover {
+            animation-play-state: paused;
+          }
+          
+          @media (prefers-reduced-motion: reduce) {
+            .animate-scroll {
+              animation-duration: 1s;
+            }
+          }
+        `}</style>
+      </div>
     </div>
   );
 };

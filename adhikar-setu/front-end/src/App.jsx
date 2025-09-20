@@ -15,10 +15,11 @@ import {
 } from "./firebase/authService";
 import DSS from "./dss/components/DSS";
 import SchemeDetail from "./dss/components/SchemeDetail";
-import FinalDoc from "./doc-digitize/FinalDoc";
 import DSSResults from "./dss/components/DSS_Result";
 import ProfilePage from "./Login/ProfilePage";
 import SettingsPage from "./Login/SettingsPage";
+import ClaimantDashboard from "./doc-digitize/components/ClaimantDashboard";
+import Map from "./components/Map";
 
 // Lazy load route components for better performance
 const Dashboard = lazy(() => import("./components/Dashboard"));
@@ -210,6 +211,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/dss" element={<DSS />} />
               <Route path="/dss_results" element={<DSSResults />} />
+              <Route path="/map" element={<Map />} />
 
               {/* Login Route */}
               <Route
@@ -356,8 +358,21 @@ function App() {
                 }
               />
 
+              <Route
+                path="/claimant-dashboard"
+                element={
+                  <ProtectedRoute
+                    allowedRoles={["gram_sabha"]} // adjust roles as needed
+                    user={currentUser}
+                    language={language}
+                  >
+                    <ClaimantDashboard user={currentUser} />
+                  </ProtectedRoute>
+                }
+              />
+
               {/* routes to test, this will be removed later from here and put in for specific roles */}
-              <Route path="/doc-digitize" element={<FinalDoc />} />
+              {/* <Route path="/doc-digitize" element={<FinalDoc />} /> */}
 
               {/* Catch-all → Redirect to appropriate page */}
               <Route

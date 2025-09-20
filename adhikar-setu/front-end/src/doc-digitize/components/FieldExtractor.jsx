@@ -353,8 +353,8 @@ const FieldExtractor = ({
       <div className="p-6 border-t border-gray-200 bg-white">
         <button
           onClick={handleSave}
-          disabled={isSaving || !hasUnsavedChanges}
-          className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+          // disabled={isSaving || !hasUnsavedChanges}
+          className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 cursor-pointer"
         >
           {isSaving ? "Saving..." : "Save Changes"}
         </button>

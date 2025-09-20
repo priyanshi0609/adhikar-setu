@@ -9,6 +9,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  optimizeDeps: {
+    include: ["@turf/turf"]
+  },  
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

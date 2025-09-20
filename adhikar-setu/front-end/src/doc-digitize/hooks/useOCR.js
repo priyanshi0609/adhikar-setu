@@ -22,6 +22,9 @@ export const useOCR = () => {
         setResults([]);
 
         try {
+            // Initialize the processor
+            await ocrProcessor.initialize();
+            
             const fileArray = Array.from(files);
             const ocrResults = await ocrProcessor.processMultiplePages(
                 fileArray,
@@ -86,13 +89,6 @@ export const useOCR = () => {
             }
         }
     }, [results]);
-
-    // Cleanup on unmount
-    useEffect(() => {
-        return () => {
-            ocrProcessor.terminate();
-        };
-    }, []);
 
     return {
         isProcessing,
