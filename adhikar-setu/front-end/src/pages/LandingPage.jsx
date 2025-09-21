@@ -399,7 +399,7 @@ const fraData = [
            <InfiniteMovingCards
             items={fraData}
              direction="right"
-             speed="normal"
+             speed="fast"
              pauseOnHover={true}
               className="mt-8"/>
               </div>
