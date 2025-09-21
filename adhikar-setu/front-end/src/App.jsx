@@ -20,6 +20,7 @@ import ProfilePage from "./Login/ProfilePage";
 import SettingsPage from "./Login/SettingsPage";
 import ClaimantDashboard from "./doc-digitize/components/ClaimantDashboard";
 import Map from "./components/Map";
+import NotFoundPage from "./global/NotFoundPage";
 import AssetMapping from "./assetsmapping/assetsmap";
 
 // Lazy load route components for better performance
@@ -232,8 +233,15 @@ function App() {
               <Route path="/dss_results" element={<DSSResults />} />
               <Route path="/map" element={<Map />} />
               <Route path="/asset-mapping" element={<AssetMapping />} />
+              <Route
+                path="*"
+                element={
+                  <NotFoundPage user={currentUser} language={language} />
+                }
+              />
 
-              {/* Login Route */}
+              {/* Login Route when a user tries to open /login while already logged in, redirect to dashboard */}
+              {/* example : for gram sabha users, redirect to claimant dashboard */}
               <Route
                 path="/login"
                 element={
