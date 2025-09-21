@@ -144,7 +144,7 @@ const fraData = [
       title: "Digital Document Management",
       description:
         "AI-powered OCR and NER to extract and standardize FRA claims from legacy records with Rule 13 evidence validation",
-      content: <div className="h-full w-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white">
+      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
       Digital Document Management
     </div>
     },
@@ -153,7 +153,7 @@ const fraData = [
       title: "Interactive FRA Atlas",
       description:
         "WebGIS platform visualizing IFR, CR, and CFR boundaries with filtering by state, district, and tribal groups",
-      content: <div className="h-full w-full bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-white">
+      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
       Interactive FRA Atlas
     </div>
     },
@@ -162,7 +162,7 @@ const fraData = [
       title: "Satellite Evidence Verification",
       description:
         "AI analysis of satellite imagery to verify occupation dates and land use patterns as supplementary evidence",
-      content: <div className="h-full w-full bg-gradient-to-br from-red-500 to-yellow-500 flex items-center justify-center text-white">
+      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
       Satellite Evidence Verification
     </div>
     },
@@ -171,7 +171,7 @@ const fraData = [
       title: "Decision Support System",
       description:
         "Scheme layering for FRA patta holders with eligibility mapping for CSS programs like PM-KISAN, Jal Jeevan Mission",
-      content: <div className="h-full w-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white">
+      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
       Decision Support System
     </div>
     },

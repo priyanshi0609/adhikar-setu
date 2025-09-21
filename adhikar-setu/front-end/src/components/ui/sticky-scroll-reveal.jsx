@@ -42,12 +42,11 @@ export const StickyScroll = ({
   }, [activeCard]);
 
   return (
-    <div className="bg-gradient-to-b from-green-50 to-green-100 rounded-2xl p-8 ">
+    <div className="bg-green-50 rounded-2xl p-6">
       
       
       <motion.div
-        className="relative flex h-[34rem] justify-center space-x-10 overflow-y-auto rounded-xl p-6  backdrop-blur-sm border border-green-100 shadow-inner"
-        ref={ref}
+        className="relative flex h-[34rem] justify-center space-x-10 overflow-y-auto rounded-xl p-6  backdrop-blur-sm "
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
