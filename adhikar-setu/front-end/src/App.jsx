@@ -230,7 +230,7 @@ function App() {
               {/* Landing Page Route */}
               <Route path="/" element={<HomePage />} />
               <Route path="/dss" element={<DSS />} />
-              <Route path="/dss_results" element={<DSSResults />} />
+              <Route path="/dss-results" element={<DSSResults />} />
               <Route path="/map" element={<Map />} />
               <Route path="/asset-mapping" element={<AssetMapping />} />
               <Route
@@ -326,10 +326,10 @@ function App() {
                 }
               />
               <Route
-                path="/dss_results"
+                path="/dss-results"
                 element={
                   <ProtectedRoute
-                    allowedRoles={["gram_sabha"]}
+                    allowedRoles={["dlc"]}
                     user={currentUser}
                     language={language}
                   >
