@@ -104,7 +104,7 @@ const Navigation = ({
         id: "dss",
         name: language === "en" ? "Decision Support" : "निर्णय सहायता",
         icon: BarChart3,
-        roles: ["sdlc", "dlc", "mota"],
+        roles: ["sdlc", "mota", "frc"],
       },
       {
         id: "public-atlas",
