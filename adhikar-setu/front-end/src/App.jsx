@@ -20,6 +20,7 @@ import ProfilePage from "./Login/ProfilePage";
 import SettingsPage from "./Login/SettingsPage";
 import ClaimantDashboard from "./doc-digitize/components/ClaimantDashboard";
 import Map from "./components/Map";
+import NotFoundPage from "./global/NotFoundPage";
 
 // Lazy load route components for better performance
 const Dashboard = lazy(() => import("./components/Dashboard"));
@@ -33,16 +34,18 @@ const PublicAtlas = lazy(() => import("./components/PublicAtlas"));
 
 // ---------- Protected Route Component ----------
 const ProtectedRoute = ({ children, allowedRoles, user, language }) => {
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+  // if (!user) {
+  //   return <Navigate to="/login" replace />;
+  // }
 
-  if (!allowedRoles.includes(user.role)) {
+  if (!allowedRoles.includes(user?.role)) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-red-600 mb-4">
-            {language === "en" ? "Access Denied" : "पहुंच अस्वीकृत"}
+            {language === "en"
+              ? "Access Denied or Under Development"
+              : "पहुंच अस्वीकृत या विकासाधीन"}
           </h2>
           <p className="text-gray-600">
             {language === "en"
@@ -109,14 +112,15 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [language, setLanguage] = useState("en");
   const [loading, setLoading] = useState(true);
+  const [isLoggingOut, setIsLoggingOut] = useState(false); // New state to track logout process
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     // Set up auth state listener
     const unsubscribe = onAuthStateChange(async (user) => {
-      if (user) {
-        // User is signed in
+      if (user && !isLoggingOut) {
+        // User is signed in and not in the process of logging out
         const userProfile = await getCurrentUserProfile(user.uid);
         if (userProfile.success) {
           setCurrentUser(userProfile.user);
@@ -125,33 +129,48 @@ function App() {
           setCurrentUser(null);
         }
       } else {
-        // User is signed out
+        // User is signed out or logging out
         setCurrentUser(null);
+        // Clear localStorage when user is signed out
+        localStorage.removeItem("user");
+        if (isLoggingOut) {
+          setIsLoggingOut(false); // Reset logout state
+        }
       }
       setLoading(false);
     });
 
     // Cleanup subscription on unmount
     return () => unsubscribe();
-  }, []);
+  }, [isLoggingOut]);
 
+  // all the login tweaks for specific roles and redirections will happen here
   const handleLogin = (user) => {
     setCurrentUser(user);
     localStorage.setItem("user", JSON.stringify(user));
-    navigate("/dashboard");
-  };
 
-  const handleLogout = () => {
-    setCurrentUser(null);
-    navigate("/"); // Redirect to landing page after logout
-  };
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setCurrentUser(JSON.parse(storedUser));
+    if (user.role === "gram_sabha") {
+      navigate("/claimant-dashboard"); // send gram sabha users here
+    } else {
+      navigate("/dashboard"); // all other roles go here
     }
-  }, []);
+  };
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true); // Set logout flag
+    setCurrentUser(null); // Immediately clear user state
+    localStorage.removeItem("user"); // Clear localStorage
+    navigate("/"); // Navigate to landing page
+    // The actual Firebase logout will be handled by the Navigation component
+  };
+
+  // Remove the localStorage effect since we handle it in the auth state change
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("user");
+  //   if (storedUser) {
+  //     setCurrentUser(JSON.parse(storedUser));
+  //   }
+  // }, []);
 
   const currentScreen =
     location.pathname === "/login" ? "/dashboard" : location.pathname.slice(1);
@@ -177,8 +196,8 @@ function App() {
         isDarkMode ? "bg-gray-900 text-white" : "bg-gray-50 text-black"
       }`}
     >
-      {/* Show navigation only when user is logged in */}
-      {currentUser && (
+      {/* Show navigation only when user is logged in AND not logging out */}
+      {currentUser && !isLoggingOut && (
         <Navigation
           user={currentUser}
           currentScreen={currentScreen}
@@ -192,7 +211,7 @@ function App() {
       )}
 
       {/* Routes */}
-      <main className={currentUser ? "pt-16" : ""}>
+      <main className={currentUser && !isLoggingOut ? "pt-16" : ""}>
         <ErrorBoundary language={language}>
           <Suspense
             fallback={
@@ -212,13 +231,24 @@ function App() {
               <Route path="/dss" element={<DSS />} />
               <Route path="/dss_results" element={<DSSResults />} />
               <Route path="/map" element={<Map />} />
+              <Route
+                path="*"
+                element={
+                  <NotFoundPage user={currentUser} language={language} />
+                }
+              />
 
-              {/* Login Route */}
+              {/* Login Route when a user tries to open /login while already logged in, redirect to dashboard */}
+              {/* example : for gram sabha users, redirect to claimant dashboard */}
               <Route
                 path="/login"
                 element={
                   currentUser ? (
-                    <Navigate to="/dashboard" replace />
+                    currentUser.role === "gram_sabha" ? (
+                      <Navigate to="/claimant-dashboard" replace />
+                    ) : (
+                      <Navigate to="/dashboard" replace />
+                    )
                   ) : (
                     <LoginContainer onLogin={handleLogin} />
                   )
@@ -362,7 +392,7 @@ function App() {
                 path="/claimant-dashboard"
                 element={
                   <ProtectedRoute
-                    allowedRoles={["gram_sabha"]} // adjust roles as needed
+                    allowedRoles={["gram_sabha"]}
                     user={currentUser}
                     language={language}
                   >
@@ -373,6 +403,7 @@ function App() {
 
               {/* routes to test, this will be removed later from here and put in for specific roles */}
               {/* <Route path="/doc-digitize" element={<FinalDoc />} /> */}
+              {/* <Route path="/location-detail" element={<LocationDetail />} /> */}
 
               {/* Catch-all → Redirect to appropriate page */}
               <Route

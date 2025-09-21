@@ -13,6 +13,7 @@ import {
   Plus,
   Download,
   Map,
+  X,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import mapboxgl from "mapbox-gl"; // Import mapbox-gl
@@ -25,14 +26,38 @@ const Dashboard = ({ user, language }) => {
   const [selectedState, setSelectedState] = useState("Tripura");
   const [selectedDistrict, setSelectedDistrict] = useState("All Districts");
   const [selectedVillage, setSelectedVillage] = useState("All Villages");
-  const [selectedClaimStatus, setSelectedClaimStatus] = useState("All Statuses");
+  const [selectedClaimStatus, setSelectedClaimStatus] =
+    useState("All Statuses");
   const [selectedTribalGroup, setSelectedTribalGroup] = useState("All Groups");
+  const [showMapNote, setShowMapNote] = useState(true);
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
 
   const states = ["Tripura", "Telangana", "Odisha", "Madhya Pradesh"];
-  const claimStatuses = ["All Statuses", "IFR", "CFR", "CR", "Submitted", "Verified", "Approved", "Rejected", "Under Review"];
-  const tribalGroups = ["All Groups", "Santhal", "Gond", "Oraon", "Munda", "Bhil", "Kol", "Kharia", "Ho", "Sabar", "Bhumij"];
+  const claimStatuses = [
+    "All Statuses",
+    "IFR",
+    "CFR",
+    "CR",
+    "Submitted",
+    "Verified",
+    "Approved",
+    "Rejected",
+    "Under Review",
+  ];
+  const tribalGroups = [
+    "All Groups",
+    "Santhal",
+    "Gond",
+    "Oraon",
+    "Munda",
+    "Bhil",
+    "Kol",
+    "Kharia",
+    "Ho",
+    "Sabar",
+    "Bhumij",
+  ];
 
   // Dynamic data structure for districts and villages based on state with coordinates
   const stateData = {
@@ -349,12 +374,12 @@ const Dashboard = ({ user, language }) => {
     } catch (error) {
       console.warn(
         "Could not load /data/claims.json, using fallback data:",
-        error,
+        error
       );
       // Return empty data structure if file fails to load
       return {
         type: "FeatureCollection",
-        features: []
+        features: [],
       };
     }
   };
@@ -458,7 +483,7 @@ const Dashboard = ({ user, language }) => {
 
           // Fit map to show all target states
           const targetStateFeatures = statesData.features.filter((feature) =>
-            states.includes(feature.properties.name),
+            states.includes(feature.properties.name)
           );
 
           if (targetStateFeatures.length > 0) {
@@ -542,7 +567,7 @@ const Dashboard = ({ user, language }) => {
                 coords[0].forEach(([lng, lat]) => bounds.extend([lng, lat]));
               } else if (f.geometry.type === "MultiPolygon") {
                 f.geometry.coordinates.forEach((polygon) =>
-                  polygon[0].forEach(([lng, lat]) => bounds.extend([lng, lat])),
+                  polygon[0].forEach(([lng, lat]) => bounds.extend([lng, lat]))
                 );
               }
             });
@@ -562,13 +587,13 @@ const Dashboard = ({ user, language }) => {
             if (hoveredId !== null) {
               mapRef.current.setFeatureState(
                 { source: "claims", id: hoveredId },
-                { hover: false },
+                { hover: false }
               );
             }
             hoveredId = feature.id;
             mapRef.current.setFeatureState(
               { source: "claims", id: hoveredId },
-              { hover: true },
+              { hover: true }
             );
             mapRef.current.getCanvas().style.cursor = "pointer";
           });
@@ -577,7 +602,7 @@ const Dashboard = ({ user, language }) => {
             if (hoveredId !== null) {
               mapRef.current.setFeatureState(
                 { source: "claims", id: hoveredId },
-                { hover: false },
+                { hover: false }
               );
             }
             hoveredId = null;
@@ -643,7 +668,7 @@ const Dashboard = ({ user, language }) => {
     },
     [
       /* empty */
-    ],
+    ]
   );
 
   const handleLocationZoom = () => {
@@ -667,13 +692,13 @@ const Dashboard = ({ user, language }) => {
           </h1>
           <p className="text-lg text-gray-600 font-medium">
             {language === "en"
-              ? `Welcome back, ${user.name}`
-              : `वापसी पर स्वागत, ${user.name}`}
+              ? `Welcome back, ${user.name || user.email?.split("@")[0]}`
+              : `वापसी पर स्वागत, ${user.name || user.email?.split("@")[0]}`}
           </p>
           <p className="text-sm text-gray-500">
             {language === "en"
-              ? "Empowering Forest Rights Management"
-              : "वन अधिकार प्रबंधन को सशक्त बनाना"}
+              ? "Bridging forest communities with their rights through technology"
+              : "प्रौद्योगिकी के माध्यम से वन समुदायों को उनके अधिकारों से जोड़ना"}
           </p>
         </div>
 
@@ -704,8 +729,8 @@ const Dashboard = ({ user, language }) => {
             kpi.trend === "up"
               ? "text-green-600"
               : kpi.trend === "down"
-                ? "text-red-500"
-                : "text-gray-500";
+              ? "text-red-500"
+              : "text-gray-500";
           const trendIcon =
             kpi.trend === "up" ? (
               <TrendingUp className="h-4 w-4" />
@@ -749,9 +774,11 @@ const Dashboard = ({ user, language }) => {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-gray-900 flex items-center">
             <Filter className="h-6 w-6 mr-3 text-green-600" />
-            {language === "en" ? "Location & Filter Controls" : "स्थान और फिल्टर नियंत्रण"}
+            {language === "en"
+              ? "Location & Filter Controls"
+              : "स्थान और फिल्टर नियंत्रण"}
           </h2>
-          <button 
+          <button
             onClick={() => {
               setSelectedState("Tripura");
               setSelectedDistrict("All Districts");
@@ -792,7 +819,7 @@ const Dashboard = ({ user, language }) => {
                 } else {
                   const newVillages = getVillagesForDistrict(
                     selectedState,
-                    newDistrict,
+                    newDistrict
                   );
                   setSelectedVillage(newVillages[0] || "All Villages");
                 }
@@ -840,7 +867,7 @@ const Dashboard = ({ user, language }) => {
           ))}
         </div>
         <div className="mt-6 flex justify-center">
-          <button 
+          <button
             onClick={handleLocationZoom}
             className="bg-gradient-to-r from-green-600 via-green-700 to-emerald-700 text-white px-8 py-3 rounded-xl font-semibold hover:from-green-700 hover:via-green-800 hover:to-emerald-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center transform hover:scale-105"
           >
@@ -854,19 +881,52 @@ const Dashboard = ({ user, language }) => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Map View */}
         <div className="lg:col-span-2 space-y-6">
+          {/* Map Scope Note */}
+          {showMapNote && (
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-4 shadow-lg">
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                    <MapPin className="h-4 w-4 text-blue-600" />
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-sm font-bold text-blue-800 mb-1">
+                    {language === "en"
+                      ? "Map Coverage Information"
+                      : "मानचित्र कवरेज जानकारी"}
+                  </h4>
+                  <p className="text-sm text-blue-700 leading-relaxed">
+                    {language === "en"
+                      ? "This interactive map displays Forest Rights Act (FRA) claims data specifically for India, focusing on four key states: Odisha, Tripura, Telangana, and Madhya Pradesh. The visualization helps track claim statuses, geographical distribution, and progress across these regions as per FRA implementation guidelines."
+                      : "यह इंटरैक्टिव मानचित्र भारत के लिए विशेष रूप से वन अधिकार अधिनियम (FRA) दावा डेटा प्रदर्शित करता है, जो चार प्रमुख राज्यों पर केंद्रित है: ओडिशा, त्रिपुरा, तेलंगाना और मध्य प्रदेश। यह दृश्यीकरण FRA कार्यान्वयन दिशानिर्देशों के अनुसार इन क्षेत्रों में दावा स्थिति, भौगोलिक वितरण और प्रगति को ट्रैक करने में मदद करता है।"}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowMapNote(false)}
+                  className="flex-shrink-0 p-1 hover:bg-blue-100 rounded-full transition-colors duration-200"
+                  aria-label={
+                    language === "en" ? "Close notice" : "सूचना बंद करें"
+                  }
+                >
+                  <X className="h-4 w-4 text-blue-600" />
+                </button>
+              </div>
+            </div>
+          )}
+
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
             <div className="p-4 bg-gradient-to-r from-green-600 to-emerald-600">
               <h3 className="text-lg font-bold text-white flex items-center">
                 <Map className="h-5 w-5 mr-2" />
-                {language === "en" ? "Interactive Claims Map" : "इंटरैक्टिव दावा मानचित्र"}
+                {language === "en"
+                  ? "Interactive Claims Map"
+                  : "इंटरैक्टिव दावा मानचित्र"}
               </h3>
             </div>
-            <div
-              ref={mapContainerRef}
-              className="w-full h-[500px]"
-            />
+            <div ref={mapContainerRef} className="w-full h-[500px]" />
           </div>
-          
+
           <div className="flex justify-center">
             <Link to="/map">
               <button className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white px-8 py-3 rounded-xl font-semibold hover:from-blue-700 hover:via-blue-800 hover:to-indigo-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center transform hover:scale-105">
@@ -885,7 +945,7 @@ const Dashboard = ({ user, language }) => {
               <Filter className="h-5 w-5 mr-2 text-green-600" />
               {language === "en" ? "Advanced Filters" : "उन्नत फिल्टर"}
             </h3>
-            
+
             <div className="space-y-6">
               {/* Claim Status Filter */}
               <div>
@@ -893,10 +953,25 @@ const Dashboard = ({ user, language }) => {
                   {language === "en" ? "Claim Status" : "दावा स्थिति"}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
-                  {["IFR", "CFR", "CR", "Submitted", "Verified", "Approved", "Rejected", "Under Review"].map((status) => (
+                  {[
+                    "IFR",
+                    "CFR",
+                    "CR",
+                    "Submitted",
+                    "Verified",
+                    "Approved",
+                    "Rejected",
+                    "Under Review",
+                  ].map((status) => (
                     <button
                       key={status}
-                      onClick={() => setSelectedClaimStatus(selectedClaimStatus === status ? "All Statuses" : status)}
+                      onClick={() =>
+                        setSelectedClaimStatus(
+                          selectedClaimStatus === status
+                            ? "All Statuses"
+                            : status
+                        )
+                      }
                       className={`px-3 py-2 text-sm rounded-lg border-2 transition-all duration-300 font-medium ${
                         selectedClaimStatus === status
                           ? "bg-green-100 border-green-500 text-green-700 shadow-md"
@@ -908,7 +983,7 @@ const Dashboard = ({ user, language }) => {
                   ))}
                 </div>
               </div>
-              
+
               {/* Tribal Groups Filter */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
@@ -934,7 +1009,9 @@ const Dashboard = ({ user, language }) => {
               {/* Area Range Filter */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
-                  {language === "en" ? "Area Range (Hectares)" : "क्षेत्र सीमा (हेक्टेयर)"}
+                  {language === "en"
+                    ? "Area Range (Hectares)"
+                    : "क्षेत्र सीमा (हेक्टेयर)"}
                 </label>
                 <div className="grid grid-cols-2 gap-3">
                   <input
@@ -950,12 +1027,12 @@ const Dashboard = ({ user, language }) => {
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-6 flex gap-3">
               <button className="flex-1 bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-3 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-md hover:shadow-lg">
                 {language === "en" ? "Apply Filters" : "फिल्टर लगाएं"}
               </button>
-              <button 
+              <button
                 onClick={() => {
                   setSelectedClaimStatus("All Statuses");
                   setSelectedTribalGroup("All Groups");
@@ -1033,7 +1110,9 @@ const Dashboard = ({ user, language }) => {
               </div>
               <div className="flex justify-between items-center py-2 border-b border-gray-100">
                 <span className="text-sm font-medium text-gray-600">
-                  {language === "en" ? "Avg. Processing Time" : "औसत प्रसंस्करण समय"}
+                  {language === "en"
+                    ? "Avg. Processing Time"
+                    : "औसत प्रसंस्करण समय"}
                 </span>
                 <span className="text-sm font-bold text-blue-600">12 days</span>
               </div>
@@ -1041,7 +1120,9 @@ const Dashboard = ({ user, language }) => {
                 <span className="text-sm font-medium text-gray-600">
                   {language === "en" ? "Total Area Covered" : "कुल क्षेत्र कवर"}
                 </span>
-                <span className="text-sm font-bold text-purple-600">2,847 Ha</span>
+                <span className="text-sm font-bold text-purple-600">
+                  2,847 Ha
+                </span>
               </div>
             </div>
           </div>
