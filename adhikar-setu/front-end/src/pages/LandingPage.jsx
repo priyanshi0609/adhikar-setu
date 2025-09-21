@@ -45,6 +45,7 @@ import { Link } from "react-router-dom";
 import { LoaderOne } from "@/components/ui/loader";
 import { useEffect, useState } from "react";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 
 
 import digitalMap from "@/assets/digital-map.jpg";
@@ -52,6 +53,7 @@ import tribalCommunity from "@/assets/tribal-community.jpg";
 import fraProcess from "@/assets/fra-process.png";
 import stateMap from "@/assets/state-map.png";
 import AS from "@/assets/AS.png";
+import logo from "@/assets/logo1.png";
 // import teamMeeting from "@/assets/team-meeting.jpg";
 
 export default function HomePage() {
@@ -142,24 +144,36 @@ const fraData = [
       title: "Digital Document Management",
       description:
         "AI-powered OCR and NER to extract and standardize FRA claims from legacy records with Rule 13 evidence validation",
+      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
+      Digital Document Management
+    </div>
     },
     {
       icon: <Layers className="h-8 w-8" />,
       title: "Interactive FRA Atlas",
       description:
         "WebGIS platform visualizing IFR, CR, and CFR boundaries with filtering by state, district, and tribal groups",
+      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
+      Interactive FRA Atlas
+    </div>
     },
     {
       icon: <Satellite className="h-8 w-8" />,
       title: "Satellite Evidence Verification",
       description:
         "AI analysis of satellite imagery to verify occupation dates and land use patterns as supplementary evidence",
+      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
+      Satellite Evidence Verification
+    </div>
     },
     {
       icon: <BarChart3 className="h-8 w-8" />,
       title: "Decision Support System",
       description:
         "Scheme layering for FRA patta holders with eligibility mapping for CSS programs like PM-KISAN, Jal Jeevan Mission",
+      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
+      Decision Support System
+    </div>
     },
   ];
 
@@ -213,7 +227,7 @@ const fraData = [
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-2">
                 <img
-                src={AS}
+                src={logo}
                 alt="Adhikar Setu Logo"
                 className="w-10 h-10 object-contain rounded-lg"
               />
@@ -430,36 +444,13 @@ const fraData = [
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Adhikar Setu Platform Features
+              Features
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our comprehensive solution addresses key FRA implementation
-              challenges
-            </p>
+            
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <Card
-                key={index}
-                className="border-gray-200 hover:shadow-lg transition-shadow bg-white"
-              >
-                <CardHeader>
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 text-green-600">
-                    {feature.icon}
-                  </div>
-                  <CardTitle className="text-gray-900">
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base text-gray-600">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+           <div className="w-full py-4">
+      <StickyScroll content={features} />
+    </div>
 
           <div className="mt-12 grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -513,104 +504,98 @@ const fraData = [
 
       {/* Process Section */}
       <section id="process" className="py-16 bg-white relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Heading */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
-              FRA Implementation Process
-            </h2>
-            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
-              Streamlining the statutory workflow for forest rights recognition
-            </p>
-          </div>
-          <div className="relative flex flex-col md:flex-row items-center gap-10 lg:gap-20 ">
-            {/* Timeline */}
-            <div className="relative flex-1">
-              {/* Vertical Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-green-300 rounded-full"></div>
+  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    {/* Heading */}
+    <div className="text-center mb-16">
+      <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
+        FRA Implementation Process
+      </h2>
+      <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+        Streamlining the statutory workflow for forest rights recognition
+      </p>
+    </div>
+    
+    <div className="relative flex flex-col md:flex-row items-center gap-10 lg:gap-12">
+      {/* Left-side Image */}
+      <div className="flex-1 flex justify-center md:justify-end order-2 md:order-1">
+        <img
+          src={fraProcess}
+          alt="FRA Process Illustration"
+          className="w-full max-w-md lg:max-w-lg rounded-2xl shadow-xl border border-gray-200"
+        />
+      </div>
 
+      {/* Timeline  */}
+      <div className="relative flex-1 order-1 md:order-2 md:ml-8">
+        {/* Vertical Line */}
+        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-green-300 rounded-full"></div>
 
-              <div className="space-y-16">
-                {processSteps.map((step, index) => (
-                  <div
-                    key={index}
-                    className="relative flex flex-col md:flex-row md:items-center"
-                  >
-                    {/* Step Number */}
-                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-600 text-white font-extrabold shadow-md z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
-                      {step.step}
-                    </div>
+        <div className="space-y-15">
+          {processSteps.map((step, index) => (
+            <div
+              key={index}
+              className="relative flex flex-col md:flex-row md:items-center"
+            >
+              {/* Step Number */}
+              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-600 text-white font-extrabold shadow-md z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+                {step.step}
+              </div>
 
-                    {/* Step Content */}
-                    <div
-                      className={`mt-6 md:mt-0 md:w-1/2 ${
-                        index % 2 === 0
-                          ? "md:pr-10 md:text-right"
-                          : "md:pl-10"
-                      }`}
-                    >
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                        {step.title}
-                      </h3>
-                      <p className="text-gray-600 text-base leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+              {/* Step Content */}
+              <div className="mt-6 md:mt-0 md:w-1/2 md:pl-8">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {step.title}
+                </h3>
+                <p className="text-gray-600 text-base leading-relaxed">
+                  {step.description}
+                </p>
               </div>
             </div>
-
-            {/* Right-side Image */}
-            <div className="flex-1 flex justify-center md:justify-start">
-              <img
-                src={fraProcess}
-                alt="FRA Process Illustration"
-                className="w-full max-w-md lg:max-w-lg rounded-2xl shadow-xl border border-gray-200"
-              />
-            </div>
-          </div>
-
-          {/* Statutory Workflow Box */}
-          <div className="mt-12 bg-gray-100 rounded-2xl p-6">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">
-              Statutory Workflow Compliance
-            </h3>
-            <p className="text-gray-600 mb-4">
-              Adhikar Setu implements the complete FRA statutory workflow as
-              mandated by the Act and Rules:
-            </p>
-            <ul className="grid md:grid-cols-2 gap-4">
-              <li className="flex items-start space-x-3">
-                <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-600">
-                  Gram Sabha initiates process and authorizes claims (Form
-                  A/B/C)
-                </span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-600">
-                  FRC conducts site verification with forest/revenue officials
-                </span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-600">
-                  SDLC examines petitions and prepares draft records
-                </span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-gray-600">
-                  DLC gives final approval with Collector's non-delegable
-                  signature
-                </span>
-              </li>
-            </ul>
-          </div>
+          ))}
         </div>
-      </section>
+      </div>
+    </div>
+
+    {/* Statutory Workflow Box */}
+    <div className="mt-12 bg-gray-100 rounded-2xl p-6">
+      <h3 className="text-xl font-semibold text-gray-900 mb-4">
+        Statutory Workflow Compliance
+      </h3>
+      <p className="text-gray-600 mb-4">
+        Adhikar Setu implements the complete FRA statutory workflow as
+        mandated by the Act and Rules:
+      </p>
+      <ul className="grid md:grid-cols-2 gap-4">
+        <li className="flex items-start space-x-3">
+          <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+          <span className="text-gray-600">
+            Gram Sabha initiates process and authorizes claims (Form
+            A/B/C)
+          </span>
+        </li>
+        <li className="flex items-start space-x-3">
+          <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+          <span className="text-gray-600">
+            FRC conducts site verification with forest/revenue officials
+          </span>
+        </li>
+        <li className="flex items-start space-x-3">
+          <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+          <span className="text-gray-600">
+            SDLC examines petitions and prepares draft records
+          </span>
+        </li>
+        <li className="flex items-start space-x-3">
+          <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+          <span className="text-gray-600">
+            DLC gives final approval with Collector's non-delegable
+            signature
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
 
       {/* Initial States Section */}
       <section className="py-16 bg-green-50">
