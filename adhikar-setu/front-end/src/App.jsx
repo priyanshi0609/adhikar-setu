@@ -317,7 +317,7 @@ function App() {
                 path="/dss"
                 element={
                   <ProtectedRoute
-                    allowedRoles={["sdlc", "dlc", "mota"]}
+                    allowedRoles={["sdlc","mota","frc"]}
                     user={currentUser}
                     language={language}
                   >
