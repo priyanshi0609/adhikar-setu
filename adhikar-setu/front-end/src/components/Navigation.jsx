@@ -104,7 +104,7 @@ const Navigation = ({
         id: "dss",
         name: language === "en" ? "Decision Support" : "निर्णय सहायता",
         icon: BarChart3,
-        roles: ["sdlc", "mota", "frc"],
+        roles: ["sdlc", "frc"],
       },
       {
         id: "public-atlas",
@@ -122,7 +122,7 @@ const Navigation = ({
         id: "dss-results",
         name: language === "en" ? "DSS Results" : "DSS परिणाम",
         icon: BarChart3,
-        roles: [ "dlc"],
+        roles: [ "dlc","mota"],
       }
     ];
 
