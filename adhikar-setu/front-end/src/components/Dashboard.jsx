@@ -212,7 +212,7 @@ const Dashboard = ({ user, language }) => {
     if (selectedVillage !== "All Villages") {
       const villageCoord =
         stateData[selectedState]?.villageCoordinates?.[selectedDistrict]?.[
-          selectedVillage
+        selectedVillage
         ];
       if (villageCoord) {
         return villageCoord;
@@ -617,12 +617,26 @@ const Dashboard = ({ user, language }) => {
             // area_m2 might be string — format defensively
             const area = p.area_m2 ? Number(p.area_m2).toFixed(2) + " m²" : "—";
             const html = `
-            <div style="font-size:13px">
-              <strong>${p.claimant_name || "—"}</strong><br/>
-              ID: ${p.claim_id || "—"}<br/>
-              Status: ${p.status || "—"}<br/>
-              Area: ${area}
-            </div>
+            <div style="
+  font-size: 13px;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 14px;
+  line-height: 1.5;
+  color: #333;
+  max-width: 250px;
+">
+  <div style="font-weight: 600; font-size: 14px; margin-bottom: 6px; color:#111;">
+    ${p.claimant_name || "—"}
+  </div>
+  <div><span style="font-weight:500; color:#555;">ID:</span> ${p.claim_id || "—"}</div>
+  <div><span style="font-weight:500; color:#555;">Status:</span> ${p.status || "—"}</div>
+  <div><span style="font-weight:500; color:#555;">Area:</span> ${area}</div>
+  <div><span style="font-weight:500; color:#555;">Date:</span> ${p.submitted_at}</div>
+</div>
+
           `;
             new mapboxgl.Popup({ offset: 12 })
               .setLngLat(e.lngLat)
@@ -976,7 +990,7 @@ const Dashboard = ({ user, language }) => {
                         selectedClaimStatus === status
                           ? "bg-green-100 border-green-500 text-green-700 shadow-md"
                           : "bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300"
-                      }`}
+                        }`}
                     >
                       {status}
                     </button>
@@ -994,11 +1008,10 @@ const Dashboard = ({ user, language }) => {
                     <button
                       key={group}
                       onClick={() => setSelectedTribalGroup(group)}
-                      className={`px-3 py-2 text-sm rounded-lg border-2 transition-all duration-300 font-medium ${
-                        selectedTribalGroup === group
+                      className={`px-3 py-2 text-sm rounded-lg border-2 transition-all duration-300 font-medium ${selectedTribalGroup === group
                           ? "bg-purple-100 border-purple-500 text-purple-700 shadow-md"
                           : "bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300"
-                      }`}
+                        }`}
                     >
                       {group}
                     </button>
