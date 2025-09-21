@@ -189,7 +189,7 @@ const Dashboard = ({ user, language }) => {
     if (selectedVillage !== "All Villages") {
       const villageCoord =
         stateData[selectedState]?.villageCoordinates?.[selectedDistrict]?.[
-          selectedVillage
+        selectedVillage
         ];
       if (villageCoord) {
         return villageCoord;
@@ -594,12 +594,26 @@ const Dashboard = ({ user, language }) => {
             // area_m2 might be string — format defensively
             const area = p.area_m2 ? Number(p.area_m2).toFixed(2) + " m²" : "—";
             const html = `
-            <div style="font-size:13px">
-              <strong>${p.claimant_name || "—"}</strong><br/>
-              ID: ${p.claim_id || "—"}<br/>
-              Status: ${p.status || "—"}<br/>
-              Area: ${area}
-            </div>
+            <div style="
+  font-size: 13px;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 14px;
+  line-height: 1.5;
+  color: #333;
+  max-width: 250px;
+">
+  <div style="font-weight: 600; font-size: 14px; margin-bottom: 6px; color:#111;">
+    ${p.claimant_name || "—"}
+  </div>
+  <div><span style="font-weight:500; color:#555;">ID:</span> ${p.claim_id || "—"}</div>
+  <div><span style="font-weight:500; color:#555;">Status:</span> ${p.status || "—"}</div>
+  <div><span style="font-weight:500; color:#555;">Area:</span> ${area}</div>
+  <div><span style="font-weight:500; color:#555;">Date:</span> ${p.submitted_at}</div>
+</div>
+
           `;
             new mapboxgl.Popup({ offset: 12 })
               .setLngLat(e.lngLat)
@@ -753,7 +767,7 @@ const Dashboard = ({ user, language }) => {
             <Filter className="h-6 w-6 mr-3 text-green-600" />
             {language === "en" ? "Location & Filter Controls" : "स्थान और फिल्टर नियंत्रण"}
           </h2>
-          <button 
+          <button
             onClick={() => {
               setSelectedState("Tripura");
               setSelectedDistrict("All Districts");
@@ -842,7 +856,7 @@ const Dashboard = ({ user, language }) => {
           ))}
         </div>
         <div className="mt-6 flex justify-center">
-          <button 
+          <button
             onClick={handleLocationZoom}
             className="bg-gradient-to-r from-green-600 via-green-700 to-emerald-700 text-white px-8 py-3 rounded-xl font-semibold hover:from-green-700 hover:via-green-800 hover:to-emerald-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center transform hover:scale-105"
           >
@@ -870,7 +884,7 @@ const Dashboard = ({ user, language }) => {
                     {language === "en" ? "Map Coverage Information" : "मानचित्र कवरेज जानकारी"}
                   </h4>
                   <p className="text-sm text-blue-700 leading-relaxed">
-                    {language === "en" 
+                    {language === "en"
                       ? "This interactive map displays Forest Rights Act (FRA) claims data specifically for India, focusing on four key states: Odisha, Tripura, Telangana, and Madhya Pradesh. The visualization helps track claim statuses, geographical distribution, and progress across these regions as per FRA implementation guidelines."
                       : "यह इंटरैक्टिव मानचित्र भारत के लिए विशेष रूप से वन अधिकार अधिनियम (FRA) दावा डेटा प्रदर्शित करता है, जो चार प्रमुख राज्यों पर केंद्रित है: ओडिशा, त्रिपुरा, तेलंगाना और मध्य प्रदेश। यह दृश्यीकरण FRA कार्यान्वयन दिशानिर्देशों के अनुसार इन क्षेत्रों में दावा स्थिति, भौगोलिक वितरण और प्रगति को ट्रैक करने में मदद करता है।"
                     }
@@ -899,7 +913,7 @@ const Dashboard = ({ user, language }) => {
               className="w-full h-[500px]"
             />
           </div>
-          
+
           <div className="flex justify-center">
             <Link to="/map">
               <button className="bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 text-white px-8 py-3 rounded-xl font-semibold hover:from-blue-700 hover:via-blue-800 hover:to-indigo-800 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center transform hover:scale-105">
@@ -918,7 +932,7 @@ const Dashboard = ({ user, language }) => {
               <Filter className="h-5 w-5 mr-2 text-green-600" />
               {language === "en" ? "Advanced Filters" : "उन्नत फिल्टर"}
             </h3>
-            
+
             <div className="space-y-6">
               {/* Claim Status Filter */}
               <div>
@@ -930,18 +944,17 @@ const Dashboard = ({ user, language }) => {
                     <button
                       key={status}
                       onClick={() => setSelectedClaimStatus(selectedClaimStatus === status ? "All Statuses" : status)}
-                      className={`px-3 py-2 text-sm rounded-lg border-2 transition-all duration-300 font-medium ${
-                        selectedClaimStatus === status
+                      className={`px-3 py-2 text-sm rounded-lg border-2 transition-all duration-300 font-medium ${selectedClaimStatus === status
                           ? "bg-green-100 border-green-500 text-green-700 shadow-md"
                           : "bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300"
-                      }`}
+                        }`}
                     >
                       {status}
                     </button>
                   ))}
                 </div>
               </div>
-              
+
               {/* Tribal Groups Filter */}
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wide">
@@ -952,11 +965,10 @@ const Dashboard = ({ user, language }) => {
                     <button
                       key={group}
                       onClick={() => setSelectedTribalGroup(group)}
-                      className={`px-3 py-2 text-sm rounded-lg border-2 transition-all duration-300 font-medium ${
-                        selectedTribalGroup === group
+                      className={`px-3 py-2 text-sm rounded-lg border-2 transition-all duration-300 font-medium ${selectedTribalGroup === group
                           ? "bg-purple-100 border-purple-500 text-purple-700 shadow-md"
                           : "bg-gray-50 border-gray-200 text-gray-700 hover:bg-gray-100 hover:border-gray-300"
-                      }`}
+                        }`}
                     >
                       {group}
                     </button>
@@ -983,12 +995,12 @@ const Dashboard = ({ user, language }) => {
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-6 flex gap-3">
               <button className="flex-1 bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-3 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 transition-all duration-300 shadow-md hover:shadow-lg">
                 {language === "en" ? "Apply Filters" : "फिल्टर लगाएं"}
               </button>
-              <button 
+              <button
                 onClick={() => {
                   setSelectedClaimStatus("All Statuses");
                   setSelectedTribalGroup("All Groups");

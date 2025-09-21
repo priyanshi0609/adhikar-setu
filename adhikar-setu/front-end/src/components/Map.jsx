@@ -13,19 +13,38 @@ export default function Map() {
   const mapInstance = useRef(null);
   const geocoderContainer = useRef(null);
   const [highlightedStates, setHighlightedStates] = useState(null);
+  const [claimsData, setClaimsData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showMapNote, setShowMapNote] = useState(true);
 
-  // Load GeoJSON data
+  // Load GeoJSON data and claims data
   useEffect(() => {
     const loadGeoJsonData = async () => {
       try {
-        const response = await fetch("/data/india_state_geo.json");
-        if (!response.ok) {
-          throw new Error(`Failed to load GeoJSON: ${response.statusText}`);
+        const [statesResponse, claimsResponse] = await Promise.all([
+          fetch("/data/india_state_geo.json"),
+          fetch("/data/claims.json")
+        ]);
+        
+        if (!statesResponse.ok) {
+          throw new Error(`Failed to load states GeoJSON: ${statesResponse.statusText}`);
         }
-        const data = await response.json();
-        setHighlightedStates(data);
+        
+        const statesData = await statesResponse.json();
+        setHighlightedStates(statesData);
+        
+        if (claimsResponse.ok) {
+          const claimsData = await claimsResponse.json();
+          setClaimsData(claimsData);
+          console.log("Successfully loaded claims.json from file");
+        } else {
+          console.warn("Could not load claims.json, using empty data");
+          setClaimsData({
+            type: "FeatureCollection",
+            features: []
+          });
+        }
+        
         setLoading(false);
       } catch (error) {
         console.error("Error loading GeoJSON:", error);
@@ -37,14 +56,24 @@ export default function Map() {
   }, []);
 
   useEffect(() => {
-    if (mapInstance.current || !highlightedStates) return;
+    if (mapInstance.current || !highlightedStates || !claimsData) return;
+
+    // Define expanded geographical boundaries to show more of South Asia region
+    // Includes parts of neighboring countries for better context
+    const expandedBounds = [
+      [60.0, 0.0],   // Southwest coordinates [lng, lat] - includes Arabian Sea, parts of Iran/Afghanistan
+      [105.0, 42.0]  // Northeast coordinates [lng, lat] - includes parts of China, Myanmar, extends further east and north
+    ];
 
     // Initialize map
     mapInstance.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
       center: [78.9629, 20.5937], // Center of India
-      zoom: 4,
+      zoom: 3.2, // More zoomed out to show larger area
+      maxBounds: expandedBounds, // Expanded bounds to show more region
+      renderWorldCopies: false, // Don't render multiple world copies
+      worldview: 'IN' // Use India worldview for disputed boundaries
     });
 
     // Create geocoder with custom styling
@@ -58,11 +87,29 @@ export default function Map() {
       minLength: 2,
       limit: 10,
       proximity: { longitude: 78.9629, latitude: 20.5937 },
-      bbox: [68.1766451354, 7.96553477623, 97.4025614766, 35.4940095078] // India bounding box
+      bbox: [60.0, 0.0, 105.0, 42.0] // Expanded bounding box to match new map bounds
     });
 
     // Add geocoder to custom container instead of map
     geocoderContainer.current.appendChild(geocoder.onAdd(mapInstance.current));
+
+    // Define claim status colors
+    const getClaimColor = (status) => {
+      switch (status) {
+        case "Submitted":
+          return "#F59E0B"; // Amber
+        case "Verified":
+          return "#3B82F6"; // Blue
+        case "Approved":
+          return "#10B981"; // Green
+        case "Rejected":
+          return "#EF4444"; // Red
+        case "Under Review":
+          return "#8B5CF6"; // Purple
+        default:
+          return "#6B7280"; // Gray
+      }
+    };
 
     // Wait for map to load before adding layers
     mapInstance.current.on('load', () => {
@@ -72,6 +119,12 @@ export default function Map() {
         data: highlightedStates
       });
 
+      // Add claims data source
+      mapInstance.current.addSource('claims-data', {
+        type: 'geojson',
+        data: claimsData
+      });
+
       // Add fill layer for states
       mapInstance.current.addLayer({
         id: 'states-fill',
@@ -79,7 +132,7 @@ export default function Map() {
         source: 'highlighted-states',
         paint: {
           'fill-color': '#F08D30',
-          'fill-opacity': 0.5
+          'fill-opacity': 0.3
         }
       });
 
@@ -108,6 +161,47 @@ export default function Map() {
         }
       });
 
+      // Add claims fill layer
+      mapInstance.current.addLayer({
+        id: 'claims-fill',
+        type: 'fill',
+        source: 'claims-data',
+        paint: {
+          'fill-color': [
+            'case',
+            ['==', ['get', 'status'], 'Submitted'], '#F59E0B',
+            ['==', ['get', 'status'], 'Verified'], '#3B82F6',
+            ['==', ['get', 'status'], 'Approved'], '#10B981',
+            ['==', ['get', 'status'], 'Rejected'], '#EF4444',
+            ['==', ['get', 'status'], 'Under Review'], '#8B5CF6',
+            '#6B7280'
+          ],
+          'fill-opacity': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            0.8,
+            0.6
+          ]
+        }
+      });
+
+      // Add claims outline layer
+      mapInstance.current.addLayer({
+        id: 'claims-outline',
+        type: 'line',
+        source: 'claims-data',
+        paint: {
+          'line-color': '#FFFFFF',
+          'line-width': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            3,
+            1.5
+          ],
+          'line-opacity': 0.9
+        }
+      });
+
       // Add labels for states
       mapInstance.current.addLayer({
         id: 'states-labels',
@@ -130,7 +224,7 @@ export default function Map() {
         }
       });
 
-      // Enhanced hover effects
+      // Enhanced hover effects for states
       let hoveredStateId = null;
 
       mapInstance.current.on('mouseenter', 'states-fill', (e) => {
@@ -163,6 +257,39 @@ export default function Map() {
         hoveredStateId = null;
       });
 
+      // Hover effects for claims
+      let hoveredClaimId = null;
+
+      mapInstance.current.on('mouseenter', 'claims-fill', (e) => {
+        mapInstance.current.getCanvas().style.cursor = 'pointer';
+        
+        if (e.features.length > 0) {
+          if (hoveredClaimId !== null) {
+            mapInstance.current.setFeatureState(
+              { source: 'claims-data', id: hoveredClaimId },
+              { hover: false }
+            );
+          }
+          hoveredClaimId = e.features[0].id;
+          mapInstance.current.setFeatureState(
+            { source: 'claims-data', id: hoveredClaimId },
+            { hover: true }
+          );
+        }
+      });
+
+      mapInstance.current.on('mouseleave', 'claims-fill', () => {
+        mapInstance.current.getCanvas().style.cursor = '';
+        
+        if (hoveredClaimId !== null) {
+          mapInstance.current.setFeatureState(
+            { source: 'claims-data', id: hoveredClaimId },
+            { hover: false }
+          );
+        }
+        hoveredClaimId = null;
+      });
+
       // Click event for states
       mapInstance.current.on('click', 'states-fill', (e) => {
         if (e.features.length > 0) {
@@ -180,12 +307,52 @@ export default function Map() {
             .addTo(mapInstance.current);
         }
       });
+
+      // Click event for claims
+      mapInstance.current.on('click', 'claims-fill', (e) => {
+        if (e.features.length > 0) {
+          const claim = e.features[0].properties;
+          const areaInHectares = (claim.area_m2 / 10000).toFixed(2);
+          
+          // Create popup for claim
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(`
+              <div style="padding: 15px; min-width: 250px;">
+                <h3 style="margin: 0 0 10px 0; color: #2C3E50; font-size: 16px; font-weight: bold;">
+                  Claim ID: ${claim.claim_id}
+                </h3>
+                <div style="margin-bottom: 8px;">
+                  <strong style="color: #374151;">Claimant:</strong> 
+                  <span style="color: #6B7280;">${claim.claimant_name}</span>
+                </div>
+                <div style="margin-bottom: 8px;">
+                  <strong style="color: #374151;">Status:</strong> 
+                  <span style="color: ${getClaimColor(claim.status)}; font-weight: bold;">${claim.status}</span>
+                </div>
+                <div style="margin-bottom: 8px;">
+                  <strong style="color: #374151;">Area:</strong> 
+                  <span style="color: #6B7280;">${areaInHectares} hectares</span>
+                </div>
+                <div style="margin-bottom: 8px;">
+                  <strong style="color: #374151;">Location:</strong> 
+                  <span style="color: #6B7280;">${claim.village}, ${claim.district}, ${claim.state}</span>
+                </div>
+                <div>
+                  <strong style="color: #374151;">Submitted:</strong> 
+                  <span style="color: #6B7280;">${new Date(claim.submitted_at).toLocaleDateString()}</span>
+                </div>
+              </div>
+            `)
+            .addTo(mapInstance.current);
+        }
+      });
     });
 
     return () => {
       mapInstance.current?.remove();
     };
-  }, [highlightedStates]);
+  }, [highlightedStates, claimsData]);
 
   if (loading) {
     return (
@@ -313,37 +480,140 @@ export default function Map() {
       />
 
       {/* Legend */}
-      {highlightedStates && (
+      {highlightedStates && claimsData && (
         <div style={{
           position: "absolute",
           bottom: "20px",
-          left: "20px",
+          right: "20px",
           background: "rgba(255, 255, 255, 0.95)",
-          padding: "15px",
+          padding: "20px",
           borderRadius: "12px",
           boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)",
           backdropFilter: "blur(10px)",
           zIndex: 1000,
-          minWidth: "200px"
+          minWidth: "280px",
+          border: "1px solid rgba(255, 255, 255, 0.2)"
         }}>
-          <h4 style={{ margin: "0 0 10px 0", color: "#2C3E50", fontSize: "14px", fontWeight: "bold" }}>
-            HIGHLIGHTED STATES
+          <h4 style={{
+            margin: "0 0 15px 0",
+            fontSize: "16px",
+            fontWeight: "bold",
+            color: "#1F2937",
+            borderBottom: "2px solid #E5E7EB",
+            paddingBottom: "8px"
+          }}>
+            Forest Rights Claims Legend
           </h4>
-          {highlightedStates.features.map((feature, index) => (
-            <div key={index} style={{ display: "flex", alignItems: "center", marginBottom: "8px" }}>
+          
+          {/* Claim Status Legend */}
+          <div style={{ marginBottom: "15px" }}>
+            <h5 style={{
+              margin: "0 0 8px 0",
+              fontSize: "14px",
+              fontWeight: "600",
+              color: "#374151"
+            }}>
+              Claim Status
+            </h5>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              {[
+                { status: "Submitted", color: "#F59E0B", count: claimsData.features.filter(f => f.properties.status === "Submitted").length },
+                { status: "Verified", color: "#3B82F6", count: claimsData.features.filter(f => f.properties.status === "Verified").length },
+                { status: "Approved", color: "#10B981", count: claimsData.features.filter(f => f.properties.status === "Approved").length },
+                { status: "Rejected", color: "#EF4444", count: claimsData.features.filter(f => f.properties.status === "Rejected").length },
+                { status: "Under Review", color: "#8B5CF6", count: claimsData.features.filter(f => f.properties.status === "Under Review").length }
+              ].map(({ status, color, count }) => (
+                <div key={status} style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  fontSize: "13px"
+                }}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <div style={{
+                      width: "16px",
+                      height: "16px",
+                      backgroundColor: color,
+                      marginRight: "8px",
+                      borderRadius: "3px",
+                      border: "1px solid rgba(255, 255, 255, 0.5)"
+                    }}></div>
+                    <span style={{ color: "#4B5563", fontWeight: "500" }}>{status}</span>
+                  </div>
+                  <span style={{
+                    color: "#6B7280",
+                    fontSize: "12px",
+                    fontWeight: "600",
+                    backgroundColor: "#F3F4F6",
+                    padding: "2px 6px",
+                    borderRadius: "10px"
+                  }}>
+                    {count}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Coverage Areas */}
+          <div>
+            <h5 style={{
+              margin: "0 0 8px 0",
+              fontSize: "14px",
+              fontWeight: "600",
+              color: "#374151"
+            }}>
+              Coverage Areas
+            </h5>
+            <div style={{ display: "flex", alignItems: "center", marginBottom: "6px" }}>
               <div style={{
-                width: "20px",
-                height: "12px",
-                backgroundColor: feature.properties.color,
+                width: "16px",
+                height: "16px",
+                backgroundColor: "#F08D30",
+                opacity: 0.6,
+                marginRight: "8px",
                 borderRadius: "3px",
-                marginRight: "10px",
-                border: "1px solid rgba(0,0,0,0.1)"
-              }} />
-              <span style={{ fontSize: "12px", color: "#2C3E50", fontWeight: "500" }}>
-                {feature.properties.name}
+                border: "2px solid #FFFFFF"
+              }}></div>
+              <span style={{ color: "#4B5563", fontSize: "13px", fontWeight: "500" }}>
+                FRA Implementation States
               </span>
             </div>
-          ))}
+          </div>
+
+          {/* Total Stats */}
+          <div style={{
+            marginTop: "15px",
+            paddingTop: "15px",
+            borderTop: "1px solid #E5E7EB",
+            textAlign: "center"
+          }}>
+            <div style={{
+              fontSize: "12px",
+              color: "#6B7280",
+              marginBottom: "4px"
+            }}>
+              Total Claims
+            </div>
+            <div style={{
+              fontSize: "18px",
+              fontWeight: "bold",
+              color: "#1F2937"
+            }}>
+              {claimsData.features.length}
+            </div>
+          </div>
+
+          {/* Interactive Note */}
+          <div style={{
+            marginTop: "12px",
+            fontSize: "11px",
+            color: "#9CA3AF",
+            textAlign: "center",
+            fontStyle: "italic"
+          }}>
+            Click on claims for details
+          </div>
         </div>
       )}
     </div>
