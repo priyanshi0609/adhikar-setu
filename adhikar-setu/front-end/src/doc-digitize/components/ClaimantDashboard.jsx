@@ -11,6 +11,7 @@ import NewClaim from "./NewClaim.jsx";
 import ClaimDetail from "./ClaimDetail.jsx";
 import ClaimStatus from "./ClaimStatus.jsx";
 import { CLAIM_STATUS } from "../constants/fraFields.js";
+import { useNavigate } from "react-router-dom";
 
 const ClaimantDashboard = ({ user }) => {
   const [currentView, setCurrentView] = useState("dashboard");
@@ -18,6 +19,7 @@ const ClaimantDashboard = ({ user }) => {
   const [claims, setClaims] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) return;
@@ -123,12 +125,12 @@ const ClaimantDashboard = ({ user }) => {
                   placeholder="Search claims, holders, villages..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 w-80"
+                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 w-80 cursor-pointer"
                 />
               </div>
               <button
                 onClick={handleNewClaim}
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 cursor-pointer"
               >
                 Start New Claim
               </button>
@@ -322,9 +324,13 @@ const ClaimantDashboard = ({ user }) => {
                             </p>
                           </div>
                           <span className="text-sm text-gray-500">
-                            {new Date(
-                              claim.createdAt?.toDate()
-                            ).toLocaleDateString("en-IN")}
+                            {claim.createdAt
+                              ? new Date(
+                                  claim.createdAt.toDate
+                                    ? claim.createdAt.toDate() // Firestore Timestamp
+                                    : claim.createdAt // Already a Date/string/number
+                                ).toLocaleDateString("en-IN")
+                              : "N/A"}
                           </span>
                         </div>
 
@@ -338,13 +344,13 @@ const ClaimantDashboard = ({ user }) => {
                         <div className="flex justify-between items-center">
                           <button
                             onClick={() => handleViewClaim(claim)}
-                            className="text-emerald-600 hover:text-emerald-700 font-medium"
+                            className="text-emerald-600 hover:text-emerald-700 font-medium cursor-pointer"
                           >
                             View Details →
                           </button>
 
                           {claim.status === CLAIM_STATUS.APPROVED && (
-                            <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer">
                               Download Title
                             </button>
                           )}
@@ -370,8 +376,9 @@ const ClaimantDashboard = ({ user }) => {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="#"
-                    onClick={(e) => e.preventDefault()}
+                    href="https://tribal.nic.in/FRA/data/FRARulesBook.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-emerald-600 hover:text-emerald-700 text-sm"
                   >
                     How to fill Form A
@@ -379,8 +386,9 @@ const ClaimantDashboard = ({ user }) => {
                 </li>
                 <li>
                   <a
-                    href="#"
-                    onClick={(e) => e.preventDefault()}
+                    href="https://tribal.nic.in/FRA/data/FRARulesBook.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-emerald-600 hover:text-emerald-700 text-sm"
                   >
                     Required documents (Rule 13)
@@ -388,8 +396,9 @@ const ClaimantDashboard = ({ user }) => {
                 </li>
                 <li>
                   <a
-                    href="#"
-                    onClick={(e) => e.preventDefault()}
+                    href="https://tribal.nic.in/FRA/data/FRARulesBook.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-emerald-600 hover:text-emerald-700 text-sm"
                   >
                     Understanding the process
@@ -397,8 +406,9 @@ const ClaimantDashboard = ({ user }) => {
                 </li>
                 <li>
                   <a
-                    href="#"
-                    onClick={(e) => e.preventDefault()}
+                    href="https://tribal.nic.in/FRA/data/FRARulesBook.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-emerald-600 hover:text-emerald-700 text-sm"
                   >
                     Appeal procedure
@@ -450,7 +460,10 @@ const ClaimantDashboard = ({ user }) => {
               <p className="text-gray-600 text-sm mb-4">
                 Personal information and consent forms
               </p>
-              <button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors">
+              <button
+                onClick={() => navigate("/profile")}
+                className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors cursor-pointer"
+              >
                 Update Profile
               </button>
             </div>

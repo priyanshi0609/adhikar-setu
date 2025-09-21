@@ -18,8 +18,11 @@ import {
   HelpCircle,
   Bell,
   UserRound,
+  Earth,
 } from "lucide-react";
 import { logoutUser } from "../firebase/authService";
+import { useNavigate } from "react-router-dom";
+import CustomTooltip from "@/global/CustomTooltip";
 
 const Navigation = ({
   user,
@@ -34,6 +37,7 @@ const Navigation = ({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -56,6 +60,18 @@ const Navigation = ({
     } catch (error) {
       console.error("Logout error:", error);
     }
+  };
+
+  // what i did below is to modify the menu click handler to redirect gram_sabha users to claimant-dashboard and let other roles behave as before, they will be changed later as per requirements
+  const handleMenuClick = (item) => {
+    if (item.id === "dashboard" && user.role === "gram_sabha") {
+      navigate("/claimant-dashboard");
+      onScreenChange("claimant-dashboard"); // <-- set state to match redirected screen
+    } else {
+      onScreenChange(item.id);
+    }
+
+    setIsMenuOpen(false);
   };
 
   const getMenuItems = () => {
@@ -151,7 +167,8 @@ const Navigation = ({
                   return (
                     <button
                       key={item.id}
-                      onClick={() => onScreenChange(item.id)}
+                      // changed to use handleMenuClick as defined above
+                      onClick={() => handleMenuClick(item)}
                       className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                         currentScreen === item.id
                           ? `${
@@ -189,22 +206,25 @@ const Navigation = ({
               </button>
 
               {/* Language */}
-              <button
-                onClick={() => setLanguage(language === "en" ? "hi" : "en")}
-                className={`p-2 rounded-lg ${
-                  isDarkMode
-                    ? "hover:bg-gray-800 text-gray-300"
-                    : "hover:bg-gray-100 text-gray-600"
-                }`}
-                title={
+              <CustomTooltip
+                text={
                   language === "en" ? "Switch to Hindi" : "अंग्रेजी में बदलें"
                 }
               >
-                <Languages className="h-5 w-5" />
-              </button>
+                <button
+                  onClick={() => setLanguage(language === "en" ? "hi" : "en")}
+                  className={`p-2 rounded-lg transition-colors cursor-pointer ${
+                    isDarkMode
+                      ? "hover:bg-gray-800 text-gray-300"
+                      : "hover:bg-gray-100 text-gray-600"
+                  }`}
+                >
+                  <Earth className="h-5 w-5" />
+                </button>
+              </CustomTooltip>
 
               {/* Dark Mode */}
-              <button
+              {/* <button
                 onClick={() => setIsDarkMode(!isDarkMode)}
                 className={`p-2 rounded-lg ${
                   isDarkMode
@@ -220,7 +240,7 @@ const Navigation = ({
                 ) : (
                   <Moon className="h-5 w-5" />
                 )}
-              </button>
+              </button> */}
 
               {/* Profile Dropdown (Desktop) */}
               <div className="relative hidden md:block" ref={dropdownRef}>
@@ -228,7 +248,7 @@ const Navigation = ({
                   onClick={() =>
                     setIsProfileDropdownOpen(!isProfileDropdownOpen)
                   }
-                  className={`flex items-center space-x-2 p-2 rounded-lg transition-colors ${
+                  className={`flex items-center space-x-2 p-2 rounded-lg transition-colors cursor-pointer ${
                     isDarkMode ? "hover:bg-gray-800" : "hover:bg-gray-100"
                   } ${
                     isProfileDropdownOpen
@@ -310,7 +330,7 @@ const Navigation = ({
                     ></div>
                     <button
                       onClick={handleLogout}
-                      className={`flex items-center w-full px-4 py-2 text-sm transition-colors ${
+                      className={`flex items-center w-full px-4 py-2 text-sm transition-colors cursor-pointer ${
                         isDarkMode
                           ? "text-red-400 hover:bg-gray-700"
                           : "text-red-600 hover:bg-gray-100"
