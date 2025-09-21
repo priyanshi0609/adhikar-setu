@@ -1,0 +1,46 @@
+{
+  "document_id": "doc_20250912_214921_cfb453fd",
+  "source_file": "data/raw/doc_20250912_214921_cfb453fd.jpeg",
+  "pages": [
+    {
+      "page_number": 1,
+      "width": 1024,
+      "height": 6400,
+      "ocr_text": "ANAT NAN\n",
+      "ocr_blocks": [
+        {
+          "bbox": [
+            95,
+            1254,
+            773,
+            1479
+          ],
+          "text": "ANAT",
+          "confidence": 0.19
+        },
+        {
+          "bbox": [
+            440,
+            1250,
+            572,
+            1512
+          ],
+          "text": "NAN",
+          "confidence": 0.45
+        }
+      ],
+      "entities": []
+    }
+  ],
+  "extracted_fields": {},
+  "processing_summary": {
+    "total_pages": 1,
+    "entities_found": 0,
+    "processing_time": "TODO"
+  },
+  "audit": {
+    "created_at": "2025-09-12T21:49:23.271698",
+    "pipeline_version": "1.0.0",
+    "logs": []
+  }
+}

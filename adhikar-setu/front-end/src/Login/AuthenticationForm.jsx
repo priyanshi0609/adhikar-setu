@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { registerUser, loginUser } from "../firebase/authService";
 import colors from "../colors";
+import BackButton from "@/global/BackButton";
 
 const AuthenticationForm = ({ formData, onLogin }) => {
   const { role, language, state, district, village } = formData;
@@ -172,16 +173,9 @@ const AuthenticationForm = ({ formData, onLogin }) => {
         background: `linear-gradient(135deg, ${colors.primary[50]} 0%, ${colors.background.secondary} 50%, ${colors.secondary[50]} 100%)`,
       }}
     >
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-6 ">
         {/* Main Authentication Card */}
-        <div
-          className="rounded-2xl border overflow-hidden"
-          style={{
-            backgroundColor: colors.background.primary,
-            boxShadow: colors.shadow.xl,
-            borderColor: colors.border.light,
-          }}
-        >
+        <div className="rounded-2xl border overflow-hidden">
           {/* Header Section */}
           <div
             className="px-8 py-6 text-white"
@@ -225,7 +219,7 @@ const AuthenticationForm = ({ formData, onLogin }) => {
             >
               <button
                 onClick={() => setIsLogin(true)}
-                className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-300 ${
+                className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-300 cursor-pointer ${
                   isLogin ? "transform scale-105" : ""
                 }`}
                 style={{
@@ -240,7 +234,7 @@ const AuthenticationForm = ({ formData, onLogin }) => {
               </button>
               <button
                 onClick={() => setIsLogin(false)}
-                className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-300 ${
+                className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all duration-300 cursor-pointer ${
                   !isLogin ? "transform scale-105" : ""
                 }`}
                 style={{
@@ -255,6 +249,7 @@ const AuthenticationForm = ({ formData, onLogin }) => {
               </button>
             </div>
 
+            {/* Form */}
             <form onSubmit={handleAuth} className="space-y-5">
               {/* Name (for registration only) */}
               {!isLogin && (
@@ -283,18 +278,6 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                       backgroundColor: colors.neutral[50],
                       borderColor: colors.border.light,
                       color: colors.text.primary,
-                      "--placeholder-color": colors.text.muted,
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.backgroundColor =
-                        colors.background.primary;
-                      e.target.style.borderColor = colors.primary[500];
-                      e.target.style.boxShadow = `0 0 0 2px ${colors.primary[500]}40`;
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.backgroundColor = colors.neutral[50];
-                      e.target.style.borderColor = colors.border.light;
-                      e.target.style.boxShadow = "none";
                     }}
                     placeholder={
                       language === "hi"
@@ -336,17 +319,6 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                       backgroundColor: colors.neutral[50],
                       borderColor: colors.border.light,
                       color: colors.text.primary,
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.backgroundColor =
-                        colors.background.primary;
-                      e.target.style.borderColor = colors.primary[500];
-                      e.target.style.boxShadow = `0 0 0 2px ${colors.primary[500]}40`;
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.backgroundColor = colors.neutral[50];
-                      e.target.style.borderColor = colors.border.light;
-                      e.target.style.boxShadow = "none";
                     }}
                     placeholder={
                       language === "hi"
@@ -396,7 +368,7 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                 </div>
               </div>
 
-              {/* Confirm Password for Registration */}
+              {/* Confirm Password */}
               {!isLogin && (
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-gray-700">
@@ -428,7 +400,7 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                 </div>
               )}
 
-              {/* Phone and Organization (for registration only) */}
+              {/* Phone and Organization
               {!isLogin && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
@@ -470,7 +442,7 @@ const AuthenticationForm = ({ formData, onLogin }) => {
                     />
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* Error Message */}
               {error && (
@@ -486,24 +458,14 @@ const AuthenticationForm = ({ formData, onLogin }) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-white"
+                className="w-full py-4 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-white cursor-pointer"
                 style={{
                   background: `linear-gradient(135deg, ${colors.primary[600]} 0%, ${colors.secondary[600]} 100%)`,
-                }}
-                onMouseEnter={(e) => {
-                  if (!loading) {
-                    e.target.style.background = `linear-gradient(135deg, ${colors.primary[700]} 0%, ${colors.secondary[700]} 100%)`;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!loading) {
-                    e.target.style.background = `linear-gradient(135deg, ${colors.primary[600]} 0%, ${colors.secondary[600]} 100%)`;
-                  }
                 }}
               >
                 {loading ? (
                   <div className="flex items-center space-x-2">
-                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent "></div>
                     <span>
                       {language === "hi"
                         ? "कृपया प्रतीक्षा करें..."
@@ -526,9 +488,9 @@ const AuthenticationForm = ({ formData, onLogin }) => {
           </div>
         </div>
 
-        {/* Location Summary Card */}
+        {/* Selected Information Card */}
         <div
-          className="mt-6 rounded-xl border overflow-hidden"
+          className="rounded-xl border overflow-hidden"
           style={{
             backgroundColor: colors.background.primary,
             boxShadow: colors.shadow.lg,
