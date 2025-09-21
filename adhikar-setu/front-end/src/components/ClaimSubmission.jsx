@@ -38,13 +38,11 @@ const ClaimSubmission = ({ user = {}, language = "en" }) => {
     // Only initialize map when on step 2 (Location Details)
     if (currentStep !== 2) return;
 
-    // Prevent multiple map initializations
     if (mapRef.current) return;
     if (!mapContainerRef.current) return;
 
     console.log("Initializing map...");
 
-    // Use environment variable for production, fallback for development
     mapboxgl.accessToken =
       import.meta.env.VITE_MAPBOX_TOKEN ||
       "pk.eyJ1IjoiYXJzaHRpd2FyaSIsImEiOiJjbTJhODE2dm8wZ2MxMmlxdTJkbnJ1aTZnIn0.m9ky2-2MfcdA37RIVoxC_w";

@@ -30,16 +30,28 @@ import {
   BookOpen,
   ChevronDown,
   ChevronUp,
+  Home, 
+  Sprout, 
+  Scale, 
+  Landmark, 
+  HeartHandshake, 
+  Lock,
+  Target,
+  Play,
+  ArrowRight,
 } from "lucide-react";
+
 import { Link } from "react-router-dom";
 import { LoaderOne } from "@/components/ui/loader";
 import { useEffect, useState } from "react";
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 
-// Import images (you'll need to add these to your assets folder)
+
 import digitalMap from "@/assets/digital-map.jpg";
 import tribalCommunity from "@/assets/tribal-community.jpg";
 import fraProcess from "@/assets/fra-process.png";
 import stateMap from "@/assets/state-map.png";
+import AS from "@/assets/AS.png";
 // import teamMeeting from "@/assets/team-meeting.jpg";
 
 export default function HomePage() {
@@ -54,6 +66,46 @@ export default function HomePage() {
     return () => clearTimeout(timer);
   }, []);
 
+
+
+const fraData = [
+  {
+    quote: "FRA recognizes individual and community forest rights over forest land and resources that forest dwellers have traditionally owned, occupied, or used.",
+    name: "Right to Land & Resources",
+    title: "Section 3(1)(a) & (b)",
+    icon: <Shield className="h-6 w-6 text-blue-600" />
+  },
+  {
+    quote: "Communities get rights to protect, regenerate, conserve, and manage community forest resources for sustainable use under Section 3(1)(i) of FRA.",
+    name: "Community Forest Rights",
+    title: "Section 3(1)(i)",
+    icon: <Users className="h-6 w-6 text-blue-600" />
+  },
+  {
+    quote: "FRA holders and Gram Sabhas are empowered to protect wildlife, forests, and biodiversity while ensuring sustainable use of resources under Section 5.",
+    name: "Conservation & Management",
+    title: "Section 5",
+    icon: <TreePine className="h-6 w-6 text-blue-600" />
+  },
+  {
+    quote: "Provides legal recognition of rights to own, collect, use, and dispose of minor forest produce that has been traditionally collected.",
+    name: "Minor Forest Produce Rights",
+    title: "Section 3(1)(c)",
+    icon: <Sprout className="h-6 w-6 text-blue-600" />
+  },
+  {
+    quote: "Ensures protection of tribal communities from illegal eviction and provides rehabilitation in case of displacement from forest land.",
+    name: "Protection from Eviction",
+    title: "Section 4(5)",
+    icon: <Lock className="h-6 w-6 text-blue-600" />
+  },
+  {
+    quote: "Grants habitat rights for primitive tribal groups and pre-agricultural communities to preserve their cultural identity.",
+    name: "Habitat & Cultural Rights",
+    title: "Section 3(1)(e)",
+    icon: <Home className="h-6 w-6 text-blue-600" />
+  }
+];
   // FAQ data
   const faqItems = [
     {
@@ -150,15 +202,21 @@ export default function HomePage() {
       </div>
     );
   }
+  
+
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
+      <header className= " bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-2">
-              <TreePine className="h-8 w-8 text-green-600" />
+                <img
+                src={AS}
+                alt="Adhikar Setu Logo"
+                className="w-10 h-10 object-contain rounded-lg"
+              />
               <span className="text-2xl font-bold text-gray-900">
                 Adhikar Setu
               </span>
@@ -233,12 +291,7 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                <Badge
-                  variant="secondary"
-                  className="w-fit bg-green-100 text-green-800 border-green-200"
-                >
-                  Forest Rights Act 2006 Implementation
-                </Badge>
+                
                 <h1 className="text-4xl lg:text-6xl font-bold text-balance text-gray-900">
                   Digitizing Forest Rights for Tribal Empowerment
                 </h1>
@@ -305,7 +358,7 @@ export default function HomePage() {
               <div className="text-sm md:text-base">Claims Processed</div>
             </div>
             <div>
-              <div className="text-3xl md:text-4xl font-bold mb-2">10+</div>
+              <div className="text-3xl md:text-4xl font-bold mb-2">6</div>
               <div className="text-sm md:text-base">
                 Govt Schemes Integrated
               </div>
@@ -314,102 +367,59 @@ export default function HomePage() {
         </div>
       </section>
 
+      
       {/* About FRA Section */}
-      <section id="about" className="py-16 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+      <section id="about" className="py-20 bg-white">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
               About the Forest Rights Act, 2006
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto">
               The Forest Rights Act recognizes the rights of forest-dwelling
-              communities to land and resources
+              communities to land and resources, ensuring both sustainability and justice.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-gray-200 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <Shield className="h-6 w-6 text-green-600" />
-                </div>
-                <CardTitle>Right to Land & Resources</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  FRA recognizes individual and community forest rights over
-                  forest land and resources that forest dwellers have
-                  traditionally owned, occupied, or used.
-                </CardDescription>
-              </CardContent>
-            </Card>
+         <div className="w-full max-w-6xl mx-auto">
+           <InfiniteMovingCards
+            items={fraData}
+             direction="right"
+             speed="normal"
+             pauseOnHover={true}
+              className="mt-8"/>
+              </div>
+        </div>
 
-            <Card className="border-gray-200 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <Users className="h-6 w-6 text-green-600" />
-                </div>
-                <CardTitle>Community Forest Rights</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  Communities get rights to protect, regenerate, conserve, and
-                  manage community forest resources for sustainable use under
-                  Section 3(1)(i) of FRA.
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="border-gray-200 hover:shadow-lg transition-shadow">
-              <CardHeader>
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <TreePine className="h-6 w-6 text-green-600" />
-                </div>
-                <CardTitle>Conservation & Management</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-base">
-                  FRA holders and Gram Sabhas are empowered to protect wildlife,
-                  forests, and biodiversity while ensuring sustainable use of
-                  resources under Section 5.
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="mt-12 bg-green-50 rounded-2xl p-6 border border-green-200">
-            <h3 className="text-xl font-semibold text-green-800 mb-4">
-              Key FRA Implementation Challenges
-            </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="flex items-start space-x-3">
-                <AlertCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <p className="text-green-700">
-                  Scattered, non-digitized legacy records of IFR, CR, and CFR
-                  rights
-                </p>
-              </div>
-              <div className="flex items-start space-x-3">
-                <AlertCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <p className="text-green-700">
-                  No centralized visual repository of FRA claims and granted
-                  titles
-                </p>
-              </div>
-              <div className="flex items-start space-x-3">
-                <AlertCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <p className="text-green-700">
-                  Difficulty verifying occupation dates and evidence
-                  authenticity
-                </p>
-              </div>
-              <div className="flex items-start space-x-3">
-                <AlertCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-                <p className="text-green-700">
-                  Limited integration with development schemes for FRA
-                  beneficiaries
-                </p>
-              </div>
+        {/* FRA Implementation Challenges */}
+        <div className="mt-20 bg-green-50 rounded-xl p-10 border border-gray-50 shadow-md max-w-7xl mx-auto">
+          <h3 className="text-2xl font-bold text-green-800 mb-6 text-center">
+            Key FRA Implementation Challenges
+          </h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="flex items-start space-x-3">
+              <AlertCircle className="h-6 w-6 text-green-600 mt-1 flex-shrink-0" />
+              <p className="text-green-700 text-lg">
+                Scattered, non-digitized legacy records of IFR, CR, and CFR rights
+              </p>
+            </div>
+            <div className="flex items-start space-x-3">
+              <AlertCircle className="h-6 w-6 text-green-600 mt-1 flex-shrink-0" />
+              <p className="text-green-700 text-lg">
+                No centralized visual repository of FRA claims and granted titles
+              </p>
+            </div>
+            <div className="flex items-start space-x-3">
+              <AlertCircle className="h-6 w-6 text-green-600 mt-1 flex-shrink-0" />
+              <p className="text-green-700 text-lg">
+                Difficulty verifying occupation dates and evidence authenticity
+              </p>
+            </div>
+            <div className="flex items-start space-x-3">
+              <AlertCircle className="h-6 w-6 text-green-600 mt-1 flex-shrink-0" />
+              <p className="text-green-700 text-lg">
+                Limited integration with development schemes for FRA beneficiaries
+              </p>
             </div>
           </div>
         </div>
@@ -504,37 +514,47 @@ export default function HomePage() {
       {/* Process Section */}
       <section id="process" className="py-16 bg-white relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          {/* Heading */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
               FRA Implementation Process
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
               Streamlining the statutory workflow for forest rights recognition
             </p>
           </div>
-
-          <div className="relative flex flex-col md:flex-row items-start md:items-start md:ml-30 ">
+          <div className="relative flex flex-col md:flex-row items-center gap-10 lg:gap-20 ">
             {/* Timeline */}
-            <div className="relative md:flex-[2] w-full">
-              <div className="absolute left-4 md:left-1/2 md:-translate-x-1/2 h-full w-1 bg-green-200"></div>
+            <div className="relative flex-1">
+              {/* Vertical Line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-green-300 rounded-full"></div>
 
-              <div className="space-y-12">
+
+              <div className="space-y-16">
                 {processSteps.map((step, index) => (
-                  <div key={index} className="relative">
-                    <div className="md:flex items-center">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-green-600 text-white font-bold z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
-                        {step.step}
-                      </div>
-                      <div
-                        className={`ml-0 md:ml-0 md:w-1/2 ${
-                          index % 2 === 0 ? "md:pr-4 md:text-right" : "md:pl-4"
-                        }`}
-                      >
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                          {step.title}
-                        </h3>
-                        <p className="text-gray-600">{step.description}</p>
-                      </div>
+                  <div
+                    key={index}
+                    className="relative flex flex-col md:flex-row md:items-center"
+                  >
+                    {/* Step Number */}
+                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-600 text-white font-extrabold shadow-md z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+                      {step.step}
+                    </div>
+
+                    {/* Step Content */}
+                    <div
+                      className={`mt-6 md:mt-0 md:w-1/2 ${
+                        index % 2 === 0
+                          ? "md:pr-10 md:text-right"
+                          : "md:pl-10"
+                      }`}
+                    >
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-600 text-base leading-relaxed">
+                        {step.description}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -542,11 +562,11 @@ export default function HomePage() {
             </div>
 
             {/* Right-side Image */}
-            <div className="md:flex-1 flex justify-center mt-8 md:mt-0 md:mr-30">
+            <div className="flex-1 flex justify-center md:justify-start">
               <img
                 src={fraProcess}
                 alt="FRA Process Illustration"
-                className="w-full max-w-md rounded-2xl shadow-lg"
+                className="w-full max-w-md lg:max-w-lg rounded-2xl shadow-xl border border-gray-200"
               />
             </div>
           </div>
@@ -793,7 +813,7 @@ export default function HomePage() {
               <ul className="space-y-2">
                 <li>
                   <a
-                    href="https://tribal.nic.in/FRA.html"
+                    href="https://forestrights.nic.in/pdf/Guidelines.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors"
@@ -803,7 +823,7 @@ export default function HomePage() {
                 </li>
                 <li>
                   <a
-                    href="https://tribal.nic.in/Divisions/FRA/Resources/FRA-Literature.html"
+                    href="https://tribal.nic.in/FRA/data/FRARulesBook.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-400 hover:text-white transition-colors"

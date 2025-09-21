@@ -1,6 +1,3 @@
-"use client";
-
-// components/ClaimStatus.jsx
 import { CLAIM_STATUS } from "../constants/fraFields.js";
 
 const ClaimStatus = ({ status, updatedAt }) => {
@@ -90,11 +87,13 @@ const ClaimStatus = ({ status, updatedAt }) => {
         {updatedAt && (
           <p className="text-sm text-gray-500 mt-2">
             Updated:{" "}
-            {new Date(updatedAt.toDate()).toLocaleDateString("en-IN", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {updatedAt
+              ? new Date(updatedAt.seconds * 1000).toLocaleDateString("en-IN", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              : "N/A"}
           </p>
         )}
       </div>

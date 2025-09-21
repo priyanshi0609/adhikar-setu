@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import ClaimStatus from "./ClaimStatus.jsx";
 import {
@@ -70,6 +68,7 @@ const ClaimDetail = ({ claim, onBack }) => {
 
   const tabs = [
     { id: "details", label: "Claim Details", icon: "📋" },
+    { id: "location", label: "Location", icon: "📍" },
     { id: "status", label: "Status", icon: "📊" },
     { id: "documents", label: "Documents", icon: "📄" },
     { id: "history", label: "History", icon: "🕒" },
@@ -83,7 +82,7 @@ const ClaimDetail = ({ claim, onBack }) => {
           <div className="flex items-center space-x-4">
             <button
               onClick={onBack}
-              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
             >
               <svg
                 className="w-5 h-5"
@@ -206,6 +205,79 @@ const ClaimDetail = ({ claim, onBack }) => {
                 ))}
               </div>
             </div>
+          </div>
+        )}
+
+        {activeTab === "location" && (
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-6">
+              Location Details
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Land Area
+                </label>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {claim.fields && claim.fields.landArea ? (
+                    <span className="text-gray-900 font-medium">
+                      {claim.fields.landArea} hectares
+                    </span>
+                  ) : (
+                    <span className="text-gray-400 italic">Not provided</span>
+                  )}
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Coordinates
+                </label>
+                <div className="p-3 bg-gray-50 rounded-lg">
+                  {claim.fields && claim.fields.coordinates ? (
+                    <span className="text-gray-900">
+                      {claim.fields.coordinates.lat},{" "}
+                      {claim.fields.coordinates.lng}
+                    </span>
+                  ) : (
+                    <span className="text-gray-400 italic">Not provided</span>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {claim.location && (
+              <div className="mt-6">
+                <h4 className="text-md font-semibold text-gray-900 mb-4">
+                  Map Data
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Latitude
+                    </label>
+                    <div className="p-3 bg-gray-50 rounded-lg">
+                      {claim.location.coordinates.lat || (
+                        <span className="text-gray-400 italic">
+                          Not provided
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Longitude
+                    </label>
+                    <div className="p-3 bg-gray-50 rounded-lg">
+                      {claim.location.coordinates.lng || (
+                        <span className="text-gray-400 italic">
+                          Not provided
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
