@@ -118,6 +118,12 @@ const Navigation = ({
       //   icon: UserRound,
       //   roles: ["gram_sabha", "frc", "sdlc", "dlc", "mota"],
       // },
+      {
+        id: "dss-results",
+        name: language === "en" ? "DSS Results" : "DSS परिणाम",
+        icon: BarChart3,
+        roles: [ "dlc"],
+      }
     ];
 
     return allItems.filter((item) => item.roles.includes(user.role));
