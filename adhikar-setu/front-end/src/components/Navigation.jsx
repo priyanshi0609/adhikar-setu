@@ -104,7 +104,7 @@ const Navigation = ({
         id: "dss",
         name: language === "en" ? "Decision Support" : "निर्णय सहायता",
         icon: BarChart3,
-        roles: ["sdlc", "dlc", "mota"],
+        roles: ["sdlc", "frc"],
       },
       {
         id: "public-atlas",
@@ -118,6 +118,12 @@ const Navigation = ({
       //   icon: UserRound,
       //   roles: ["gram_sabha", "frc", "sdlc", "dlc", "mota"],
       // },
+      {
+        id: "dss-results",
+        name: language === "en" ? "DSS Results" : "DSS परिणाम",
+        icon: BarChart3,
+        roles: [ "dlc","mota"],
+      }
     ];
 
     return allItems.filter((item) => item.roles.includes(user.role));

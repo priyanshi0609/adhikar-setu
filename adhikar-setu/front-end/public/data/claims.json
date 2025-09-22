@@ -9,17 +9,20 @@
         "status": "Submitted",
         "claimant_name": "Ramesh Sahoo",
         "area_m2": 1025.4,
-        "submitted_at": "2025-08-20"
+        "submitted_at": "2025-08-20",
+        "state": "Odisha",
+        "district": "Bhubaneswar",
+        "village": "Bhubaneswar"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.82, 20.295],
-            [85.83, 20.295],
-            [85.83, 20.305],
-            [85.82, 20.305],
-            [85.82, 20.295]
+            [85.8, 20.25],
+            [85.9, 20.25],
+            [85.9, 20.35],
+            [85.8, 20.35],
+            [85.8, 20.25]
           ]
         ]
       }
@@ -32,17 +35,20 @@
         "status": "Verified",
         "claimant_name": "Asha Lenka",
         "area_m2": 840.2,
-        "submitted_at": "2025-07-10"
+        "submitted_at": "2025-07-10",
+        "state": "Odisha",
+        "district": "Cuttack",
+        "village": "Cuttack"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.875, 20.46],
-            [85.885, 20.46],
-            [85.885, 20.47],
-            [85.875, 20.47],
-            [85.875, 20.46]
+            [85.85, 20.45],
+            [85.95, 20.45],
+            [85.95, 20.55],
+            [85.85, 20.55],
+            [85.85, 20.45]
           ]
         ]
       }
@@ -55,17 +61,20 @@
         "status": "Approved",
         "claimant_name": "Suresh Patnaik",
         "area_m2": 2230.0,
-        "submitted_at": "2025-06-12"
+        "submitted_at": "2025-06-12",
+        "state": "Odisha",
+        "district": "Puri",
+        "village": "Puri"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [83.965, 21.455],
-            [83.975, 21.455],
-            [83.975, 21.462],
-            [83.965, 21.462],
-            [83.965, 21.455]
+            [85.7, 19.8],
+            [85.8, 19.8],
+            [85.8, 19.9],
+            [85.7, 19.9],
+            [85.7, 19.8]
           ]
         ]
       }
@@ -78,17 +87,20 @@
         "status": "Rejected",
         "claimant_name": "Geeta Mohanty",
         "area_m2": 560.75,
-        "submitted_at": "2025-05-30"
+        "submitted_at": "2025-05-30",
+        "state": "Odisha",
+        "district": "Koraput",
+        "village": "Koraput"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [82.725, 18.824],
-            [82.735, 18.824],
-            [82.735, 18.83],
-            [82.725, 18.83],
-            [82.725, 18.824]
+            [82.7, 18.8],
+            [82.8, 18.8],
+            [82.8, 18.9],
+            [82.7, 18.9],
+            [82.7, 18.8]
           ]
         ]
       }
@@ -101,17 +113,20 @@
         "status": "Submitted",
         "claimant_name": "Ravi Kumar Panda",
         "area_m2": 1450.8,
-        "submitted_at": "2025-09-15"
+        "submitted_at": "2025-09-15",
+        "state": "Odisha",
+        "district": "Sambalpur",
+        "village": "Sambalpur"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.91, 20.31],
-            [85.92, 20.31],
-            [85.92, 20.32],
-            [85.91, 20.32],
-            [85.91, 20.31]
+            [83.9, 21.4],
+            [84.0, 21.4],
+            [84.0, 21.5],
+            [83.9, 21.5],
+            [83.9, 21.4]
           ]
         ]
       }
@@ -124,17 +139,20 @@
         "status": "Verified",
         "claimant_name": "Priya Dash",
         "area_m2": 775.3,
-        "submitted_at": "2025-07-22"
+        "submitted_at": "2025-07-22",
+        "state": "Odisha",
+        "district": "Balasore",
+        "village": "Balasore"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.85, 20.48],
-            [85.86, 20.48],
-            [85.86, 20.49],
-            [85.85, 20.49],
-            [85.85, 20.48]
+            [86.9, 21.4],
+            [87.0, 21.4],
+            [87.0, 21.5],
+            [86.9, 21.5],
+            [86.9, 21.4]
           ]
         ]
       }
@@ -147,17 +165,20 @@
         "status": "Approved",
         "claimant_name": "Bijay Kumar Jena",
         "area_m2": 1890.5,
-        "submitted_at": "2025-04-18"
+        "submitted_at": "2025-04-18",
+        "state": "Odisha",
+        "district": "Mayurbhanj",
+        "village": "Baripada"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [84.12, 21.52],
-            [84.13, 21.52],
-            [84.13, 21.53],
-            [84.12, 21.53],
-            [84.12, 21.52]
+            [86.4, 22.0],
+            [86.5, 22.0],
+            [86.5, 22.1],
+            [86.4, 22.1],
+            [86.4, 22.0]
           ]
         ]
       }
@@ -170,17 +191,20 @@
         "status": "Rejected",
         "claimant_name": "Sunita Behera",
         "area_m2": 425.9,
-        "submitted_at": "2025-03-14"
+        "submitted_at": "2025-03-14",
+        "state": "Odisha",
+        "district": "Ganjam",
+        "village": "Berhampur"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [83.05, 19.15],
-            [83.06, 19.15],
-            [83.06, 19.16],
-            [83.05, 19.16],
-            [83.05, 19.15]
+            [84.8, 19.3],
+            [84.9, 19.3],
+            [84.9, 19.4],
+            [84.8, 19.4],
+            [84.8, 19.3]
           ]
         ]
       }
@@ -193,17 +217,20 @@
         "status": "Submitted",
         "claimant_name": "Manoj Nayak",
         "area_m2": 1320.7,
-        "submitted_at": "2025-08-08"
+        "submitted_at": "2025-08-08",
+        "state": "Odisha",
+        "district": "Keonjhar",
+        "village": "Keonjhar"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.75, 20.25],
-            [85.76, 20.25],
-            [85.76, 20.26],
-            [85.75, 20.26],
-            [85.75, 20.25]
+            [85.5, 21.6],
+            [85.6, 21.6],
+            [85.6, 21.7],
+            [85.5, 21.7],
+            [85.5, 21.6]
           ]
         ]
       }
@@ -216,40 +243,47 @@
         "status": "Verified",
         "claimant_name": "Kavita Swain",
         "area_m2": 965.2,
-        "submitted_at": "2025-06-28"
+        "submitted_at": "2025-06-28",
+        "state": "Odisha",
+        "district": "Dhenkanal",
+        "village": "Dhenkanal"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.89, 20.51],
-            [85.9, 20.51],
-            [85.9, 20.52],
-            [85.89, 20.52],
-            [85.89, 20.51]
+            [85.5, 20.6],
+            [85.6, 20.6],
+            [85.6, 20.7],
+            [85.5, 20.7],
+            [85.5, 20.6]
           ]
         ]
       }
     },
+
     {
       "type": "Feature",
       "id": 11,
       "properties": {
-        "claim_id": "OD-011",
-        "status": "Approved",
-        "claimant_name": "Santosh Mishra",
-        "area_m2": 2105.4,
-        "submitted_at": "2025-02-10"
+        "claim_id": "TR-001",
+        "status": "Submitted",
+        "claimant_name": "Rajesh Debbarma",
+        "area_m2": 1250.3,
+        "submitted_at": "2025-08-15",
+        "state": "Tripura",
+        "district": "Agartala",
+        "village": "Agartala"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [84.25, 21.48],
-            [84.26, 21.48],
-            [84.26, 21.49],
-            [84.25, 21.49],
-            [84.25, 21.48]
+            [91.2, 23.8],
+            [91.3, 23.8],
+            [91.3, 23.9],
+            [91.2, 23.9],
+            [91.2, 23.8]
           ]
         ]
       }
@@ -258,21 +292,24 @@
       "type": "Feature",
       "id": 12,
       "properties": {
-        "claim_id": "OD-012",
-        "status": "Submitted",
-        "claimant_name": "Anita Rout",
-        "area_m2": 680.3,
-        "submitted_at": "2025-09-05"
+        "claim_id": "TR-002",
+        "status": "Verified",
+        "claimant_name": "Mina Tripura",
+        "area_m2": 890.7,
+        "submitted_at": "2025-07-20",
+        "state": "Tripura",
+        "district": "Dhalai",
+        "village": "Ambassa"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.78, 20.33],
-            [85.79, 20.33],
-            [85.79, 20.34],
-            [85.78, 20.34],
-            [85.78, 20.33]
+            [91.8, 23.9],
+            [91.9, 23.9],
+            [91.9, 24.0],
+            [91.8, 24.0],
+            [91.8, 23.9]
           ]
         ]
       }
@@ -281,21 +318,24 @@
       "type": "Feature",
       "id": 13,
       "properties": {
-        "claim_id": "OD-013",
-        "status": "Verified",
-        "claimant_name": "Prakash Senapati",
-        "area_m2": 1540.6,
-        "submitted_at": "2025-07-03"
+        "claim_id": "TR-003",
+        "status": "Approved",
+        "claimant_name": "Bikash Jamatia",
+        "area_m2": 1680.4,
+        "submitted_at": "2025-06-10",
+        "state": "Tripura",
+        "district": "Gomati",
+        "village": "Udaipur"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.95, 20.42],
-            [85.96, 20.42],
-            [85.96, 20.43],
-            [85.95, 20.43],
-            [85.95, 20.42]
+            [91.4, 23.5],
+            [91.5, 23.5],
+            [91.5, 23.6],
+            [91.4, 23.6],
+            [91.4, 23.5]
           ]
         ]
       }
@@ -304,21 +344,24 @@
       "type": "Feature",
       "id": 14,
       "properties": {
-        "claim_id": "OD-014",
+        "claim_id": "TR-004",
         "status": "Rejected",
-        "claimant_name": "Lakshmi Parida",
-        "area_m2": 390.8,
-        "submitted_at": "2025-01-25"
+        "claimant_name": "Sunita Reang",
+        "area_m2": 520.8,
+        "submitted_at": "2025-05-25",
+        "state": "Tripura",
+        "district": "Khowai",
+        "village": "Khowai"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [82.85, 19.05],
-            [82.86, 19.05],
-            [82.86, 19.06],
-            [82.85, 19.06],
-            [82.85, 19.05]
+            [91.6, 24.0],
+            [91.7, 24.0],
+            [91.7, 24.1],
+            [91.6, 24.1],
+            [91.6, 24.0]
           ]
         ]
       }
@@ -327,21 +370,24 @@
       "type": "Feature",
       "id": 15,
       "properties": {
-        "claim_id": "OD-015",
-        "status": "Approved",
-        "claimant_name": "Gopal Das",
-        "area_m2": 1785.9,
-        "submitted_at": "2025-03-08"
+        "claim_id": "TR-005",
+        "status": "Submitted",
+        "claimant_name": "Prakash Chakma",
+        "area_m2": 1120.6,
+        "submitted_at": "2025-09-05",
+        "state": "Tripura",
+        "district": "North Tripura",
+        "village": "Kailashahar"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [84.15, 21.62],
-            [84.16, 21.62],
-            [84.16, 21.63],
-            [84.15, 21.63],
-            [84.15, 21.62]
+            [92.0, 24.3],
+            [92.1, 24.3],
+            [92.1, 24.4],
+            [92.0, 24.4],
+            [92.0, 24.3]
           ]
         ]
       }
@@ -350,21 +396,24 @@
       "type": "Feature",
       "id": 16,
       "properties": {
-        "claim_id": "OD-016",
-        "status": "Submitted",
-        "claimant_name": "Meera Singh",
-        "area_m2": 1125.7,
-        "submitted_at": "2025-08-30"
+        "claim_id": "TR-006",
+        "status": "Verified",
+        "claimant_name": "Rina Koloi",
+        "area_m2": 750.9,
+        "submitted_at": "2025-07-12",
+        "state": "Tripura",
+        "district": "Sepahijala",
+        "village": "Bishramganj"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.82, 20.38],
-            [85.83, 20.38],
-            [85.83, 20.39],
-            [85.82, 20.39],
-            [85.82, 20.38]
+            [91.3, 23.6],
+            [91.4, 23.6],
+            [91.4, 23.7],
+            [91.3, 23.7],
+            [91.3, 23.6]
           ]
         ]
       }
@@ -373,21 +422,24 @@
       "type": "Feature",
       "id": 17,
       "properties": {
-        "claim_id": "OD-017",
-        "status": "Verified",
-        "claimant_name": "Ashok Bal",
-        "area_m2": 865.4,
-        "submitted_at": "2025-06-15"
+        "claim_id": "TR-007",
+        "status": "Approved",
+        "claimant_name": "Suresh Halam",
+        "area_m2": 1450.2,
+        "submitted_at": "2025-04-22",
+        "state": "Tripura",
+        "district": "South Tripura",
+        "village": "Belonia"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.88, 20.55],
-            [85.89, 20.55],
-            [85.89, 20.56],
-            [85.88, 20.56],
-            [85.88, 20.55]
+            [91.4, 23.2],
+            [91.5, 23.2],
+            [91.5, 23.3],
+            [91.4, 23.3],
+            [91.4, 23.2]
           ]
         ]
       }
@@ -396,44 +448,51 @@
       "type": "Feature",
       "id": 18,
       "properties": {
-        "claim_id": "OD-018",
-        "status": "Approved",
-        "claimant_name": "Radha Rani",
-        "area_m2": 1965.2,
-        "submitted_at": "2025-01-12"
+        "claim_id": "TR-008",
+        "status": "Under Review",
+        "claimant_name": "Lakshmi Tripura",
+        "area_m2": 980.5,
+        "submitted_at": "2025-08-30",
+        "state": "Tripura",
+        "district": "Unakoti",
+        "village": "Kailashahar"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [84.35, 21.58],
-            [84.36, 21.58],
-            [84.36, 21.59],
-            [84.35, 21.59],
-            [84.35, 21.58]
+            [92.0, 24.0],
+            [92.1, 24.0],
+            [92.1, 24.1],
+            [92.0, 24.1],
+            [92.0, 24.0]
           ]
         ]
       }
     },
+
     {
       "type": "Feature",
       "id": 19,
       "properties": {
-        "claim_id": "OD-019",
-        "status": "Rejected",
-        "claimant_name": "Deepak Mahapatra",
-        "area_m2": 485.6,
-        "submitted_at": "2025-02-20"
+        "claim_id": "TG-001",
+        "status": "Submitted",
+        "claimant_name": "Ravi Kumar",
+        "area_m2": 1350.8,
+        "submitted_at": "2025-08-18",
+        "state": "Telangana",
+        "district": "Hyderabad",
+        "village": "Hyderabad"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [83.15, 19.25],
-            [83.16, 19.25],
-            [83.16, 19.26],
-            [83.15, 19.26],
-            [83.15, 19.25]
+            [78.4, 17.3],
+            [78.5, 17.3],
+            [78.5, 17.4],
+            [78.4, 17.4],
+            [78.4, 17.3]
           ]
         ]
       }
@@ -442,21 +501,24 @@
       "type": "Feature",
       "id": 20,
       "properties": {
-        "claim_id": "OD-020",
-        "status": "Submitted",
-        "claimant_name": "Sita Devi",
-        "area_m2": 1280.3,
-        "submitted_at": "2025-09-12"
+        "claim_id": "TG-002",
+        "status": "Verified",
+        "claimant_name": "Sunita Reddy",
+        "area_m2": 920.4,
+        "submitted_at": "2025-07-25",
+        "state": "Telangana",
+        "district": "Warangal",
+        "village": "Warangal"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.77, 20.28],
-            [85.78, 20.28],
-            [85.78, 20.29],
-            [85.77, 20.29],
-            [85.77, 20.28]
+            [79.5, 17.9],
+            [79.6, 17.9],
+            [79.6, 18.0],
+            [79.5, 18.0],
+            [79.5, 17.9]
           ]
         ]
       }
@@ -465,21 +527,24 @@
       "type": "Feature",
       "id": 21,
       "properties": {
-        "claim_id": "OD-021",
-        "status": "Verified",
-        "claimant_name": "Niranjan Pradhan",
-        "area_m2": 1420.9,
-        "submitted_at": "2025-05-18"
+        "claim_id": "TG-003",
+        "status": "Approved",
+        "claimant_name": "Krishna Rao",
+        "area_m2": 1780.6,
+        "submitted_at": "2025-06-15",
+        "state": "Telangana",
+        "district": "Nizamabad",
+        "village": "Nizamabad"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.92, 20.45],
-            [85.93, 20.45],
-            [85.93, 20.46],
-            [85.92, 20.46],
-            [85.92, 20.45]
+            [78.1, 18.6],
+            [78.2, 18.6],
+            [78.2, 18.7],
+            [78.1, 18.7],
+            [78.1, 18.6]
           ]
         ]
       }
@@ -488,21 +553,24 @@
       "type": "Feature",
       "id": 22,
       "properties": {
-        "claim_id": "OD-022",
-        "status": "Approved",
-        "claimant_name": "Uma Shankar",
-        "area_m2": 2340.7,
-        "submitted_at": "2024-12-05"
+        "claim_id": "TG-004",
+        "status": "Rejected",
+        "claimant_name": "Geeta Devi",
+        "area_m2": 680.3,
+        "submitted_at": "2025-05-20",
+        "state": "Telangana",
+        "district": "Karimnagar",
+        "village": "Karimnagar"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [84.45, 21.65],
-            [84.46, 21.65],
-            [84.46, 21.66],
-            [84.45, 21.66],
-            [84.45, 21.65]
+            [79.1, 18.4],
+            [79.2, 18.4],
+            [79.2, 18.5],
+            [79.1, 18.5],
+            [79.1, 18.4]
           ]
         ]
       }
@@ -511,21 +579,24 @@
       "type": "Feature",
       "id": 23,
       "properties": {
-        "claim_id": "OD-023",
+        "claim_id": "TG-005",
         "status": "Submitted",
-        "claimant_name": "Krishna Mohanty",
-        "area_m2": 745.8,
-        "submitted_at": "2025-08-25"
+        "claimant_name": "Ramesh Goud",
+        "area_m2": 1150.7,
+        "submitted_at": "2025-09-10",
+        "state": "Telangana",
+        "district": "Khammam",
+        "village": "Khammam"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.84, 20.35],
-            [85.85, 20.35],
-            [85.85, 20.36],
-            [85.84, 20.36],
-            [85.84, 20.35]
+            [80.1, 17.2],
+            [80.2, 17.2],
+            [80.2, 17.3],
+            [80.1, 17.3],
+            [80.1, 17.2]
           ]
         ]
       }
@@ -534,21 +605,24 @@
       "type": "Feature",
       "id": 24,
       "properties": {
-        "claim_id": "OD-024",
-        "status": "Rejected",
-        "claimant_name": "Kamala Biswal",
-        "area_m2": 365.2,
-        "submitted_at": "2025-01-08"
+        "claim_id": "TG-006",
+        "status": "Verified",
+        "claimant_name": "Lakshmi Bai",
+        "area_m2": 850.9,
+        "submitted_at": "2025-07-08",
+        "state": "Telangana",
+        "district": "Adilabad",
+        "village": "Adilabad"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [82.95, 18.95],
-            [82.96, 18.95],
-            [82.96, 18.96],
-            [82.95, 18.96],
-            [82.95, 18.95]
+            [78.5, 19.6],
+            [78.6, 19.6],
+            [78.6, 19.7],
+            [78.5, 19.7],
+            [78.5, 19.6]
           ]
         ]
       }
@@ -557,21 +631,24 @@
       "type": "Feature",
       "id": 25,
       "properties": {
-        "claim_id": "OD-025",
-        "status": "Verified",
-        "claimant_name": "Jagannath Barik",
-        "area_m2": 1685.4,
-        "submitted_at": "2025-06-05"
+        "claim_id": "TG-007",
+        "status": "Approved",
+        "claimant_name": "Suresh Naik",
+        "area_m2": 1620.4,
+        "submitted_at": "2025-04-30",
+        "state": "Telangana",
+        "district": "Mahabubnagar",
+        "village": "Mahabubnagar"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.94, 20.48],
-            [85.95, 20.48],
-            [85.95, 20.49],
-            [85.94, 20.49],
-            [85.94, 20.48]
+            [78.0, 16.7],
+            [78.1, 16.7],
+            [78.1, 16.8],
+            [78.0, 16.8],
+            [78.0, 16.7]
           ]
         ]
       }
@@ -580,44 +657,51 @@
       "type": "Feature",
       "id": 26,
       "properties": {
-        "claim_id": "OD-026",
-        "status": "Approved",
-        "claimant_name": "Saraswati Patel",
-        "area_m2": 1245.6,
-        "submitted_at": "2025-02-28"
+        "claim_id": "TG-008",
+        "status": "Under Review",
+        "claimant_name": "Priya Sharma",
+        "area_m2": 1080.2,
+        "submitted_at": "2025-08-25",
+        "state": "Telangana",
+        "district": "Rangareddy",
+        "village": "Shamirpet"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [84.55, 21.72],
-            [84.56, 21.72],
-            [84.56, 21.73],
-            [84.55, 21.73],
-            [84.55, 21.72]
+            [78.6, 17.5],
+            [78.7, 17.5],
+            [78.7, 17.6],
+            [78.6, 17.6],
+            [78.6, 17.5]
           ]
         ]
       }
     },
+
     {
       "type": "Feature",
       "id": 27,
       "properties": {
-        "claim_id": "OD-027",
+        "claim_id": "MP-001",
         "status": "Submitted",
-        "claimant_name": "Rajesh Sahu",
-        "area_m2": 910.3,
-        "submitted_at": "2025-09-18"
+        "claimant_name": "Rajesh Singh",
+        "area_m2": 1420.5,
+        "submitted_at": "2025-08-12",
+        "state": "Madhya Pradesh",
+        "district": "Bhopal",
+        "village": "Bhopal"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.86, 20.32],
-            [85.87, 20.32],
-            [85.87, 20.33],
-            [85.86, 20.33],
-            [85.86, 20.32]
+            [77.3, 23.2],
+            [77.4, 23.2],
+            [77.4, 23.3],
+            [77.3, 23.3],
+            [77.3, 23.2]
           ]
         ]
       }
@@ -626,21 +710,24 @@
       "type": "Feature",
       "id": 28,
       "properties": {
-        "claim_id": "OD-028",
+        "claim_id": "MP-002",
         "status": "Verified",
-        "claimant_name": "Gita Rath",
-        "area_m2": 1350.7,
-        "submitted_at": "2025-07-12"
+        "claimant_name": "Sunita Verma",
+        "area_m2": 980.7,
+        "submitted_at": "2025-07-18",
+        "state": "Madhya Pradesh",
+        "district": "Indore",
+        "village": "Indore"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.91, 20.52],
-            [85.92, 20.52],
-            [85.92, 20.53],
-            [85.91, 20.53],
-            [85.91, 20.52]
+            [75.8, 22.7],
+            [75.9, 22.7],
+            [75.9, 22.8],
+            [75.8, 22.8],
+            [75.8, 22.7]
           ]
         ]
       }
@@ -649,21 +736,24 @@
       "type": "Feature",
       "id": 29,
       "properties": {
-        "claim_id": "OD-029",
-        "status": "Rejected",
-        "claimant_name": "Dilip Kar",
-        "area_m2": 520.9,
-        "submitted_at": "2025-03-22"
+        "claim_id": "MP-003",
+        "status": "Approved",
+        "claimant_name": "Krishna Patel",
+        "area_m2": 1850.3,
+        "submitted_at": "2025-06-05",
+        "state": "Madhya Pradesh",
+        "district": "Gwalior",
+        "village": "Gwalior"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [83.25, 19.35],
-            [83.26, 19.35],
-            [83.26, 19.36],
-            [83.25, 19.36],
-            [83.25, 19.35]
+            [78.1, 26.2],
+            [78.2, 26.2],
+            [78.2, 26.3],
+            [78.1, 26.3],
+            [78.1, 26.2]
           ]
         ]
       }
@@ -672,21 +762,24 @@
       "type": "Feature",
       "id": 30,
       "properties": {
-        "claim_id": "OD-030",
-        "status": "Approved",
-        "claimant_name": "Bina Samantaray",
-        "area_m2": 2145.8,
-        "submitted_at": "2024-11-15"
+        "claim_id": "MP-004",
+        "status": "Rejected",
+        "claimant_name": "Geeta Sharma",
+        "area_m2": 720.8,
+        "submitted_at": "2025-05-15",
+        "state": "Madhya Pradesh",
+        "district": "Jabalpur",
+        "village": "Jabalpur"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [84.65, 21.75],
-            [84.66, 21.75],
-            [84.66, 21.76],
-            [84.65, 21.76],
-            [84.65, 21.75]
+            [79.9, 23.1],
+            [80.0, 23.1],
+            [80.0, 23.2],
+            [79.9, 23.2],
+            [79.9, 23.1]
           ]
         ]
       }
@@ -695,21 +788,24 @@
       "type": "Feature",
       "id": 31,
       "properties": {
-        "claim_id": "OD-031",
+        "claim_id": "MP-005",
         "status": "Submitted",
-        "claimant_name": "Arjun Mohapatra",
-        "area_m2": 825.4,
-        "submitted_at": "2025-08-14"
+        "claimant_name": "Ramesh Yadav",
+        "area_m2": 1280.6,
+        "submitted_at": "2025-09-08",
+        "state": "Madhya Pradesh",
+        "district": "Ujjain",
+        "village": "Ujjain"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.88, 20.29],
-            [85.89, 20.29],
-            [85.89, 20.3],
-            [85.88, 20.3],
-            [85.88, 20.29]
+            [75.7, 23.1],
+            [75.8, 23.1],
+            [75.8, 23.2],
+            [75.7, 23.2],
+            [75.7, 23.1]
           ]
         ]
       }
@@ -718,21 +814,24 @@
       "type": "Feature",
       "id": 32,
       "properties": {
-        "claim_id": "OD-032",
+        "claim_id": "MP-006",
         "status": "Verified",
-        "claimant_name": "Laxmi Narayan",
-        "area_m2": 1480.2,
-        "submitted_at": "2025-05-28"
+        "claimant_name": "Lakshmi Bai",
+        "area_m2": 920.4,
+        "submitted_at": "2025-07-22",
+        "state": "Madhya Pradesh",
+        "district": "Sagar",
+        "village": "Sagar"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.93, 20.49],
-            [85.94, 20.49],
-            [85.94, 20.5],
-            [85.93, 20.5],
-            [85.93, 20.49]
+            [78.7, 23.8],
+            [78.8, 23.8],
+            [78.8, 23.9],
+            [78.7, 23.9],
+            [78.7, 23.8]
           ]
         ]
       }
@@ -741,21 +840,24 @@
       "type": "Feature",
       "id": 33,
       "properties": {
-        "claim_id": "OD-033",
+        "claim_id": "MP-007",
         "status": "Approved",
-        "claimant_name": "Harekrishna Pattnaik",
-        "area_m2": 1925.6,
-        "submitted_at": "2025-01-30"
+        "claimant_name": "Suresh Kumar",
+        "area_m2": 1750.9,
+        "submitted_at": "2025-04-12",
+        "state": "Madhya Pradesh",
+        "district": "Rewa",
+        "village": "Rewa"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [84.75, 21.78],
-            [84.76, 21.78],
-            [84.76, 21.79],
-            [84.75, 21.79],
-            [84.75, 21.78]
+            [81.2, 24.5],
+            [81.3, 24.5],
+            [81.3, 24.6],
+            [81.2, 24.6],
+            [81.2, 24.5]
           ]
         ]
       }
@@ -764,21 +866,24 @@
       "type": "Feature",
       "id": 34,
       "properties": {
-        "claim_id": "OD-034",
-        "status": "Rejected",
-        "claimant_name": "Mamata Sahoo",
-        "area_m2": 445.7,
-        "submitted_at": "2025-04-08"
+        "claim_id": "MP-008",
+        "status": "Under Review",
+        "claimant_name": "Priya Singh",
+        "area_m2": 1120.3,
+        "submitted_at": "2025-08-28",
+        "state": "Madhya Pradesh",
+        "district": "Satna",
+        "village": "Satna"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [83.35, 19.45],
-            [83.36, 19.45],
-            [83.36, 19.46],
-            [83.35, 19.46],
-            [83.35, 19.45]
+            [80.8, 24.5],
+            [80.9, 24.5],
+            [80.9, 24.6],
+            [80.8, 24.6],
+            [80.8, 24.5]
           ]
         ]
       }
@@ -787,21 +892,24 @@
       "type": "Feature",
       "id": 35,
       "properties": {
-        "claim_id": "OD-035",
+        "claim_id": "MP-009",
         "status": "Submitted",
-        "claimant_name": "Bishnu Charan",
-        "area_m2": 1165.9,
-        "submitted_at": "2025-09-22"
+        "claimant_name": "Vikram Thakur",
+        "area_m2": 1350.7,
+        "submitted_at": "2025-09-02",
+        "state": "Madhya Pradesh",
+        "district": "Chhindwara",
+        "village": "Chhindwara"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.9, 20.26],
-            [85.91, 20.26],
-            [85.91, 20.27],
-            [85.9, 20.27],
-            [85.9, 20.26]
+            [78.9, 22.0],
+            [79.0, 22.0],
+            [79.0, 22.1],
+            [78.9, 22.1],
+            [78.9, 22.0]
           ]
         ]
       }
@@ -810,44 +918,51 @@
       "type": "Feature",
       "id": 36,
       "properties": {
-        "claim_id": "OD-036",
+        "claim_id": "MP-010",
         "status": "Verified",
-        "claimant_name": "Kalpana Das",
-        "area_m2": 965.3,
-        "submitted_at": "2025-06-18"
+        "claimant_name": "Anita Devi",
+        "area_m2": 880.5,
+        "submitted_at": "2025-07-15",
+        "state": "Madhya Pradesh",
+        "district": "Bhind",
+        "village": "Bhind"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.96, 20.51],
-            [85.97, 20.51],
-            [85.97, 20.52],
-            [85.96, 20.52],
-            [85.96, 20.51]
+            [78.7, 26.5],
+            [78.8, 26.5],
+            [78.8, 26.6],
+            [78.7, 26.6],
+            [78.7, 26.5]
           ]
         ]
       }
     },
+
     {
       "type": "Feature",
       "id": 37,
       "properties": {
-        "claim_id": "OD-037",
+        "claim_id": "OD-011",
         "status": "Approved",
-        "claimant_name": "Subash Chandra",
-        "area_m2": 2055.4,
-        "submitted_at": "2025-03-15"
+        "claimant_name": "Santosh Mishra",
+        "area_m2": 2105.4,
+        "submitted_at": "2025-02-10",
+        "state": "Odisha",
+        "district": "Angul",
+        "village": "Angul"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [84.85, 21.81],
-            [84.86, 21.81],
-            [84.86, 21.82],
-            [84.85, 21.82],
-            [84.85, 21.81]
+            [85.0, 20.8],
+            [85.1, 20.8],
+            [85.1, 20.9],
+            [85.0, 20.9],
+            [85.0, 20.8]
           ]
         ]
       }
@@ -856,21 +971,24 @@
       "type": "Feature",
       "id": 38,
       "properties": {
-        "claim_id": "OD-038",
+        "claim_id": "TR-009",
         "status": "Submitted",
-        "claimant_name": "Ruma Tripathy",
-        "area_m2": 715.8,
-        "submitted_at": "2025-08-28"
+        "claimant_name": "Bikram Debbarma",
+        "area_m2": 1180.6,
+        "submitted_at": "2025-09-12",
+        "state": "Tripura",
+        "district": "West Tripura",
+        "village": "Agartala"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [85.87, 20.34],
-            [85.88, 20.34],
-            [85.88, 20.35],
-            [85.87, 20.35],
-            [85.87, 20.34]
+            [91.2, 23.7],
+            [91.3, 23.7],
+            [91.3, 23.8],
+            [91.2, 23.8],
+            [91.2, 23.7]
           ]
         ]
       }
@@ -879,21 +997,24 @@
       "type": "Feature",
       "id": 39,
       "properties": {
-        "claim_id": "OD-039",
-        "status": "Rejected",
-        "claimant_name": "Brundaban Panda",
-        "area_m2": 375.2,
-        "submitted_at": "2025-02-18"
+        "claim_id": "TG-009",
+        "status": "Verified",
+        "claimant_name": "Ravi Kumar",
+        "area_m2": 950.8,
+        "submitted_at": "2025-07-30",
+        "state": "Telangana",
+        "district": "Medak",
+        "village": "Sangareddy"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [83.45, 19.55],
-            [83.46, 19.55],
-            [83.46, 19.56],
-            [83.45, 19.56],
-            [83.45, 19.55]
+            [78.0, 17.7],
+            [78.1, 17.7],
+            [78.1, 17.8],
+            [78.0, 17.8],
+            [78.0, 17.7]
           ]
         ]
       }
@@ -902,2896 +1023,24 @@
       "type": "Feature",
       "id": 40,
       "properties": {
-        "claim_id": "OD-040",
-        "status": "Verified",
-        "claimant_name": "Indira Nanda",
-        "area_m2": 1325.6,
-        "submitted_at": "2025-05-12"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.98, 20.54],
-            [85.99, 20.54],
-            [85.99, 20.55],
-            [85.98, 20.55],
-            [85.98, 20.54]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 41,
-      "properties": {
-        "claim_id": "OD-041",
+        "claim_id": "MP-011",
         "status": "Approved",
-        "claimant_name": "Krushna Chandra",
-        "area_m2": 1785.3,
-        "submitted_at": "2024-12-22"
+        "claimant_name": "Rajesh Verma",
+        "area_m2": 1680.2,
+        "submitted_at": "2025-05-25",
+        "state": "Madhya Pradesh",
+        "district": "Vidisha",
+        "village": "Vidisha"
       },
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
-            [84.95, 21.84],
-            [84.96, 21.84],
-            [84.96, 21.85],
-            [84.95, 21.85],
-            [84.95, 21.84]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 42,
-      "properties": {
-        "claim_id": "OD-042",
-        "status": "Submitted",
-        "claimant_name": "Savita Behera",
-        "area_m2": 885.4,
-        "submitted_at": "2025-09-08"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.89, 20.37],
-            [85.9, 20.37],
-            [85.9, 20.38],
-            [85.89, 20.38],
-            [85.89, 20.37]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 43,
-      "properties": {
-        "claim_id": "OD-043",
-        "status": "Verified",
-        "claimant_name": "Mahendra Pradhan",
-        "area_m2": 1545.7,
-        "submitted_at": "2025-07-08"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.0, 20.57],
-            [86.01, 20.57],
-            [86.01, 20.58],
-            [86.0, 20.58],
-            [86.0, 20.57]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 44,
-      "properties": {
-        "claim_id": "OD-044",
-        "status": "Rejected",
-        "claimant_name": "Shakuntala Mishra",
-        "area_m2": 495.8,
-        "submitted_at": "2025-01-15"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [83.55, 19.65],
-            [83.56, 19.65],
-            [83.56, 19.66],
-            [83.55, 19.66],
-            [83.55, 19.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 45,
-      "properties": {
-        "claim_id": "OD-045",
-        "status": "Approved",
-        "claimant_name": "Durga Prasad",
-        "area_m2": 2285.9,
-        "submitted_at": "2024-10-28"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.05, 21.87],
-            [85.06, 21.87],
-            [85.06, 21.88],
-            [85.05, 21.88],
-            [85.05, 21.87]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 46,
-      "properties": {
-        "claim_id": "OD-046",
-        "status": "Submitted",
-        "claimant_name": "Ranjit Singh",
-        "area_m2": 1045.2,
-        "submitted_at": "2025-08-18"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.91, 20.31],
-            [85.92, 20.31],
-            [85.92, 20.32],
-            [85.91, 20.32],
-            [85.91, 20.31]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 47,
-      "properties": {
-        "claim_id": "OD-047",
-        "status": "Verified",
-        "claimant_name": "Pushpa Devi",
-        "area_m2": 1225.6,
-        "submitted_at": "2025-06-25"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.02, 20.59],
-            [86.03, 20.59],
-            [86.03, 20.6],
-            [86.02, 20.6],
-            [86.02, 20.59]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 48,
-      "properties": {
-        "claim_id": "OD-048",
-        "status": "Approved",
-        "claimant_name": "Basant Kumar",
-        "area_m2": 1665.4,
-        "submitted_at": "2025-04-05"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.15, 21.9],
-            [85.16, 21.9],
-            [85.16, 21.91],
-            [85.15, 21.91],
-            [85.15, 21.9]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 49,
-      "properties": {
-        "claim_id": "OD-049",
-        "status": "Rejected",
-        "claimant_name": "Manorama Ray",
-        "area_m2": 355.7,
-        "submitted_at": "2025-03-12"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [83.65, 19.75],
-            [83.66, 19.75],
-            [83.66, 19.76],
-            [83.65, 19.76],
-            [83.65, 19.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 50,
-      "properties": {
-        "claim_id": "OD-050",
-        "status": "Submitted",
-        "claimant_name": "Balaram Nayak",
-        "area_m2": 935.8,
-        "submitted_at": "2025-09-25"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.93, 20.28],
-            [85.94, 20.28],
-            [85.94, 20.29],
-            [85.93, 20.29],
-            [85.93, 20.28]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 51,
-      "properties": {
-        "claim_id": "OD-051",
-        "status": "Verified",
-        "claimant_name": "Sulochana Pati",
-        "area_m2": 1385.2,
-        "submitted_at": "2025-07-18"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.04, 20.61],
-            [86.05, 20.61],
-            [86.05, 20.62],
-            [86.04, 20.62],
-            [86.04, 20.61]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 52,
-      "properties": {
-        "claim_id": "OD-052",
-        "status": "Approved",
-        "claimant_name": "Trilochan Sahoo",
-        "area_m2": 2125.3,
-        "submitted_at": "2024-11-08"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.25, 21.93],
-            [85.26, 21.93],
-            [85.26, 21.94],
-            [85.25, 21.94],
-            [85.25, 21.93]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 53,
-      "properties": {
-        "claim_id": "OD-053",
-        "status": "Submitted",
-        "claimant_name": "Sabitri Mallick",
-        "area_m2": 765.9,
-        "submitted_at": "2025-08-22"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.95, 20.25],
-            [85.96, 20.25],
-            [85.96, 20.26],
-            [85.95, 20.26],
-            [85.95, 20.25]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 54,
-      "properties": {
-        "claim_id": "OD-054",
-        "status": "Rejected",
-        "claimant_name": "Ramakanta Sahu",
-        "area_m2": 425.4,
-        "submitted_at": "2025-02-08"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [83.75, 19.85],
-            [83.76, 19.85],
-            [83.76, 19.86],
-            [83.75, 19.86],
-            [83.75, 19.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 55,
-      "properties": {
-        "claim_id": "OD-055",
-        "status": "Verified",
-        "claimant_name": "Minati Jena",
-        "area_m2": 1285.7,
-        "submitted_at": "2025-05-22"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.06, 20.63],
-            [86.07, 20.63],
-            [86.07, 20.64],
-            [86.06, 20.64],
-            [86.06, 20.63]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 56,
-      "properties": {
-        "claim_id": "OD-056",
-        "status": "Approved",
-        "claimant_name": "Narayan Das",
-        "area_m2": 1955.8,
-        "submitted_at": "2025-01-18"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.35, 21.96],
-            [85.36, 21.96],
-            [85.36, 21.97],
-            [85.35, 21.97],
-            [85.35, 21.96]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 57,
-      "properties": {
-        "claim_id": "OD-057",
-        "status": "Submitted",
-        "claimant_name": "Pramila Senapati",
-        "area_m2": 855.3,
-        "submitted_at": "2025-09-15"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.97, 20.22],
-            [85.98, 20.22],
-            [85.98, 20.23],
-            [85.97, 20.23],
-            [85.97, 20.22]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 58,
-      "properties": {
-        "claim_id": "OD-058",
-        "status": "Verified",
-        "claimant_name": "Bhubaneswar Panda",
-        "area_m2": 1465.2,
-        "submitted_at": "2025-06-08"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.08, 20.65],
-            [86.09, 20.65],
-            [86.09, 20.66],
-            [86.08, 20.66],
-            [86.08, 20.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 59,
-      "properties": {
-        "claim_id": "OD-059",
-        "status": "Rejected",
-        "claimant_name": "Chandrakanta Biswal",
-        "area_m2": 385.6,
-        "submitted_at": "2025-04-15"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [83.85, 19.95],
-            [83.86, 19.95],
-            [83.86, 19.96],
-            [83.85, 19.96],
-            [83.85, 19.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 60,
-      "properties": {
-        "claim_id": "OD-060",
-        "status": "Approved",
-        "claimant_name": "Tarashankar Mohanty",
-        "area_m2": 2355.9,
-        "submitted_at": "2024-09-28"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.45, 21.99],
-            [85.46, 21.99],
-            [85.46, 22.0],
-            [85.45, 22.0],
-            [85.45, 21.99]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 61,
-      "properties": {
-        "claim_id": "OD-061",
-        "status": "Submitted",
-        "claimant_name": "Bharati Parida",
-        "area_m2": 695.4,
-        "submitted_at": "2025-08-12"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.99, 20.19],
-            [86.0, 20.19],
-            [86.0, 20.2],
-            [85.99, 20.2],
-            [85.99, 20.19]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 62,
-      "properties": {
-        "claim_id": "OD-062",
-        "status": "Verified",
-        "claimant_name": "Ramesh Chandra",
-        "area_m2": 1315.8,
-        "submitted_at": "2025-07-25"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.1, 20.67],
-            [86.11, 20.67],
-            [86.11, 20.68],
-            [86.1, 20.68],
-            [86.1, 20.67]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 63,
-      "properties": {
-        "claim_id": "OD-063",
-        "status": "Approved",
-        "claimant_name": "Sushila Rout",
-        "area_m2": 1745.6,
-        "submitted_at": "2025-03-28"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.55, 22.02],
-            [85.56, 22.02],
-            [85.56, 22.03],
-            [85.55, 22.03],
-            [85.55, 22.02]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 64,
-      "properties": {
-        "claim_id": "OD-064",
-        "status": "Rejected",
-        "claimant_name": "Jitendra Nayak",
-        "area_m2": 465.2,
-        "submitted_at": "2025-01-22"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [83.95, 20.05],
-            [83.96, 20.05],
-            [83.96, 20.06],
-            [83.95, 20.06],
-            [83.95, 20.05]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 65,
-      "properties": {
-        "claim_id": "OD-065",
-        "status": "Submitted",
-        "claimant_name": "Ratna Kumari",
-        "area_m2": 975.7,
-        "submitted_at": "2025-09-02"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.01, 20.16],
-            [86.02, 20.16],
-            [86.02, 20.17],
-            [86.01, 20.17],
-            [86.01, 20.16]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 66,
-      "properties": {
-        "claim_id": "OD-066",
-        "status": "Verified",
-        "claimant_name": "Bhagaban Pradhan",
-        "area_m2": 1525.3,
-        "submitted_at": "2025-06-12"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.12, 20.69],
-            [86.13, 20.69],
-            [86.13, 20.7],
-            [86.12, 20.7],
-            [86.12, 20.69]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 67,
-      "properties": {
-        "claim_id": "OD-067",
-        "status": "Approved",
-        "claimant_name": "Shanti Devi Mishra",
-        "area_m2": 2195.4,
-        "submitted_at": "2024-12-18"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.65, 22.05],
-            [85.66, 22.05],
-            [85.66, 22.06],
-            [85.65, 22.06],
-            [85.65, 22.05]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 68,
-      "properties": {
-        "claim_id": "OD-068",
-        "status": "Submitted",
-        "claimant_name": "Dillip Kumar",
-        "area_m2": 815.9,
-        "submitted_at": "2025-08-06"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.03, 20.13],
-            [86.04, 20.13],
-            [86.04, 20.14],
-            [86.03, 20.14],
-            [86.03, 20.13]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 69,
-      "properties": {
-        "claim_id": "OD-069",
-        "status": "Rejected",
-        "claimant_name": "Shyama Charan",
-        "area_m2": 335.8,
-        "submitted_at": "2025-05-05"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [84.05, 20.15],
-            [84.06, 20.15],
-            [84.06, 20.16],
-            [84.05, 20.16],
-            [84.05, 20.15]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 70,
-      "properties": {
-        "claim_id": "OD-070",
-        "status": "Verified",
-        "claimant_name": "Anjana Swain",
-        "area_m2": 1245.6,
-        "submitted_at": "2025-07-02"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.14, 20.71],
-            [86.15, 20.71],
-            [86.15, 20.72],
-            [86.14, 20.72],
-            [86.14, 20.71]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 71,
-      "properties": {
-        "claim_id": "OD-071",
-        "status": "Approved",
-        "claimant_name": "Gourahari Barik",
-        "area_m2": 1885.7,
-        "submitted_at": "2025-02-15"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.75, 22.08],
-            [85.76, 22.08],
-            [85.76, 22.09],
-            [85.75, 22.09],
-            [85.75, 22.08]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 72,
-      "properties": {
-        "claim_id": "OD-072",
-        "status": "Submitted",
-        "claimant_name": "Lalita Singh",
-        "area_m2": 755.2,
-        "submitted_at": "2025-09-28"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.05, 20.1],
-            [86.06, 20.1],
-            [86.06, 20.11],
-            [86.05, 20.11],
-            [86.05, 20.1]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 73,
-      "properties": {
-        "claim_id": "OD-073",
-        "status": "Verified",
-        "claimant_name": "Siddheswar Patel",
-        "area_m2": 1405.8,
-        "submitted_at": "2025-06-30"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.16, 20.73],
-            [86.17, 20.73],
-            [86.17, 20.74],
-            [86.16, 20.74],
-            [86.16, 20.73]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 74,
-      "properties": {
-        "claim_id": "OD-074",
-        "status": "Rejected",
-        "claimant_name": "Malati Rath",
-        "area_m2": 395.4,
-        "submitted_at": "2025-04-22"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [84.15, 20.25],
-            [84.16, 20.25],
-            [84.16, 20.26],
-            [84.15, 20.26],
-            [84.15, 20.25]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 75,
-      "properties": {
-        "claim_id": "OD-075",
-        "status": "Approved",
-        "claimant_name": "Purna Chandra",
-        "area_m2": 2435.9,
-        "submitted_at": "2024-08-15"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.85, 22.11],
-            [85.86, 22.11],
-            [85.86, 22.12],
-            [85.85, 22.12],
-            [85.85, 22.11]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 76,
-      "properties": {
-        "claim_id": "OD-076",
-        "status": "Submitted",
-        "claimant_name": "Rekha Mohapatra",
-        "area_m2": 875.6,
-        "submitted_at": "2025-08-19"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.07, 20.07],
-            [86.08, 20.07],
-            [86.08, 20.08],
-            [86.07, 20.08],
-            [86.07, 20.07]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 77,
-      "properties": {
-        "claim_id": "OD-077",
-        "status": "Verified",
-        "claimant_name": "Brajaraj Kar",
-        "area_m2": 1365.3,
-        "submitted_at": "2025-05-15"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.18, 20.75],
-            [86.19, 20.75],
-            [86.19, 20.76],
-            [86.18, 20.76],
-            [86.18, 20.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 78,
-      "properties": {
-        "claim_id": "OD-078",
-        "status": "Approved",
-        "claimant_name": "Bindu Samantaray",
-        "area_m2": 1725.7,
-        "submitted_at": "2025-01-05"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.95, 22.14],
-            [85.96, 22.14],
-            [85.96, 22.15],
-            [85.95, 22.15],
-            [85.95, 22.14]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 79,
-      "properties": {
-        "claim_id": "OD-079",
-        "status": "Rejected",
-        "claimant_name": "Satish Chandra",
-        "area_m2": 455.9,
-        "submitted_at": "2025-03-18"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [84.25, 20.35],
-            [84.26, 20.35],
-            [84.26, 20.36],
-            [84.25, 20.36],
-            [84.25, 20.35]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 80,
-      "properties": {
-        "claim_id": "OD-080",
-        "status": "Submitted",
-        "claimant_name": "Champabati Das",
-        "area_m2": 1015.4,
-        "submitted_at": "2025-09-11"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.09, 20.04],
-            [86.1, 20.04],
-            [86.1, 20.05],
-            [86.09, 20.05],
-            [86.09, 20.04]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 81,
-      "properties": {
-        "claim_id": "OD-081",
-        "status": "Verified",
-        "claimant_name": "Chitta Ranjan",
-        "area_m2": 1485.2,
-        "submitted_at": "2025-07-15"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.2, 20.77],
-            [86.21, 20.77],
-            [86.21, 20.78],
-            [86.2, 20.78],
-            [86.2, 20.77]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 82,
-      "properties": {
-        "claim_id": "OD-082",
-        "status": "Approved",
-        "claimant_name": "Nirupama Nanda",
-        "area_m2": 2015.8,
-        "submitted_at": "2024-11-25"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.05, 22.17],
-            [86.06, 22.17],
-            [86.06, 22.18],
-            [86.05, 22.18],
-            [86.05, 22.17]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 83,
-      "properties": {
-        "claim_id": "OD-083",
-        "status": "Submitted",
-        "claimant_name": "Jagdish Tripathy",
-        "area_m2": 925.3,
-        "submitted_at": "2025-08-03"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.11, 20.01],
-            [86.12, 20.01],
-            [86.12, 20.02],
-            [86.11, 20.02],
-            [86.11, 20.01]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 84,
-      "properties": {
-        "claim_id": "OD-084",
-        "status": "Under Review",
-        "claimant_name": "Priya Nayak",
-        "area_m2": 1150.6,
-        "submitted_at": "2025-08-15"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.95, 20.25],
-            [85.96, 20.25],
-            [85.96, 20.26],
-            [85.95, 20.26],
-            [85.95, 20.25]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 85,
-      "properties": {
-        "claim_id": "OD-085",
-        "status": "Verified",
-        "claimant_name": "Santosh Patel",
-        "area_m2": 875.3,
-        "submitted_at": "2025-07-22"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.15, 21.35],
-            [86.16, 21.35],
-            [86.16, 21.36],
-            [86.15, 21.36],
-            [86.15, 21.35]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 86,
-      "properties": {
-        "claim_id": "OD-086",
-        "status": "Submitted",
-        "claimant_name": "Kavita Mohanty",
-        "area_m2": 1320.8,
-        "submitted_at": "2025-08-25"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.78, 19.95],
-            [85.79, 19.95],
-            [85.79, 19.96],
-            [85.78, 19.96],
-            [85.78, 19.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 87,
-      "properties": {
-        "claim_id": "OD-087",
-        "status": "Approved",
-        "claimant_name": "Rajesh Kumar",
-        "area_m2": 950.2,
-        "submitted_at": "2025-06-18"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.25, 20.45],
-            [86.26, 20.45],
-            [86.26, 20.46],
-            [86.25, 20.46],
-            [86.25, 20.45]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 88,
-      "properties": {
-        "claim_id": "OD-088",
-        "status": "Submitted",
-        "claimant_name": "Meera Dash",
-        "area_m2": 1085.5,
-        "submitted_at": "2025-08-12"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.92, 21.15],
-            [85.93, 21.15],
-            [85.93, 21.16],
-            [85.92, 21.16],
-            [85.92, 21.15]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 89,
-      "properties": {
-        "claim_id": "OD-089",
-        "status": "Under Review",
-        "claimant_name": "Suresh Behera",
-        "area_m2": 765.9,
-        "submitted_at": "2025-07-30"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.08, 19.85],
-            [86.09, 19.85],
-            [86.09, 19.86],
-            [86.08, 19.86],
-            [86.08, 19.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 90,
-      "properties": {
-        "claim_id": "OD-090",
-        "status": "Verified",
-        "claimant_name": "Lakshmi Pradhan",
-        "area_m2": 1245.7,
-        "submitted_at": "2025-07-05"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.85, 20.55],
-            [85.86, 20.55],
-            [85.86, 20.56],
-            [85.85, 20.56],
-            [85.85, 20.55]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 91,
-      "properties": {
-        "claim_id": "OD-091",
-        "status": "Submitted",
-        "claimant_name": "Arun Sahu",
-        "area_m2": 890.4,
-        "submitted_at": "2025-08-20"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.18, 21.75],
-            [86.19, 21.75],
-            [86.19, 21.76],
-            [86.18, 21.76],
-            [86.18, 21.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 92,
-      "properties": {
-        "claim_id": "OD-092",
-        "status": "Approved",
-        "claimant_name": "Sunita Jena",
-        "area_m2": 1175.2,
-        "submitted_at": "2025-06-25"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.75, 20.15],
-            [85.76, 20.15],
-            [85.76, 20.16],
-            [85.75, 20.16],
-            [85.75, 20.15]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 93,
-      "properties": {
-        "claim_id": "OD-093",
-        "status": "Under Review",
-        "claimant_name": "Prakash Mishra",
-        "area_m2": 825.8,
-        "submitted_at": "2025-08-08"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.32, 20.85],
-            [86.33, 20.85],
-            [86.33, 20.86],
-            [86.32, 20.86],
-            [86.32, 20.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 94,
-      "properties": {
-        "claim_id": "OD-094",
-        "status": "Submitted",
-        "claimant_name": "Gita Swain",
-        "area_m2": 1050.6,
-        "submitted_at": "2025-08-18"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.88, 19.75],
-            [85.89, 19.75],
-            [85.89, 19.76],
-            [85.88, 19.76],
-            [85.88, 19.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 95,
-      "properties": {
-        "claim_id": "OD-095",
-        "status": "Verified",
-        "claimant_name": "Biswajit Rout",
-        "area_m2": 975.3,
-        "submitted_at": "2025-07-14"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.05, 21.25],
-            [86.06, 21.25],
-            [86.06, 21.26],
-            [86.05, 21.26],
-            [86.05, 21.25]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 96,
-      "properties": {
-        "claim_id": "OD-096",
-        "status": "Submitted",
-        "claimant_name": "Ranjita Padhi",
-        "area_m2": 1285.9,
-        "submitted_at": "2025-08-22"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.82, 20.65],
-            [85.83, 20.65],
-            [85.83, 20.66],
-            [85.82, 20.66],
-            [85.82, 20.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 97,
-      "properties": {
-        "claim_id": "OD-097",
-        "status": "Approved",
-        "claimant_name": "Manoj Barik",
-        "area_m2": 920.7,
-        "submitted_at": "2025-06-30"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.22, 19.95],
-            [86.23, 19.95],
-            [86.23, 19.96],
-            [86.22, 19.96],
-            [86.22, 19.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 98,
-      "properties": {
-        "claim_id": "OD-098",
-        "status": "Under Review",
-        "claimant_name": "Padmini Naik",
-        "area_m2": 1125.4,
-        "submitted_at": "2025-08-05"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.95, 21.45],
-            [85.96, 21.45],
-            [85.96, 21.46],
-            [85.95, 21.46],
-            [85.95, 21.45]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 99,
-      "properties": {
-        "claim_id": "OD-099",
-        "status": "Submitted",
-        "claimant_name": "Deepak Sahoo",
-        "area_m2": 850.2,
-        "submitted_at": "2025-08-28"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.12, 20.35],
-            [86.13, 20.35],
-            [86.13, 20.36],
-            [86.12, 20.36],
-            [86.12, 20.35]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 100,
-      "properties": {
-        "claim_id": "OD-100",
-        "status": "Verified",
-        "claimant_name": "Sushila Mohapatra",
-        "area_m2": 1200.8,
-        "submitted_at": "2025-07-12"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.78, 20.75],
-            [85.79, 20.75],
-            [85.79, 20.76],
-            [85.78, 20.76],
-            [85.78, 20.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 101,
-      "properties": {
-        "claim_id": "OD-101",
-        "status": "Submitted",
-        "claimant_name": "Ramchandra Panda",
-        "area_m2": 965.5,
-        "submitted_at": "2025-08-16"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.28, 21.55],
-            [86.29, 21.55],
-            [86.29, 21.56],
-            [86.28, 21.56],
-            [86.28, 21.55]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 102,
-      "properties": {
-        "claim_id": "OD-102",
-        "status": "Approved",
-        "claimant_name": "Anita Kar",
-        "area_m2": 1095.3,
-        "submitted_at": "2025-06-20"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.85, 19.85],
-            [85.86, 19.85],
-            [85.86, 19.86],
-            [85.85, 19.86],
-            [85.85, 19.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 103,
-      "properties": {
-        "claim_id": "OD-103",
-        "status": "Under Review",
-        "claimant_name": "Subhash Parida",
-        "area_m2": 780.9,
-        "submitted_at": "2025-08-10"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.15, 20.95],
-            [86.16, 20.95],
-            [86.16, 20.96],
-            [86.15, 20.96],
-            [86.15, 20.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 104,
-      "properties": {
-        "claim_id": "OD-104",
-        "status": "Submitted",
-        "claimant_name": "Manju Devi",
-        "area_m2": 1345.7,
-        "submitted_at": "2025-08-24"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.92, 20.05],
-            [85.93, 20.05],
-            [85.93, 20.06],
-            [85.92, 20.06],
-            [85.92, 20.05]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 105,
-      "properties": {
-        "claim_id": "OD-105",
-        "status": "Verified",
-        "claimant_name": "Gopal Sethy",
-        "area_m2": 885.6,
-        "submitted_at": "2025-07-08"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.35, 21.85],
-            [86.36, 21.85],
-            [86.36, 21.86],
-            [86.35, 21.86],
-            [86.35, 21.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 106,
-      "properties": {
-        "claim_id": "OD-106",
-        "status": "Submitted",
-        "claimant_name": "Sarita Biswal",
-        "area_m2": 1155.2,
-        "submitted_at": "2025-08-19"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.75, 20.85],
-            [85.76, 20.85],
-            [85.76, 20.86],
-            [85.75, 20.86],
-            [85.75, 20.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 107,
-      "properties": {
-        "claim_id": "OD-107",
-        "status": "Approved",
-        "claimant_name": "Niranjan Muduli",
-        "area_m2": 940.8,
-        "submitted_at": "2025-06-15"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.18, 19.65],
-            [86.19, 19.65],
-            [86.19, 19.66],
-            [86.18, 19.66],
-            [86.18, 19.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 108,
-      "properties": {
-        "claim_id": "OD-108",
-        "status": "Under Review",
-        "claimant_name": "Bharati Singh",
-        "area_m2": 1075.4,
-        "submitted_at": "2025-08-02"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.98, 21.65],
-            [85.99, 21.65],
-            [85.99, 21.66],
-            [85.98, 21.66],
-            [85.98, 21.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 109,
-      "properties": {
-        "claim_id": "OD-109",
-        "status": "Submitted",
-        "claimant_name": "Hemant Nanda",
-        "area_m2": 815.9,
-        "submitted_at": "2025-08-26"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.25, 20.15],
-            [86.26, 20.15],
-            [86.26, 20.16],
-            [86.25, 20.16],
-            [86.25, 20.15]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 110,
-      "properties": {
-        "claim_id": "OD-110",
-        "status": "Verified",
-        "claimant_name": "Pushpa Mallick",
-        "area_m2": 1225.3,
-        "submitted_at": "2025-07-18"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.82, 19.95],
-            [85.83, 19.95],
-            [85.83, 19.96],
-            [85.82, 19.96],
-            [85.82, 19.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 111,
-      "properties": {
-        "claim_id": "OD-111",
-        "status": "Submitted",
-        "claimant_name": "Ashok Mohanty",
-        "area_m2": 995.7,
-        "submitted_at": "2025-08-14"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.08, 21.05],
-            [86.09, 21.05],
-            [86.09, 21.06],
-            [86.08, 21.06],
-            [86.08, 21.05]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 112,
-      "properties": {
-        "claim_id": "OD-112",
-        "status": "Approved",
-        "claimant_name": "Kalpana Sahoo",
-        "area_m2": 1180.5,
-        "submitted_at": "2025-06-28"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.88, 20.45],
-            [85.89, 20.45],
-            [85.89, 20.46],
-            [85.88, 20.46],
-            [85.88, 20.45]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 113,
-      "properties": {
-        "claim_id": "OD-113",
-        "status": "Under Review",
-        "claimant_name": "Bimal Patro",
-        "area_m2": 865.2,
-        "submitted_at": "2025-08-06"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.32, 19.75],
-            [86.33, 19.75],
-            [86.33, 19.76],
-            [86.32, 19.76],
-            [86.32, 19.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 114,
-      "properties": {
-        "claim_id": "OD-114",
-        "status": "Submitted",
-        "claimant_name": "Laxmi Patel",
-        "area_m2": 1305.8,
-        "submitted_at": "2025-08-21"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.75, 21.25],
-            [85.76, 21.25],
-            [85.76, 21.26],
-            [85.75, 21.26],
-            [85.75, 21.25]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 115,
-      "properties": {
-        "claim_id": "OD-115",
-        "status": "Verified",
-        "claimant_name": "Jagannath Das",
-        "area_m2": 925.6,
-        "submitted_at": "2025-07-25"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.15, 20.55],
-            [86.16, 20.55],
-            [86.16, 20.56],
-            [86.15, 20.56],
-            [86.15, 20.55]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 116,
-      "properties": {
-        "claim_id": "OD-116",
-        "status": "Submitted",
-        "claimant_name": "Ruchi Nayak",
-        "area_m2": 1065.4,
-        "submitted_at": "2025-08-17"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.95, 19.85],
-            [85.96, 19.85],
-            [85.96, 19.86],
-            [85.95, 19.86],
-            [85.95, 19.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 117,
-      "properties": {
-        "claim_id": "OD-117",
-        "status": "Approved",
-        "claimant_name": "Dilip Behera",
-        "area_m2": 895.7,
-        "submitted_at": "2025-06-22"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.28, 21.95],
-            [86.29, 21.95],
-            [86.29, 21.96],
-            [86.28, 21.96],
-            [86.28, 21.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 118,
-      "properties": {
-        "claim_id": "OD-118",
-        "status": "Under Review",
-        "claimant_name": "Sangita Pradhan",
-        "area_m2": 1135.9,
-        "submitted_at": "2025-08-09"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.82, 20.95],
-            [85.83, 20.95],
-            [85.83, 20.96],
-            [85.82, 20.96],
-            [85.82, 20.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 119,
-      "properties": {
-        "claim_id": "OD-119",
-        "status": "Submitted",
-        "claimant_name": "Kishore Sahu",
-        "area_m2": 835.3,
-        "submitted_at": "2025-08-27"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.05, 20.25],
-            [86.06, 20.25],
-            [86.06, 20.26],
-            [86.05, 20.26],
-            [86.05, 20.25]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 120,
-      "properties": {
-        "claim_id": "OD-120",
-        "status": "Verified",
-        "claimant_name": "Minati Jena",
-        "area_m2": 1195.8,
-        "submitted_at": "2025-07-16"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.88, 21.35],
-            [85.89, 21.35],
-            [85.89, 21.36],
-            [85.88, 21.36],
-            [85.88, 21.35]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 121,
-      "properties": {
-        "claim_id": "OD-121",
-        "status": "Submitted",
-        "claimant_name": "Raman Mishra",
-        "area_m2": 955.2,
-        "submitted_at": "2025-08-13"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.22, 19.85],
-            [86.23, 19.85],
-            [86.23, 19.86],
-            [86.22, 19.86],
-            [86.22, 19.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 122,
-      "properties": {
-        "claim_id": "OD-122",
-        "status": "Approved",
-        "claimant_name": "Jyoti Swain",
-        "area_m2": 1125.6,
-        "submitted_at": "2025-06-26"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.75, 20.35],
-            [85.76, 20.35],
-            [85.76, 20.36],
-            [85.75, 20.36],
-            [85.75, 20.35]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 123,
-      "properties": {
-        "claim_id": "OD-123",
-        "status": "Under Review",
-        "claimant_name": "Basudev Rout",
-        "area_m2": 875.4,
-        "submitted_at": "2025-08-04"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.12, 21.45],
-            [86.13, 21.45],
-            [86.13, 21.46],
-            [86.12, 21.46],
-            [86.12, 21.45]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 124,
-      "properties": {
-        "claim_id": "OD-124",
-        "status": "Submitted",
-        "claimant_name": "Nalini Padhi",
-        "area_m2": 1275.9,
-        "submitted_at": "2025-08-23"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.92, 19.75],
-            [85.93, 19.75],
-            [85.93, 19.76],
-            [85.92, 19.76],
-            [85.92, 19.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 125,
-      "properties": {
-        "claim_id": "OD-125",
-        "status": "Verified",
-        "claimant_name": "Saroj Barik",
-        "area_m2": 915.7,
-        "submitted_at": "2025-07-20"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.35, 20.65],
-            [86.36, 20.65],
-            [86.36, 20.66],
-            [86.35, 20.66],
-            [86.35, 20.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 126,
-      "properties": {
-        "claim_id": "OD-126",
-        "status": "Submitted",
-        "claimant_name": "Durga Naik",
-        "area_m2": 1085.3,
-        "submitted_at": "2025-08-15"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.78, 21.05],
-            [85.79, 21.05],
-            [85.79, 21.06],
-            [85.78, 21.06],
-            [85.78, 21.05]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 127,
-      "properties": {
-        "claim_id": "OD-127",
-        "status": "Approved",
-        "claimant_name": "Vinod Mohapatra",
-        "area_m2": 975.8,
-        "submitted_at": "2025-06-18"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.18, 20.05],
-            [86.19, 20.05],
-            [86.19, 20.06],
-            [86.18, 20.06],
-            [86.18, 20.05]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 128,
-      "properties": {
-        "claim_id": "OD-128",
-        "status": "Under Review",
-        "claimant_name": "Rekha Panda",
-        "area_m2": 1145.5,
-        "submitted_at": "2025-08-07"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.85, 21.75],
-            [85.86, 21.75],
-            [85.86, 21.76],
-            [85.85, 21.76],
-            [85.85, 21.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 129,
-      "properties": {
-        "claim_id": "OD-129",
-        "status": "Submitted",
-        "claimant_name": "Tapan Kar",
-        "area_m2": 825.6,
-        "submitted_at": "2025-08-25"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.25, 19.95],
-            [86.26, 19.95],
-            [86.26, 19.96],
-            [86.25, 19.96],
-            [86.25, 19.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 130,
-      "properties": {
-        "claim_id": "OD-130",
-        "status": "Verified",
-        "claimant_name": "Champa Parida",
-        "area_m2": 1205.2,
-        "submitted_at": "2025-07-22"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.82, 20.15],
-            [85.83, 20.15],
-            [85.83, 20.16],
-            [85.82, 20.16],
-            [85.82, 20.15]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 131,
-      "properties": {
-        "claim_id": "OD-131",
-        "status": "Submitted",
-        "claimant_name": "Ganesh Devi",
-        "area_m2": 985.9,
-        "submitted_at": "2025-08-11"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.08, 21.85],
-            [86.09, 21.85],
-            [86.09, 21.86],
-            [86.08, 21.86],
-            [86.08, 21.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 132,
-      "properties": {
-        "claim_id": "OD-132",
-        "status": "Approved",
-        "claimant_name": "Krishna Sethy",
-        "area_m2": 1155.4,
-        "submitted_at": "2025-06-24"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.88, 19.65],
-            [85.89, 19.65],
-            [85.89, 19.66],
-            [85.88, 19.66],
-            [85.88, 19.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 133,
-      "properties": {
-        "claim_id": "OD-133",
-        "status": "Under Review",
-        "claimant_name": "Sanjay Biswal",
-        "area_m2": 895.7,
-        "submitted_at": "2025-08-01"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.32, 20.45],
-            [86.33, 20.45],
-            [86.33, 20.46],
-            [86.32, 20.46],
-            [86.32, 20.45]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 134,
-      "properties": {
-        "claim_id": "OD-134",
-        "status": "Submitted",
-        "claimant_name": "Urmila Muduli",
-        "area_m2": 1325.8,
-        "submitted_at": "2025-08-20"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.75, 20.95],
-            [85.76, 20.95],
-            [85.76, 20.96],
-            [85.75, 20.96],
-            [85.75, 20.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 135,
-      "properties": {
-        "claim_id": "OD-135",
-        "status": "Verified",
-        "claimant_name": "Ramakant Singh",
-        "area_m2": 945.3,
-        "submitted_at": "2025-07-28"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.15, 19.75],
-            [86.16, 19.75],
-            [86.16, 19.76],
-            [86.15, 19.76],
-            [86.15, 19.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 136,
-      "properties": {
-        "claim_id": "OD-136",
-        "status": "Submitted",
-        "claimant_name": "Sita Nanda",
-        "area_m2": 1075.6,
-        "submitted_at": "2025-08-16"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.95, 21.15],
-            [85.96, 21.15],
-            [85.96, 21.16],
-            [85.95, 21.16],
-            [85.95, 21.15]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 137,
-      "properties": {
-        "claim_id": "OD-137",
-        "status": "Approved",
-        "claimant_name": "Babita Mallick",
-        "area_m2": 885.9,
-        "submitted_at": "2025-06-30"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.28, 20.75],
-            [86.29, 20.75],
-            [86.29, 20.76],
-            [86.28, 20.76],
-            [86.28, 20.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 138,
-      "properties": {
-        "claim_id": "OD-138",
-        "status": "Under Review",
-        "claimant_name": "Raghunath Mohanty",
-        "area_m2": 1165.2,
-        "submitted_at": "2025-08-03"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.82, 19.85],
-            [85.83, 19.85],
-            [85.83, 19.86],
-            [85.82, 19.86],
-            [85.82, 19.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 139,
-      "properties": {
-        "claim_id": "OD-139",
-        "status": "Submitted",
-        "claimant_name": "Geeta Sahoo",
-        "area_m2": 855.4,
-        "submitted_at": "2025-08-24"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.05, 21.95],
-            [86.06, 21.95],
-            [86.06, 21.96],
-            [86.05, 21.96],
-            [86.05, 21.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 140,
-      "properties": {
-        "claim_id": "OD-140",
-        "status": "Verified",
-        "claimant_name": "Umesh Patel",
-        "area_m2": 1215.7,
-        "submitted_at": "2025-07-14"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.88, 20.25],
-            [85.89, 20.25],
-            [85.89, 20.26],
-            [85.88, 20.26],
-            [85.88, 20.25]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 141,
-      "properties": {
-        "claim_id": "OD-141",
-        "status": "Submitted",
-        "claimant_name": "Nandini Patro",
-        "area_m2": 965.8,
-        "submitted_at": "2025-08-12"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.22, 20.85],
-            [86.23, 20.85],
-            [86.23, 20.86],
-            [86.22, 20.86],
-            [86.22, 20.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 142,
-      "properties": {
-        "claim_id": "OD-142",
-        "status": "Approved",
-        "claimant_name": "Lingaraj Das",
-        "area_m2": 1135.3,
-        "submitted_at": "2025-06-27"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.75, 21.45],
-            [85.76, 21.45],
-            [85.76, 21.46],
-            [85.75, 21.46],
-            [85.75, 21.45]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 143,
-      "properties": {
-        "claim_id": "OD-143",
-        "status": "Under Review",
-        "claimant_name": "Mamata Nayak",
-        "area_m2": 875.6,
-        "submitted_at": "2025-08-05"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.12, 19.95],
-            [86.13, 19.95],
-            [86.13, 19.96],
-            [86.12, 19.96],
-            [86.12, 19.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 144,
-      "properties": {
-        "claim_id": "OD-144",
-        "status": "Submitted",
-        "claimant_name": "Akash Behera",
-        "area_m2": 1295.9,
-        "submitted_at": "2025-08-22"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.92, 21.55],
-            [85.93, 21.55],
-            [85.93, 21.56],
-            [85.92, 21.56],
-            [85.92, 21.55]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 145,
-      "properties": {
-        "claim_id": "OD-145",
-        "status": "Verified",
-        "claimant_name": "Swati Pradhan",
-        "area_m2": 935.2,
-        "submitted_at": "2025-07-26"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.35, 21.25],
-            [86.36, 21.25],
-            [86.36, 21.26],
-            [86.35, 21.26],
-            [86.35, 21.25]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 146,
-      "properties": {
-        "claim_id": "OD-146",
-        "status": "Submitted",
-        "claimant_name": "Bibhuti Sahu",
-        "area_m2": 1095.5,
-        "submitted_at": "2025-08-18"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.78, 20.55],
-            [85.79, 20.55],
-            [85.79, 20.56],
-            [85.78, 20.56],
-            [85.78, 20.55]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 147,
-      "properties": {
-        "claim_id": "OD-147",
-        "status": "Approved",
-        "claimant_name": "Kaveri Jena",
-        "area_m2": 985.8,
-        "submitted_at": "2025-06-21"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.18, 21.65],
-            [86.19, 21.65],
-            [86.19, 21.66],
-            [86.18, 21.66],
-            [86.18, 21.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 148,
-      "properties": {
-        "claim_id": "OD-148",
-        "status": "Under Review",
-        "claimant_name": "Soumya Mishra",
-        "area_m2": 1175.4,
-        "submitted_at": "2025-08-08"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.85, 20.85],
-            [85.86, 20.85],
-            [85.86, 20.86],
-            [85.85, 20.86],
-            [85.85, 20.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 149,
-      "properties": {
-        "claim_id": "OD-149",
-        "status": "Submitted",
-        "claimant_name": "Chitta Swain",
-        "area_m2": 845.7,
-        "submitted_at": "2025-08-26"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.25, 20.05],
-            [86.26, 20.05],
-            [86.26, 20.06],
-            [86.25, 20.06],
-            [86.25, 20.05]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 150,
-      "properties": {
-        "claim_id": "OD-150",
-        "status": "Verified",
-        "claimant_name": "Rashmi Rout",
-        "area_m2": 1235.6,
-        "submitted_at": "2025-07-19"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.82, 21.35],
-            [85.83, 21.35],
-            [85.83, 21.36],
-            [85.82, 21.36],
-            [85.82, 21.35]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 151,
-      "properties": {
-        "claim_id": "OD-151",
-        "status": "Submitted",
-        "claimant_name": "Pratap Padhi",
-        "area_m2": 975.9,
-        "submitted_at": "2025-08-14"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.08, 19.85],
-            [86.09, 19.85],
-            [86.09, 19.86],
-            [86.08, 19.86],
-            [86.08, 19.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 152,
-      "properties": {
-        "claim_id": "OD-152",
-        "status": "Approved",
-        "claimant_name": "Indira Barik",
-        "area_m2": 1145.2,
-        "submitted_at": "2025-06-29"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.88, 21.95],
-            [85.89, 21.95],
-            [85.89, 21.96],
-            [85.88, 21.96],
-            [85.88, 21.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 153,
-      "properties": {
-        "claim_id": "OD-153",
-        "status": "Under Review",
-        "claimant_name": "Pradeep Naik",
-        "area_m2": 865.5,
-        "submitted_at": "2025-08-02"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.32, 21.05],
-            [86.33, 21.05],
-            [86.33, 21.06],
-            [86.32, 21.06],
-            [86.32, 21.05]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 154,
-      "properties": {
-        "claim_id": "OD-154",
-        "status": "Submitted",
-        "claimant_name": "Shanti Mohapatra",
-        "area_m2": 1315.8,
-        "submitted_at": "2025-08-21"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.75, 20.65],
-            [85.76, 20.65],
-            [85.76, 20.66],
-            [85.75, 20.66],
-            [85.75, 20.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 155,
-      "properties": {
-        "claim_id": "OD-155",
-        "status": "Verified",
-        "claimant_name": "Bhagaban Panda",
-        "area_m2": 925.4,
-        "submitted_at": "2025-07-23"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.15, 21.75],
-            [86.16, 21.75],
-            [86.16, 21.76],
-            [86.15, 21.76],
-            [86.15, 21.75]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 156,
-      "properties": {
-        "claim_id": "OD-156",
-        "status": "Submitted",
-        "claimant_name": "Aloka Kar",
-        "area_m2": 1085.7,
-        "submitted_at": "2025-08-17"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.95, 20.35],
-            [85.96, 20.35],
-            [85.96, 20.36],
-            [85.95, 20.36],
-            [85.95, 20.35]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 157,
-      "properties": {
-        "claim_id": "OD-157",
-        "status": "Approved",
-        "claimant_name": "Bijoy Parida",
-        "area_m2": 895.3,
-        "submitted_at": "2025-06-25"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.28, 19.85],
-            [86.29, 19.85],
-            [86.29, 19.86],
-            [86.28, 19.86],
-            [86.28, 19.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 158,
-      "properties": {
-        "claim_id": "OD-158",
-        "status": "Under Review",
-        "claimant_name": "Rajani Devi",
-        "area_m2": 1155.6,
-        "submitted_at": "2025-08-06"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.82, 21.65],
-            [85.83, 21.65],
-            [85.83, 21.66],
-            [85.82, 21.66],
-            [85.82, 21.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 159,
-      "properties": {
-        "claim_id": "OD-159",
-        "status": "Submitted",
-        "claimant_name": "Ramesh Sethy",
-        "area_m2": 835.9,
-        "submitted_at": "2025-08-25"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.05, 20.45],
-            [86.06, 20.45],
-            [86.06, 20.46],
-            [86.05, 20.46],
-            [86.05, 20.45]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 160,
-      "properties": {
-        "claim_id": "OD-160",
-        "status": "Verified",
-        "claimant_name": "Snigdha Biswal",
-        "area_m2": 1225.2,
-        "submitted_at": "2025-07-17"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.88, 20.95],
-            [85.89, 20.95],
-            [85.89, 20.96],
-            [85.88, 20.96],
-            [85.88, 20.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 161,
-      "properties": {
-        "claim_id": "OD-161",
-        "status": "Submitted",
-        "claimant_name": "Ashish Muduli",
-        "area_m2": 965.5,
-        "submitted_at": "2025-08-13"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.22, 21.15],
-            [86.23, 21.15],
-            [86.23, 21.16],
-            [86.22, 21.16],
-            [86.22, 21.15]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 162,
-      "properties": {
-        "claim_id": "OD-162",
-        "status": "Approved",
-        "claimant_name": "Prabha Singh",
-        "area_m2": 1115.8,
-        "submitted_at": "2025-06-28"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.75, 21.85],
-            [85.76, 21.85],
-            [85.76, 21.86],
-            [85.75, 21.86],
-            [85.75, 21.85]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 163,
-      "properties": {
-        "claim_id": "OD-163",
-        "status": "Under Review",
-        "claimant_name": "Chandra Nanda",
-        "area_m2": 885.4,
-        "submitted_at": "2025-08-04"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.12, 20.65],
-            [86.13, 20.65],
-            [86.13, 20.66],
-            [86.12, 20.66],
-            [86.12, 20.65]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 164,
-      "properties": {
-        "claim_id": "OD-164",
-        "status": "Submitted",
-        "claimant_name": "Sulochana Mallick",
-        "area_m2": 1285.7,
-        "submitted_at": "2025-08-23"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [85.92, 19.95],
-            [85.93, 19.95],
-            [85.93, 19.96],
-            [85.92, 19.96],
-            [85.92, 19.95]
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "id": 165,
-      "properties": {
-        "claim_id": "OD-165",
-        "status": "Verified",
-        "claimant_name": "Dillip Mohanty",
-        "area_m2": 945.6,
-        "submitted_at": "2025-07-21"
-      },
-      "geometry": {
-        "type": "Polygon",
-        "coordinates": [
-          [
-            [86.35, 20.15],
-            [86.36, 20.15],
-            [86.36, 20.16],
-            [86.35, 20.16],
-            [86.35, 20.15]
+            [77.8, 23.5],
+            [77.9, 23.5],
+            [77.9, 23.6],
+            [77.8, 23.6],
+            [77.8, 23.5]
           ]
         ]
       }

@@ -9,6 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "@mapbox/mapbox-gl-draw": "^1.5.0",
     "@mapbox/mapbox-gl-geocoder": "^5.1.2",
@@ -23,6 +26,7 @@
     "leaflet": "^1.9.4",
     "lucide-react": "^0.543.0",
     "mapbox-gl": "^3.15.0",
+    "motion": "^12.23.16",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-leaflet": "^5.0.0",

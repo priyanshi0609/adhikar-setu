@@ -154,7 +154,7 @@
   background: transparent;
   border: none;
 }
-=========
+
 @theme inline {
   --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
 
@@ -165,4 +165,3 @@
   }
 }
 
->>>>>>>>> Temporary merge branch 2
