@@ -122,8 +122,8 @@ const Navigation = ({
         id: "dss-results",
         name: language === "en" ? "DSS Results" : "DSS परिणाम",
         icon: BarChart3,
-        roles: [ "dlc","mota"],
-      }
+        roles: ["dlc", "mota"],
+      },
     ];
 
     return allItems.filter((item) => item.roles.includes(user.role));
@@ -145,16 +145,20 @@ const Navigation = ({
             {/* Logo */}
             <div className="flex items-center">
               <div className="flex-shrink-0 flex items-center">
-                <div className="bg-gradient-to-r from-green-600 to-green-700 p-2 rounded-lg shadow-md">
-                  <Map className="h-6 w-6 text-white" />
+                <div className="p-2 rounded-lg ">
+                  <img
+                    src="/logo1.png"
+                    alt="Adhikar-Setu Logo"
+                    className="h-8 w-8"
+                  />
                 </div>
-                <div className="ml-3">
+                <div className="ml-1">
                   <h1
                     className={`text-xl font-bold ${
                       isDarkMode ? "text-white" : "text-gray-900"
                     }`}
                   >
-                    Adhikar-Setu
+                    Adhikar Setu
                   </h1>
                   <p className="text-xs text-green-600 font-medium">
                     {language === "en"

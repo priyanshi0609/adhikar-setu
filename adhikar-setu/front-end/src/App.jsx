@@ -22,6 +22,7 @@ import ClaimantDashboard from "./doc-digitize/components/ClaimantDashboard";
 import Map from "./components/Map";
 import NotFoundPage from "./global/NotFoundPage";
 import AssetMapping from "./assetsmapping/assetsmap";
+import Public from "./public/Public";
 
 // Lazy load route components for better performance
 const Dashboard = lazy(() => import("./components/Dashboard"));
@@ -317,7 +318,7 @@ function App() {
                 path="/dss"
                 element={
                   <ProtectedRoute
-                    allowedRoles={["sdlc","mota","frc"]}
+                    allowedRoles={["sdlc", "mota", "frc"]}
                     user={currentUser}
                     language={language}
                   >
@@ -406,6 +407,7 @@ function App() {
               {/* routes to test, this will be removed later from here and put in for specific roles */}
               {/* <Route path="/doc-digitize" element={<FinalDoc />} /> */}
               {/* <Route path="/location-detail" element={<LocationDetail />} /> */}
+              <Route path="/public" element={<Public />} />
 
               {/* Catch-all → Redirect to appropriate page */}
               <Route

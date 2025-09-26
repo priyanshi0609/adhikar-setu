@@ -30,11 +30,11 @@ import {
   BookOpen,
   ChevronDown,
   ChevronUp,
-  Home, 
-  Sprout, 
-  Scale, 
-  Landmark, 
-  HeartHandshake, 
+  Home,
+  Sprout,
+  Scale,
+  Landmark,
+  HeartHandshake,
   Lock,
   Target,
   Play,
@@ -47,7 +47,6 @@ import { useEffect, useState } from "react";
 import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 
-
 import digitalMap from "@/assets/digital-map.jpg";
 import tribalCommunity from "@/assets/tribal-community.jpg";
 import fraProcess from "@/assets/fra-process.png";
@@ -55,6 +54,8 @@ import stateMap from "@/assets/state-map.png";
 import AS from "@/assets/AS.png";
 import logo from "@/assets/logo1.png";
 // import teamMeeting from "@/assets/team-meeting.jpg";
+import { MovingButton } from "../components/ui/moving-border";
+import CustomTooltip from "@/global/CustomTooltip";
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -68,46 +69,50 @@ export default function HomePage() {
     return () => clearTimeout(timer);
   }, []);
 
-
-
-const fraData = [
-  {
-    quote: "FRA recognizes individual and community forest rights over forest land and resources that forest dwellers have traditionally owned, occupied, or used.",
-    name: "Right to Land & Resources",
-    title: "Section 3(1)(a) & (b)",
-    icon: <Shield className="h-6 w-6 text-blue-600" />
-  },
-  {
-    quote: "Communities get rights to protect, regenerate, conserve, and manage community forest resources for sustainable use under Section 3(1)(i) of FRA.",
-    name: "Community Forest Rights",
-    title: "Section 3(1)(i)",
-    icon: <Users className="h-6 w-6 text-blue-600" />
-  },
-  {
-    quote: "FRA holders and Gram Sabhas are empowered to protect wildlife, forests, and biodiversity while ensuring sustainable use of resources under Section 5.",
-    name: "Conservation & Management",
-    title: "Section 5",
-    icon: <TreePine className="h-6 w-6 text-blue-600" />
-  },
-  {
-    quote: "Provides legal recognition of rights to own, collect, use, and dispose of minor forest produce that has been traditionally collected.",
-    name: "Minor Forest Produce Rights",
-    title: "Section 3(1)(c)",
-    icon: <Sprout className="h-6 w-6 text-blue-600" />
-  },
-  {
-    quote: "Ensures protection of tribal communities from illegal eviction and provides rehabilitation in case of displacement from forest land.",
-    name: "Protection from Eviction",
-    title: "Section 4(5)",
-    icon: <Lock className="h-6 w-6 text-blue-600" />
-  },
-  {
-    quote: "Grants habitat rights for primitive tribal groups and pre-agricultural communities to preserve their cultural identity.",
-    name: "Habitat & Cultural Rights",
-    title: "Section 3(1)(e)",
-    icon: <Home className="h-6 w-6 text-blue-600" />
-  }
-];
+  const fraData = [
+    {
+      quote:
+        "FRA recognizes individual and community forest rights over forest land and resources that forest dwellers have traditionally owned, occupied, or used.",
+      name: "Right to Land & Resources",
+      title: "Section 3(1)(a) & (b)",
+      icon: <Shield className="h-6 w-6 text-blue-600" />,
+    },
+    {
+      quote:
+        "Communities get rights to protect, regenerate, conserve, and manage community forest resources for sustainable use under Section 3(1)(i) of FRA.",
+      name: "Community Forest Rights",
+      title: "Section 3(1)(i)",
+      icon: <Users className="h-6 w-6 text-blue-600" />,
+    },
+    {
+      quote:
+        "FRA holders and Gram Sabhas are empowered to protect wildlife, forests, and biodiversity while ensuring sustainable use of resources under Section 5.",
+      name: "Conservation & Management",
+      title: "Section 5",
+      icon: <TreePine className="h-6 w-6 text-blue-600" />,
+    },
+    {
+      quote:
+        "Provides legal recognition of rights to own, collect, use, and dispose of minor forest produce that has been traditionally collected.",
+      name: "Minor Forest Produce Rights",
+      title: "Section 3(1)(c)",
+      icon: <Sprout className="h-6 w-6 text-blue-600" />,
+    },
+    {
+      quote:
+        "Ensures protection of tribal communities from illegal eviction and provides rehabilitation in case of displacement from forest land.",
+      name: "Protection from Eviction",
+      title: "Section 4(5)",
+      icon: <Lock className="h-6 w-6 text-blue-600" />,
+    },
+    {
+      quote:
+        "Grants habitat rights for primitive tribal groups and pre-agricultural communities to preserve their cultural identity.",
+      name: "Habitat & Cultural Rights",
+      title: "Section 3(1)(e)",
+      icon: <Home className="h-6 w-6 text-blue-600" />,
+    },
+  ];
   // FAQ data
   const faqItems = [
     {
@@ -144,36 +149,44 @@ const fraData = [
       title: "Digital Document Management",
       description:
         "AI-powered OCR and NER to extract and standardize FRA claims from legacy records with Rule 13 evidence validation",
-      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
-      Digital Document Management
-    </div>
+      content: (
+        <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
+          Digital Document Management
+        </div>
+      ),
     },
     {
       icon: <Layers className="h-8 w-8" />,
       title: "Interactive FRA Atlas",
       description:
         "WebGIS platform visualizing IFR, CR, and CFR boundaries with filtering by state, district, and tribal groups",
-      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
-      Interactive FRA Atlas
-    </div>
+      content: (
+        <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
+          Interactive FRA Atlas
+        </div>
+      ),
     },
     {
       icon: <Satellite className="h-8 w-8" />,
       title: "Satellite Evidence Verification",
       description:
         "AI analysis of satellite imagery to verify occupation dates and land use patterns as supplementary evidence",
-      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
-      Satellite Evidence Verification
-    </div>
+      content: (
+        <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
+          Satellite Evidence Verification
+        </div>
+      ),
     },
     {
       icon: <BarChart3 className="h-8 w-8" />,
       title: "Decision Support System",
       description:
         "Scheme layering for FRA patta holders with eligibility mapping for CSS programs like PM-KISAN, Jal Jeevan Mission",
-      content: <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
-      Decision Support System
-    </div>
+      content: (
+        <div className="h-full w-full bg-white border border-green-950 flex items-center justify-center text-black">
+          Decision Support System
+        </div>
+      ),
     },
   ];
 
@@ -216,17 +229,15 @@ const fraData = [
       </div>
     );
   }
-  
-
 
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className= " bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
+      <header className=" bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 sticky top-0 z-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-2">
-                <img
+              <img
                 src={logo}
                 alt="Adhikar Setu Logo"
                 className="w-10 h-10 object-contain rounded-lg"
@@ -270,30 +281,34 @@ const fraData = [
             </nav>
 
             <div className="flex items-center space-x-3">
-              <a
-                href="https://github.com/ArshTiwari2004/adhikar-setu"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="hidden sm:flex items-center space-x-2 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
+              <CustomTooltip text="View our GitHub repository">
+                <a
+                  href="https://github.com/ArshTiwari2004/adhikar-setu"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  <Github className="h-4 w-4" />
-                  <span>GitHub</span>
-                </Button>
-              </a>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="hidden sm:flex items-center space-x-2 bg-transparent border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
+                  >
+                    <Github className="h-4 w-4" />
+                    <span>GitHub</span>
+                  </Button>
+                </a>
+              </CustomTooltip>
 
-              <Link to="/login">
-                <Button
-                  size="sm"
-                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white cursor-pointer"
-                >
-                  <LogIn className="h-4 w-4" />
-                  <span>Login</span>
-                </Button>
-              </Link>
+              <CustomTooltip text="Login to your account">
+                <Link to="/login">
+                  <Button
+                    size="sm"
+                    className="flex items-center space-x-2 bg-green-600 hover:bg-green-700 text-white cursor-pointer"
+                  >
+                    <LogIn className="h-4 w-4" />
+                    <span>Login</span>
+                  </Button>
+                </Link>
+              </CustomTooltip>
             </div>
           </div>
         </div>
@@ -305,7 +320,6 @@ const fraData = [
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                
                 <h1 className="text-4xl lg:text-6xl font-bold text-balance text-gray-900">
                   Digitizing Forest Rights for Tribal Empowerment
                 </h1>
@@ -323,18 +337,19 @@ const fraData = [
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/login">
-                  <Button
-                    size="lg"
-                    className="text-lg px-8 bg-green-600 hover:bg-green-700 text-white cursor-pointer"
+                  <MovingButton
+                    borderRadius="0.4rem"
+                    className="text-lg px-8 bg-green-600 hover:bg-green-700 text-white cursor-pointer border-neutral-200 dark:border-slate-800 whitespace-nowrap py-4"
                   >
                     Get Started
-                  </Button>
+                  </MovingButton>
                 </Link>
+
                 <a href="#features">
                   <Button
                     variant="outline"
                     size="lg"
-                    className="text-lg px-8 border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
+                    className="text-lg px-8 border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer py-5"
                   >
                     Learn More
                   </Button>
@@ -381,7 +396,6 @@ const fraData = [
         </div>
       </section>
 
-      
       {/* About FRA Section */}
       <section id="about" className="py-20 bg-white">
         <div className="container mx-auto px-6 lg:px-12">
@@ -391,18 +405,20 @@ const fraData = [
             </h2>
             <p className="text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto">
               The Forest Rights Act recognizes the rights of forest-dwelling
-              communities to land and resources, ensuring both sustainability and justice.
+              communities to land and resources, ensuring both sustainability
+              and justice.
             </p>
           </div>
 
-         <div className="w-full max-w-6xl mx-auto">
-           <InfiniteMovingCards
-            items={fraData}
-             direction="right"
-             speed="fast"
-             pauseOnHover={true}
-              className="mt-8"/>
-              </div>
+          <div className="w-full max-w-6xl mx-auto">
+            <InfiniteMovingCards
+              items={fraData}
+              direction="right"
+              speed="fast"
+              pauseOnHover={true}
+              className="mt-8"
+            />
+          </div>
         </div>
 
         {/* FRA Implementation Challenges */}
@@ -414,13 +430,15 @@ const fraData = [
             <div className="flex items-start space-x-3">
               <AlertCircle className="h-6 w-6 text-green-600 mt-1 flex-shrink-0" />
               <p className="text-green-700 text-lg">
-                Scattered, non-digitized legacy records of IFR, CR, and CFR rights
+                Scattered, non-digitized legacy records of IFR, CR, and CFR
+                rights
               </p>
             </div>
             <div className="flex items-start space-x-3">
               <AlertCircle className="h-6 w-6 text-green-600 mt-1 flex-shrink-0" />
               <p className="text-green-700 text-lg">
-                No centralized visual repository of FRA claims and granted titles
+                No centralized visual repository of FRA claims and granted
+                titles
               </p>
             </div>
             <div className="flex items-start space-x-3">
@@ -432,7 +450,8 @@ const fraData = [
             <div className="flex items-start space-x-3">
               <AlertCircle className="h-6 w-6 text-green-600 mt-1 flex-shrink-0" />
               <p className="text-green-700 text-lg">
-                Limited integration with development schemes for FRA beneficiaries
+                Limited integration with development schemes for FRA
+                beneficiaries
               </p>
             </div>
           </div>
@@ -446,11 +465,10 @@ const fraData = [
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               Features
             </h2>
-            
           </div>
-           <div className="w-full py-4">
-      <StickyScroll content={features} />
-    </div>
+          <div className="w-full py-4">
+            <StickyScroll content={features} />
+          </div>
 
           <div className="mt-12 grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -504,98 +522,98 @@ const fraData = [
 
       {/* Process Section */}
       <section id="process" className="py-16 bg-white relative">
-  <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-    {/* Heading */}
-    <div className="text-center mb-16">
-      <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
-        FRA Implementation Process
-      </h2>
-      <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
-        Streamlining the statutory workflow for forest rights recognition
-      </p>
-    </div>
-    
-    <div className="relative flex flex-col md:flex-row items-center gap-10 lg:gap-12">
-      {/* Left-side Image */}
-      <div className="flex-1 flex justify-center md:justify-end order-2 md:order-1">
-        <img
-          src={fraProcess}
-          alt="FRA Process Illustration"
-          className="w-full max-w-md lg:max-w-lg rounded-2xl shadow-xl border border-gray-200"
-        />
-      </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Heading */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
+              FRA Implementation Process
+            </h2>
+            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+              Streamlining the statutory workflow for forest rights recognition
+            </p>
+          </div>
 
-      {/* Timeline  */}
-      <div className="relative flex-1 order-1 md:order-2 md:ml-8">
-        {/* Vertical Line */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-green-300 rounded-full"></div>
+          <div className="relative flex flex-col md:flex-row items-center gap-10 lg:gap-12">
+            {/* Left-side Image */}
+            <div className="flex-1 flex justify-center md:justify-end order-2 md:order-1">
+              <img
+                src={fraProcess}
+                alt="FRA Process Illustration"
+                className="w-full max-w-md lg:max-w-lg rounded-2xl shadow-xl border border-gray-200"
+              />
+            </div>
 
-        <div className="space-y-15">
-          {processSteps.map((step, index) => (
-            <div
-              key={index}
-              className="relative flex flex-col md:flex-row md:items-center"
-            >
-              {/* Step Number */}
-              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-600 text-white font-extrabold shadow-md z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
-                {step.step}
-              </div>
+            {/* Timeline  */}
+            <div className="relative flex-1 order-1 md:order-2 md:ml-8">
+              {/* Vertical Line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-green-300 rounded-full"></div>
 
-              {/* Step Content */}
-              <div className="mt-6 md:mt-0 md:w-1/2 md:pl-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {step.title}
-                </h3>
-                <p className="text-gray-600 text-base leading-relaxed">
-                  {step.description}
-                </p>
+              <div className="space-y-15">
+                {processSteps.map((step, index) => (
+                  <div
+                    key={index}
+                    className="relative flex flex-col md:flex-row md:items-center"
+                  >
+                    {/* Step Number */}
+                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-green-600 text-white font-extrabold shadow-md z-10 md:absolute md:left-1/2 md:-translate-x-1/2">
+                      {step.step}
+                    </div>
+
+                    {/* Step Content */}
+                    <div className="mt-6 md:mt-0 md:w-1/2 md:pl-8">
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-600 text-base leading-relaxed">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
+          </div>
 
-    {/* Statutory Workflow Box */}
-    <div className="mt-12 bg-gray-100 rounded-2xl p-6">
-      <h3 className="text-xl font-semibold text-gray-900 mb-4">
-        Statutory Workflow Compliance
-      </h3>
-      <p className="text-gray-600 mb-4">
-        Adhikar Setu implements the complete FRA statutory workflow as
-        mandated by the Act and Rules:
-      </p>
-      <ul className="grid md:grid-cols-2 gap-4">
-        <li className="flex items-start space-x-3">
-          <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-          <span className="text-gray-600">
-            Gram Sabha initiates process and authorizes claims (Form
-            A/B/C)
-          </span>
-        </li>
-        <li className="flex items-start space-x-3">
-          <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-          <span className="text-gray-600">
-            FRC conducts site verification with forest/revenue officials
-          </span>
-        </li>
-        <li className="flex items-start space-x-3">
-          <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-          <span className="text-gray-600">
-            SDLC examines petitions and prepares draft records
-          </span>
-        </li>
-        <li className="flex items-start space-x-3">
-          <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
-          <span className="text-gray-600">
-            DLC gives final approval with Collector's non-delegable
-            signature
-          </span>
-        </li>
-      </ul>
-    </div>
-  </div>
-</section>
+          {/* Statutory Workflow Box */}
+          <div className="mt-12 bg-gray-100 rounded-2xl p-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+              Statutory Workflow Compliance
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Adhikar Setu implements the complete FRA statutory workflow as
+              mandated by the Act and Rules:
+            </p>
+            <ul className="grid md:grid-cols-2 gap-4">
+              <li className="flex items-start space-x-3">
+                <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-gray-600">
+                  Gram Sabha initiates process and authorizes claims (Form
+                  A/B/C)
+                </span>
+              </li>
+              <li className="flex items-start space-x-3">
+                <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-gray-600">
+                  FRC conducts site verification with forest/revenue officials
+                </span>
+              </li>
+              <li className="flex items-start space-x-3">
+                <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-gray-600">
+                  SDLC examines petitions and prepares draft records
+                </span>
+              </li>
+              <li className="flex items-start space-x-3">
+                <FileText className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-gray-600">
+                  DLC gives final approval with Collector's non-delegable
+                  signature
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       {/* Initial States Section */}
       <section className="py-16 bg-green-50">
