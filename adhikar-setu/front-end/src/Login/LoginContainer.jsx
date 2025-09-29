@@ -107,9 +107,12 @@ const LoginContainer = ({ onLogin }) => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 ">
-      <div className="max-w-4xl w-full overflow-hidden border border-gray-200 rounded-2xl ">
+      <div className="max-w-4xl w-full overflow-hidden border-b border-gray-200 rounded-2xl ">
         {/* Header */}
-        <div className="bg-green-600 p-6 text-white text-center">
+        <div>
+          <BackButton />
+        </div>
+        <div className="bg-green-600 p-6 text-white text-center border-r border-l border-gray-200 rounded-t-2xl">
           <h1 className="text-2xl font-bold">Adhikar Setu</h1>
           <p className="text-green-100 mt-1 text-sm">
             {formData.language === "hi"
